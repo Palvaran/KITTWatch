@@ -1,12 +1,12 @@
 # KITTWatch
 
-KITT is an offline preparedness assistant for Apple Watch. It was built for a GPS-only Series 5 so someone in a power outage can look up a question, calculate household water supplies, and hear the answer aloud even when their phone is out of reach.
+KITT distills emergency guidance from the CDC and FEMA into a field guide you can query offline on an Apple Watch. Ask a question in your own words or browse by topic. The watch can read the guidance aloud even when your phone is out of reach.
 
 **Project status.** The development build has run on a Series 5 with watchOS 10.6.2, including spoken replies. This repository currently contains the project overview. The app source and an installable build have yet to be published here.
 
 ## A question on the watch
 
-With a household of three and a seven-day plan, ask **“How much water should we store?”** KITT calculates **21 US gallons** and shows the calculation (3 people × 7 days × 1 gallon per person per day). You can check the household size and duration, change either one, or enter the water already on hand to see how much more to store.
+During a power outage, ask **“How long does food stay safe without power?”** KITT brings up its guide entry on refrigerated and frozen food. You can listen to the answer and see which CDC page it came from.
 
 Other questions need clarification. Tell KITT **“The generator is in the garage”** and it shows a warning and asks whether the generator is running or you plan to run it there. Tap **This applies to us**, **Not in use**, or **Not sure**. Choosing **Not sure** keeps the question open and records the uncertainty for the next turn.
 
