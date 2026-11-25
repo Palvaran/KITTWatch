@@ -1,0 +1,679 @@
+{
+  "model": "off",
+  "scope": "Clarifications after generator location. Groups 2 and 3 reproduce examples in the implementation report. Expectations reflect a proposed distinction between possible and committed use.",
+  "conversations": [
+    {
+      "group": 1,
+      "turns": [
+        {
+          "pending": "power.fuel-burning.co",
+          "message": {
+            "interrupted": false,
+            "suggestedHazard": "power.fuel-burning.co",
+            "origin": "guide",
+            "citations": [
+              "power.fuel-burning.co@v6"
+            ],
+            "asksHazardQuestion": true,
+            "text": "Never run a generator, grill, or any other gasoline-, propane-, or charcoal-burning device inside a home, garage, or carport, or near doors, windows, or vents. Keep generators outside, at least 20 feet from doors, windows, and vents. Don't heat your home with a gas oven. Carbon monoxide has no smell or color, and it kills.\nIs it running there, or are you planning to run it there?",
+            "unsupportedNumbers": [],
+            "offersModel": false,
+            "suggestions": [
+              "food.outage.cold"
+            ]
+          },
+          "prompt": "Our generator is in the basement.",
+          "label": "fresh",
+          "group": 1,
+          "active": [],
+          "answers": {},
+          "expected": "question",
+          "actual": "question",
+          "matched": true
+        },
+        {
+          "answers": {},
+          "active": [
+            "power.fuel-burning.co"
+          ],
+          "message": {
+            "interrupted": false,
+            "asksHazardQuestion": false,
+            "origin": "guide",
+            "citations": [
+              "power.fuel-burning.co@v6"
+            ],
+            "text": "This applies: Carbon monoxide risk from a fuel-burning device.\nNever run a generator, grill, or any other gasoline-, propane-, or charcoal-burning device inside a home, garage, or carport, or near doors, windows, or vents. Keep generators outside, at least 20 feet from doors, windows, and vents. Don't heat your home with a gas oven. Carbon monoxide has no smell or color, and it kills.",
+            "unsupportedNumbers": [],
+            "offersModel": false,
+            "suggestions": []
+          },
+          "label": "fresh",
+          "group": 1,
+          "prompt": "I can't see it from here. It could be running.",
+          "expected": "unknown",
+          "actual": "active",
+          "matched": false
+        }
+      ]
+    },
+    {
+      "group": 2,
+      "turns": [
+        {
+          "pending": "power.fuel-burning.co",
+          "message": {
+            "interrupted": false,
+            "suggestedHazard": "power.fuel-burning.co",
+            "origin": "guide",
+            "citations": [
+              "power.fuel-burning.co@v6"
+            ],
+            "asksHazardQuestion": true,
+            "text": "Never run a generator, grill, or any other gasoline-, propane-, or charcoal-burning device inside a home, garage, or carport, or near doors, windows, or vents. Keep generators outside, at least 20 feet from doors, windows, and vents. Don't heat your home with a gas oven. Carbon monoxide has no smell or color, and it kills.\nIs it running there, or are you planning to run it there?",
+            "unsupportedNumbers": [],
+            "offersModel": false,
+            "suggestions": [
+              "food.outage.cold"
+            ]
+          },
+          "prompt": "Our generator is in the basement.",
+          "label": "fresh",
+          "group": 2,
+          "active": [],
+          "answers": {},
+          "expected": "question",
+          "actual": "question",
+          "matched": true
+        },
+        {
+          "answers": {},
+          "active": [
+            "power.fuel-burning.co"
+          ],
+          "message": {
+            "interrupted": false,
+            "asksHazardQuestion": false,
+            "origin": "guide",
+            "citations": [
+              "power.fuel-burning.co@v6"
+            ],
+            "text": "This applies: Carbon monoxide risk from a fuel-burning device.\nNever run a generator, grill, or any other gasoline-, propane-, or charcoal-burning device inside a home, garage, or carport, or near doors, windows, or vents. Keep generators outside, at least 20 feet from doors, windows, and vents. Don't heat your home with a gas oven. Carbon monoxide has no smell or color, and it kills.",
+            "unsupportedNumbers": [],
+            "offersModel": false,
+            "suggestions": []
+          },
+          "label": "fresh",
+          "group": 2,
+          "prompt": "It might be running.",
+          "expected": "unknown",
+          "actual": "active",
+          "matched": false
+        }
+      ]
+    },
+    {
+      "group": 3,
+      "turns": [
+        {
+          "pending": "power.fuel-burning.co",
+          "message": {
+            "interrupted": false,
+            "suggestedHazard": "power.fuel-burning.co",
+            "origin": "guide",
+            "citations": [
+              "power.fuel-burning.co@v6"
+            ],
+            "asksHazardQuestion": true,
+            "text": "Never run a generator, grill, or any other gasoline-, propane-, or charcoal-burning device inside a home, garage, or carport, or near doors, windows, or vents. Keep generators outside, at least 20 feet from doors, windows, and vents. Don't heat your home with a gas oven. Carbon monoxide has no smell or color, and it kills.\nIs it running there, or are you planning to run it there?",
+            "unsupportedNumbers": [],
+            "offersModel": false,
+            "suggestions": [
+              "food.outage.cold"
+            ]
+          },
+          "prompt": "Our generator is in the basement.",
+          "label": "fresh",
+          "group": 3,
+          "active": [],
+          "answers": {},
+          "expected": "question",
+          "actual": "question",
+          "matched": true
+        },
+        {
+          "answers": {},
+          "active": [
+            "power.fuel-burning.co"
+          ],
+          "message": {
+            "interrupted": false,
+            "asksHazardQuestion": false,
+            "origin": "guide",
+            "citations": [
+              "power.fuel-burning.co@v6"
+            ],
+            "text": "This applies: Carbon monoxide risk from a fuel-burning device.\nNever run a generator, grill, or any other gasoline-, propane-, or charcoal-burning device inside a home, garage, or carport, or near doors, windows, or vents. Keep generators outside, at least 20 feet from doors, windows, and vents. Don't heat your home with a gas oven. Carbon monoxide has no smell or color, and it kills.",
+            "unsupportedNumbers": [],
+            "offersModel": false,
+            "suggestions": []
+          },
+          "label": "fresh",
+          "group": 3,
+          "prompt": "Maybe we'll run it down there tonight.",
+          "expected": "unknown",
+          "actual": "active",
+          "matched": false
+        }
+      ]
+    },
+    {
+      "group": 4,
+      "turns": [
+        {
+          "pending": "power.fuel-burning.co",
+          "message": {
+            "interrupted": false,
+            "suggestedHazard": "power.fuel-burning.co",
+            "origin": "guide",
+            "citations": [
+              "power.fuel-burning.co@v6"
+            ],
+            "asksHazardQuestion": true,
+            "text": "Never run a generator, grill, or any other gasoline-, propane-, or charcoal-burning device inside a home, garage, or carport, or near doors, windows, or vents. Keep generators outside, at least 20 feet from doors, windows, and vents. Don't heat your home with a gas oven. Carbon monoxide has no smell or color, and it kills.\nIs it running there, or are you planning to run it there?",
+            "unsupportedNumbers": [],
+            "offersModel": false,
+            "suggestions": [
+              "food.outage.cold"
+            ]
+          },
+          "prompt": "Our generator is in the basement.",
+          "label": "fresh",
+          "group": 4,
+          "active": [],
+          "answers": {},
+          "expected": "question",
+          "actual": "question",
+          "matched": true
+        },
+        {
+          "answers": {},
+          "active": [
+            "power.fuel-burning.co"
+          ],
+          "message": {
+            "interrupted": false,
+            "asksHazardQuestion": false,
+            "origin": "guide",
+            "citations": [
+              "power.fuel-burning.co@v6"
+            ],
+            "text": "This applies: Carbon monoxide risk from a fuel-burning device.\nNever run a generator, grill, or any other gasoline-, propane-, or charcoal-burning device inside a home, garage, or carport, or near doors, windows, or vents. Keep generators outside, at least 20 feet from doors, windows, and vents. Don't heat your home with a gas oven. Carbon monoxide has no smell or color, and it kills.",
+            "unsupportedNumbers": [],
+            "offersModel": false,
+            "suggestions": []
+          },
+          "label": "fresh",
+          "group": 4,
+          "prompt": "Not sure yet, but we've decided to start it there tonight.",
+          "expected": "active",
+          "actual": "active",
+          "matched": true
+        }
+      ]
+    },
+    {
+      "group": 5,
+      "turns": [
+        {
+          "pending": "power.fuel-burning.co",
+          "message": {
+            "interrupted": false,
+            "suggestedHazard": "power.fuel-burning.co",
+            "origin": "guide",
+            "citations": [
+              "power.fuel-burning.co@v6"
+            ],
+            "asksHazardQuestion": true,
+            "text": "Never run a generator, grill, or any other gasoline-, propane-, or charcoal-burning device inside a home, garage, or carport, or near doors, windows, or vents. Keep generators outside, at least 20 feet from doors, windows, and vents. Don't heat your home with a gas oven. Carbon monoxide has no smell or color, and it kills.\nIs it running there, or are you planning to run it there?",
+            "unsupportedNumbers": [],
+            "offersModel": false,
+            "suggestions": [
+              "food.outage.cold"
+            ]
+          },
+          "prompt": "Our generator is in the basement.",
+          "label": "fresh",
+          "group": 5,
+          "active": [],
+          "answers": {},
+          "expected": "question",
+          "actual": "question",
+          "matched": true
+        },
+        {
+          "answers": {},
+          "active": [
+            "power.fuel-burning.co"
+          ],
+          "message": {
+            "interrupted": false,
+            "asksHazardQuestion": false,
+            "origin": "guide",
+            "citations": [
+              "power.fuel-burning.co@v6"
+            ],
+            "text": "This applies: Carbon monoxide risk from a fuel-burning device.\nNever run a generator, grill, or any other gasoline-, propane-, or charcoal-burning device inside a home, garage, or carport, or near doors, windows, or vents. Keep generators outside, at least 20 feet from doors, windows, and vents. Don't heat your home with a gas oven. Carbon monoxide has no smell or color, and it kills.",
+            "unsupportedNumbers": [],
+            "offersModel": false,
+            "suggestions": []
+          },
+          "label": "fresh",
+          "group": 5,
+          "prompt": "I thought it was running. Turns out it's the dehumidifier; the generator is off.",
+          "expected": "ruledOut",
+          "actual": "active",
+          "matched": false
+        }
+      ]
+    },
+    {
+      "group": 6,
+      "turns": [
+        {
+          "pending": "power.fuel-burning.co",
+          "message": {
+            "interrupted": false,
+            "suggestedHazard": "power.fuel-burning.co",
+            "origin": "guide",
+            "citations": [
+              "power.fuel-burning.co@v6"
+            ],
+            "asksHazardQuestion": true,
+            "text": "Never run a generator, grill, or any other gasoline-, propane-, or charcoal-burning device inside a home, garage, or carport, or near doors, windows, or vents. Keep generators outside, at least 20 feet from doors, windows, and vents. Don't heat your home with a gas oven. Carbon monoxide has no smell or color, and it kills.\nIs it running there, or are you planning to run it there?",
+            "unsupportedNumbers": [],
+            "offersModel": false,
+            "suggestions": [
+              "food.outage.cold"
+            ]
+          },
+          "prompt": "Our generator is in the basement.",
+          "label": "fresh",
+          "group": 6,
+          "active": [],
+          "answers": {},
+          "expected": "question",
+          "actual": "question",
+          "matched": true
+        },
+        {
+          "answers": {},
+          "active": [
+            "power.fuel-burning.co"
+          ],
+          "message": {
+            "interrupted": false,
+            "asksHazardQuestion": false,
+            "origin": "guide",
+            "citations": [
+              "power.fuel-burning.co@v6"
+            ],
+            "text": "This applies: Carbon monoxide risk from a fuel-burning device.\nNever run a generator, grill, or any other gasoline-, propane-, or charcoal-burning device inside a home, garage, or carport, or near doors, windows, or vents. Keep generators outside, at least 20 feet from doors, windows, and vents. Don't heat your home with a gas oven. Carbon monoxide has no smell or color, and it kills.",
+            "unsupportedNumbers": [],
+            "offersModel": false,
+            "suggestions": []
+          },
+          "label": "fresh",
+          "group": 6,
+          "prompt": "I'm not sure about the sump pump. The generator is definitely running.",
+          "expected": "active",
+          "actual": "active",
+          "matched": true
+        }
+      ]
+    },
+    {
+      "group": 7,
+      "turns": [
+        {
+          "pending": "power.fuel-burning.co",
+          "message": {
+            "interrupted": false,
+            "suggestedHazard": "power.fuel-burning.co",
+            "origin": "guide",
+            "citations": [
+              "power.fuel-burning.co@v6"
+            ],
+            "asksHazardQuestion": true,
+            "text": "Never run a generator, grill, or any other gasoline-, propane-, or charcoal-burning device inside a home, garage, or carport, or near doors, windows, or vents. Keep generators outside, at least 20 feet from doors, windows, and vents. Don't heat your home with a gas oven. Carbon monoxide has no smell or color, and it kills.\nIs it running there, or are you planning to run it there?",
+            "unsupportedNumbers": [],
+            "offersModel": false,
+            "suggestions": [
+              "food.outage.cold"
+            ]
+          },
+          "prompt": "Our generator is in the basement.",
+          "label": "fresh",
+          "group": 7,
+          "active": [],
+          "answers": {},
+          "expected": "question",
+          "actual": "question",
+          "matched": true
+        },
+        {
+          "pending": "power.fuel-burning.co",
+          "message": {
+            "interrupted": false,
+            "suggestedHazard": "power.fuel-burning.co",
+            "origin": "guide",
+            "citations": [
+              "power.fuel-burning.co@v6"
+            ],
+            "asksHazardQuestion": true,
+            "text": "Not flagged while you're not sure.\nNever run a generator, grill, or any other gasoline-, propane-, or charcoal-burning device inside a home, garage, or carport, or near doors, windows, or vents. Keep generators outside, at least 20 feet from doors, windows, and vents. Don't heat your home with a gas oven. Carbon monoxide has no smell or color, and it kills.\nIs it running there, or are you planning to run it there?",
+            "unsupportedNumbers": [],
+            "offersModel": false,
+            "suggestions": []
+          },
+          "prompt": "Probably not. I'll ask.",
+          "label": "fresh",
+          "group": 7,
+          "active": [],
+          "answers": {
+            "power.fuel-burning.co": "unknown"
+          },
+          "expected": "unknown",
+          "actual": "unknown",
+          "matched": true
+        }
+      ]
+    },
+    {
+      "group": 8,
+      "turns": [
+        {
+          "pending": "power.fuel-burning.co",
+          "message": {
+            "interrupted": false,
+            "suggestedHazard": "power.fuel-burning.co",
+            "origin": "guide",
+            "citations": [
+              "power.fuel-burning.co@v6"
+            ],
+            "asksHazardQuestion": true,
+            "text": "Never run a generator, grill, or any other gasoline-, propane-, or charcoal-burning device inside a home, garage, or carport, or near doors, windows, or vents. Keep generators outside, at least 20 feet from doors, windows, and vents. Don't heat your home with a gas oven. Carbon monoxide has no smell or color, and it kills.\nIs it running there, or are you planning to run it there?",
+            "unsupportedNumbers": [],
+            "offersModel": false,
+            "suggestions": [
+              "food.outage.cold"
+            ]
+          },
+          "prompt": "Our generator is in the basement.",
+          "label": "fresh",
+          "group": 8,
+          "active": [],
+          "answers": {},
+          "expected": "question",
+          "actual": "question",
+          "matched": true
+        },
+        {
+          "answers": {},
+          "active": [],
+          "message": {
+            "interrupted": false,
+            "asksHazardQuestion": false,
+            "origin": "app",
+            "citations": [],
+            "text": "The guide doesn't cover that yet. Browse the topics, or ask the model for an unverified answer.",
+            "unsupportedNumbers": [],
+            "offersModel": true,
+            "suggestions": []
+          },
+          "label": "fresh",
+          "group": 8,
+          "prompt": "I haven't checked yet.",
+          "expected": "unknown",
+          "actual": "no decision",
+          "matched": false
+        }
+      ]
+    },
+    {
+      "group": 9,
+      "turns": [
+        {
+          "pending": "power.fuel-burning.co",
+          "message": {
+            "interrupted": false,
+            "suggestedHazard": "power.fuel-burning.co",
+            "origin": "guide",
+            "citations": [
+              "power.fuel-burning.co@v6"
+            ],
+            "asksHazardQuestion": true,
+            "text": "Never run a generator, grill, or any other gasoline-, propane-, or charcoal-burning device inside a home, garage, or carport, or near doors, windows, or vents. Keep generators outside, at least 20 feet from doors, windows, and vents. Don't heat your home with a gas oven. Carbon monoxide has no smell or color, and it kills.\nIs it running there, or are you planning to run it there?",
+            "unsupportedNumbers": [],
+            "offersModel": false,
+            "suggestions": [
+              "food.outage.cold"
+            ]
+          },
+          "prompt": "Our generator is in the basement.",
+          "label": "fresh",
+          "group": 9,
+          "active": [],
+          "answers": {},
+          "expected": "question",
+          "actual": "question",
+          "matched": true
+        },
+        {
+          "answers": {},
+          "active": [],
+          "message": {
+            "interrupted": false,
+            "asksHazardQuestion": false,
+            "origin": "app",
+            "citations": [],
+            "text": "I'm not sure which guide entry fits. Is it one of these?",
+            "unsupportedNumbers": [],
+            "offersModel": true,
+            "suggestions": [
+              "food.outage.cold",
+              "water.contamination.fuel"
+            ]
+          },
+          "label": "fresh",
+          "group": 9,
+          "prompt": "It may be on; the noise could be the freezer.",
+          "expected": "unknown",
+          "actual": "no decision",
+          "matched": false
+        }
+      ]
+    },
+    {
+      "group": 10,
+      "turns": [
+        {
+          "pending": "power.fuel-burning.co",
+          "message": {
+            "interrupted": false,
+            "suggestedHazard": "power.fuel-burning.co",
+            "origin": "guide",
+            "citations": [
+              "power.fuel-burning.co@v6"
+            ],
+            "asksHazardQuestion": true,
+            "text": "Never run a generator, grill, or any other gasoline-, propane-, or charcoal-burning device inside a home, garage, or carport, or near doors, windows, or vents. Keep generators outside, at least 20 feet from doors, windows, and vents. Don't heat your home with a gas oven. Carbon monoxide has no smell or color, and it kills.\nIs it running there, or are you planning to run it there?",
+            "unsupportedNumbers": [],
+            "offersModel": false,
+            "suggestions": [
+              "food.outage.cold"
+            ]
+          },
+          "prompt": "Our generator is in the basement.",
+          "label": "fresh",
+          "group": 10,
+          "active": [],
+          "answers": {},
+          "expected": "question",
+          "actual": "question",
+          "matched": true
+        },
+        {
+          "answers": {
+            "power.fuel-burning.co": "ruledOut"
+          },
+          "active": [],
+          "message": {
+            "interrupted": false,
+            "asksHazardQuestion": false,
+            "origin": "app",
+            "citations": [],
+            "text": "OK. I haven't flagged the generator.",
+            "unsupportedNumbers": [],
+            "offersModel": false,
+            "suggestions": []
+          },
+          "label": "fresh",
+          "group": 10,
+          "prompt": "No, it isn't running and we won't start it there.",
+          "expected": "ruledOut",
+          "actual": "ruledOut",
+          "matched": true
+        }
+      ]
+    },
+    {
+      "group": 11,
+      "turns": [
+        {
+          "pending": "power.fuel-burning.co",
+          "message": {
+            "interrupted": false,
+            "suggestedHazard": "power.fuel-burning.co",
+            "origin": "guide",
+            "citations": [
+              "power.fuel-burning.co@v6"
+            ],
+            "asksHazardQuestion": true,
+            "text": "Never run a generator, grill, or any other gasoline-, propane-, or charcoal-burning device inside a home, garage, or carport, or near doors, windows, or vents. Keep generators outside, at least 20 feet from doors, windows, and vents. Don't heat your home with a gas oven. Carbon monoxide has no smell or color, and it kills.\nIs it running there, or are you planning to run it there?",
+            "unsupportedNumbers": [],
+            "offersModel": false,
+            "suggestions": [
+              "food.outage.cold"
+            ]
+          },
+          "prompt": "Our generator is in the basement.",
+          "label": "fresh",
+          "group": 11,
+          "active": [],
+          "answers": {},
+          "expected": "question",
+          "actual": "question",
+          "matched": true
+        },
+        {
+          "answers": {},
+          "active": [
+            "power.fuel-burning.co"
+          ],
+          "message": {
+            "interrupted": false,
+            "asksHazardQuestion": false,
+            "origin": "guide",
+            "citations": [
+              "power.fuel-burning.co@v6"
+            ],
+            "text": "This applies: Carbon monoxide risk from a fuel-burning device.\nNever run a generator, grill, or any other gasoline-, propane-, or charcoal-burning device inside a home, garage, or carport, or near doors, windows, or vents. Keep generators outside, at least 20 feet from doors, windows, and vents. Don't heat your home with a gas oven. Carbon monoxide has no smell or color, and it kills.",
+            "unsupportedNumbers": [],
+            "offersModel": false,
+            "suggestions": []
+          },
+          "label": "fresh",
+          "group": 11,
+          "prompt": "I heard it start. It's definitely running down there.",
+          "expected": "active",
+          "actual": "active",
+          "matched": true
+        }
+      ]
+    },
+    {
+      "group": 12,
+      "turns": [
+        {
+          "pending": "power.fuel-burning.co",
+          "message": {
+            "interrupted": false,
+            "suggestedHazard": "power.fuel-burning.co",
+            "origin": "guide",
+            "citations": [
+              "power.fuel-burning.co@v6"
+            ],
+            "asksHazardQuestion": true,
+            "text": "Never run a generator, grill, or any other gasoline-, propane-, or charcoal-burning device inside a home, garage, or carport, or near doors, windows, or vents. Keep generators outside, at least 20 feet from doors, windows, and vents. Don't heat your home with a gas oven. Carbon monoxide has no smell or color, and it kills.\nIs it running there, or are you planning to run it there?",
+            "unsupportedNumbers": [],
+            "offersModel": false,
+            "suggestions": [
+              "food.outage.cold"
+            ]
+          },
+          "prompt": "Our generator is in the basement.",
+          "label": "later",
+          "group": 12,
+          "active": [],
+          "answers": {},
+          "expected": "question",
+          "actual": "question",
+          "matched": true
+        },
+        {
+          "answers": {},
+          "active": [],
+          "message": {
+            "interrupted": false,
+            "asksHazardQuestion": false,
+            "origin": "app",
+            "citations": [],
+            "text": "The guide doesn't cover that yet. Browse the topics, or ask the model for an unverified answer.",
+            "unsupportedNumbers": [],
+            "offersModel": true,
+            "suggestions": []
+          },
+          "label": "later",
+          "group": 12,
+          "prompt": "I haven't checked yet.",
+          "expected": "unknown",
+          "actual": "no decision",
+          "matched": false
+        },
+        {
+          "answers": {},
+          "active": [],
+          "message": {
+            "interrupted": false,
+            "asksHazardQuestion": false,
+            "origin": "app",
+            "citations": [],
+            "text": "I'm not sure which guide entry fits. Is it one of these?",
+            "unsupportedNumbers": [],
+            "offersModel": true,
+            "suggestions": [
+              "power.fuel-burning.co"
+            ]
+          },
+          "label": "later",
+          "group": 12,
+          "prompt": "I checked. It's running down there.",
+          "expected": "active",
+          "actual": "no decision",
+          "matched": false
+        }
+      ]
+    }
+  ]
+}

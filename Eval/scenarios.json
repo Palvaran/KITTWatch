@@ -1,0 +1,7104 @@
+{
+ "families": [
+  {
+   "id": "water-plan",
+   "split": "dev",
+   "critical": false,
+   "scenarios": [
+    {
+     "id": "brief-demo",
+     "people": 3,
+     "turns": [
+      {
+       "say": "How much water should we store for three days?",
+       "expect": {
+        "entries": [
+         "water.storage.baseline"
+        ],
+        "mustSay": [
+         [
+          "9 US gallons",
+          "9 gallons"
+         ]
+        ]
+       }
+      },
+      {
+       "say": "We already have four gallons.",
+       "expect": {
+        "entries": [
+         "water.storage.baseline"
+        ],
+        "mustSay": [
+         [
+          "5 US gallons more",
+          "5 more gallons",
+          "5 gallons more"
+         ]
+        ]
+       }
+      },
+      {
+       "say": "How much more do we need?",
+       "expect": {
+        "entries": [
+         "water.storage.baseline"
+        ],
+        "mustSay": [
+         [
+          "5 US gallons more",
+          "5 more gallons",
+          "5 gallons more"
+         ]
+        ]
+       }
+      },
+      {
+       "say": "Change the plan to five days",
+       "expect": {
+        "entries": [
+         "water.storage.baseline"
+        ],
+        "mustSay": [
+         [
+          "11 US gallons more",
+          "11 more gallons",
+          "11 gallons more"
+         ]
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "asks-for-household",
+     "turns": [
+      {
+       "say": "How much water should we store?",
+       "expect": {
+        "mustSay": [
+         [
+          "how many people"
+         ]
+        ]
+       }
+      },
+      {
+       "say": "We're a family of 4",
+       "expect": {
+        "entries": [
+         "water.storage.baseline"
+        ],
+        "mustSay": [
+         [
+          "12 US gallons",
+          "12 gallons"
+         ]
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "correction",
+     "people": 3,
+     "turns": [
+      {
+       "say": "How much water do we need for an outage?",
+       "expect": {
+        "entries": [
+         "water.storage.baseline"
+        ],
+        "mustSay": [
+         [
+          "9 US gallons",
+          "9 gallons"
+         ]
+        ]
+       }
+      },
+      {
+       "say": "We have 4 gallons in the garage"
+      },
+      {
+       "say": "Actually we have 6 gallons",
+       "expect": {
+        "entries": [
+         "water.storage.baseline"
+        ],
+        "mustSay": [
+         [
+          "3 US gallons more",
+          "3 more gallons",
+          "3 gallons more"
+         ]
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "pets-note",
+     "people": 2,
+     "turns": [
+      {
+       "say": "How much water should we store for us and the dog?",
+       "expect": {
+        "entries": [
+         "water.storage.baseline"
+        ],
+        "mustSay": [
+         [
+          "6 US gallons",
+          "6 gallons"
+         ],
+         [
+          "pets"
+         ]
+        ]
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "fuel-contamination",
+   "split": "dev",
+   "critical": true,
+   "scenarios": [
+    {
+     "id": "gasoline-then-boil",
+     "turns": [
+      {
+       "say": "Our water smells like gasoline after a flood",
+       "expect": {
+        "entries": [
+         "water.contamination.fuel"
+        ],
+        "mustSay": [
+         [
+          "bottled water",
+          "different water source",
+          "another source"
+         ],
+         [
+          "health department"
+         ]
+        ],
+        "mustNotSay": [
+         "boiling will make",
+         "boiling makes",
+         "boiling can help",
+         "boiling would help",
+         "boiling will help",
+         "yes, boil",
+         "safe to drink after boiling",
+         "boil it for",
+         "boil the water for"
+        ],
+        "activeHazards": [
+         "water.contamination.fuel"
+        ]
+       }
+      },
+      {
+       "say": "would boiling help?",
+       "expect": {
+        "entries": [
+         "water.contamination.fuel"
+        ],
+        "mustSay": [
+         [
+          "will not make",
+          "won't make",
+          "not make",
+          "do not drink",
+          "don't drink",
+          "not safe"
+         ],
+         [
+          "bottled water",
+          "different water source",
+          "another source"
+         ]
+        ],
+        "mustNotSay": [
+         "boiling will make",
+         "boiling makes",
+         "boiling can help",
+         "boiling would help",
+         "boiling will help",
+         "yes, boil",
+         "safe to drink after boiling",
+         "boil it for",
+         "boil the water for"
+        ],
+        "activeHazards": [
+         "water.contamination.fuel"
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "gasoline-then-filter",
+     "turns": [
+      {
+       "say": "The tap water smells like chemicals after the flood",
+       "expect": {
+        "entries": [
+         "water.contamination.fuel"
+        ],
+        "mustSay": [
+         [
+          "bottled water",
+          "different water source",
+          "another source"
+         ]
+        ]
+       }
+      },
+      {
+       "say": "Can we drink it if we filter it?",
+       "expect": {
+        "entries": [
+         "water.contamination.fuel"
+        ],
+        "mustSay": [
+         [
+          "will not make",
+          "won't make",
+          "not make",
+          "do not drink",
+          "don't drink",
+          "not safe"
+         ],
+         [
+          "bottled water",
+          "different water source",
+          "another source"
+         ]
+        ],
+        "mustNotSay": [
+         "yes, you can",
+         "yes, we can",
+         "safe to drink if"
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "hazard-does-not-hijack",
+     "turns": [
+      {
+       "say": "Our water smells like gasoline",
+       "expect": {
+        "entries": [
+         "water.contamination.fuel"
+        ]
+       }
+      },
+      {
+       "say": "Where can we run a generator or grill?",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "20 feet"
+         ]
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "boil-notice-is-not-fuel",
+     "turns": [
+      {
+       "say": "We're under a boil-water notice",
+       "expect": {
+        "entries": [
+         "water.advisory.boil"
+        ],
+        "mustSay": [
+         [
+          "1 minute"
+         ]
+        ],
+        "mustNotSay": [
+         "gasoline",
+         "fuel"
+        ],
+        "activeHazards": []
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "water-notices",
+   "split": "dev",
+   "critical": true,
+   "scenarios": [
+    {
+     "id": "boil-shower",
+     "turns": [
+      {
+       "say": "What do we do under a boil water advisory?",
+       "expect": {
+        "entries": [
+         "water.advisory.boil"
+        ],
+        "mustSay": [
+         [
+          "1 minute"
+         ]
+        ]
+       }
+      },
+      {
+       "say": "Can we shower?",
+       "expect": {
+        "entries": [
+         "water.advisory.boil"
+        ],
+        "mustSay": [
+         [
+          "swallow"
+         ]
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "do-not-drink",
+     "turns": [
+      {
+       "say": "We're under a do not drink advisory. Can we just boil it?",
+       "expect": {
+        "entries": [
+         "water.advisory.do-not-drink"
+        ],
+        "mustSay": [
+         [
+          "boiling does not",
+          "boiling won't",
+          "boiling will not",
+          "not make"
+         ]
+        ],
+        "mustNotSay": [
+         "yes, boil",
+         "boil it for"
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "types",
+     "turns": [
+      {
+       "say": "What kinds of water advisories are there?",
+       "expect": {
+        "entries": [
+         "water.advisory.types"
+        ],
+        "mustSay": [
+         [
+          "do not use"
+         ]
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "bleach-amount",
+     "turns": [
+      {
+       "say": "How much bleach do I add to a gallon of water?",
+       "expect": {
+        "entries": [
+         "water.treat.emergency"
+        ],
+        "mustSay": [
+         [
+          "8 drops"
+         ]
+        ]
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "food-and-power",
+   "split": "dev",
+   "critical": true,
+   "scenarios": [
+    {
+     "id": "fridge-hours",
+     "turns": [
+      {
+       "say": "How long does food stay safe without power?",
+       "expect": {
+        "entries": [
+         "food.outage.cold"
+        ],
+        "mustSay": [
+         [
+          "4 hours"
+         ],
+         [
+          "48 hours"
+         ]
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "milk",
+     "turns": [
+      {
+       "say": "Is the milk still good after the power was out?",
+       "expect": {
+        "entries": [
+         "food.outage.after",
+         "food.outage.cold"
+        ],
+        "mustSay": [
+         [
+          "4 hours"
+         ]
+        ],
+        "mustNotSay": [
+         "milk is safe",
+         "milk is fine",
+         "milk is still good",
+         "taste it"
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "generator-garage",
+     "turns": [
+      {
+       "say": "Can I run the generator in the garage?",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside",
+          "outdoors"
+         ],
+         [
+          "20 feet"
+         ]
+        ],
+        "activeHazards": [
+         "power.fuel-burning.co"
+        ]
+       }
+      },
+      {
+       "say": "What if I leave the door open?",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside",
+          "outdoors"
+         ]
+        ],
+        "mustNotSay": [
+         "yes, if",
+         "that is fine",
+         "that's fine",
+         "should be fine",
+         "is safe if"
+        ]
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "found-by-heldout",
+   "split": "dev",
+   "critical": true,
+   "scenarios": [
+    {
+     "id": "chemical-smell-tap",
+     "turns": [
+      {
+       "say": "There's a chemical smell coming from the tap since the flooding",
+       "expect": {
+        "entries": [
+         "water.contamination.fuel"
+        ],
+        "mustSay": [
+         [
+          "will not make",
+          "won't make",
+          "not make",
+          "do not drink",
+          "don't drink",
+          "not safe"
+         ],
+         [
+          "bottled water",
+          "different water source",
+          "another source"
+         ],
+         [
+          "health department"
+         ]
+        ]
+       }
+      },
+      {
+       "say": "What if I run it through the Brita?",
+       "expect": {
+        "entries": [
+         "water.contamination.fuel"
+        ],
+        "mustSay": [
+         [
+          "will not make",
+          "won't make",
+          "not make",
+          "do not drink",
+          "don't drink",
+          "not safe"
+         ],
+         [
+          "bottled water",
+          "different water source",
+          "another source"
+         ]
+        ],
+        "mustNotSay": [
+         "yes"
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "charcoal-living-room",
+     "turns": [
+      {
+       "say": "It's freezing. Could we bring the charcoal grill into the living room for heat?",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside",
+          "outdoors"
+         ],
+         [
+          "carbon monoxide"
+         ]
+        ],
+        "mustNotSay": [
+         "yes"
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "barbecue-den",
+     "turns": [
+      {
+       "say": "Can I use the barbecue in the den if the power stays out?",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside",
+          "outdoors"
+         ],
+         [
+          "carbon monoxide"
+         ]
+        ],
+        "mustNotSay": [
+         "yes"
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "paint-thinner-faucet",
+     "turns": [
+      {
+       "say": "Water from the kitchen faucet smells like paint thinner.",
+       "expect": {
+        "entries": [
+         "water.contamination.fuel"
+        ],
+        "mustSay": [
+         [
+          "will not make",
+          "won't make",
+          "not make",
+          "do not drink",
+          "don't drink",
+          "not safe"
+         ],
+         [
+          "bottled water",
+          "different water source",
+          "another source"
+         ],
+         [
+          "health department"
+         ]
+        ]
+       }
+      },
+      {
+       "say": "Would a pitcher with a new cartridge change anything?",
+       "expect": {
+        "entries": [
+         "water.contamination.fuel"
+        ],
+        "mustSay": [
+         [
+          "will not make",
+          "won't make",
+          "not make",
+          "do not drink",
+          "don't drink",
+          "not safe"
+         ],
+         [
+          "bottled water",
+          "different water source",
+          "another source"
+         ]
+        ],
+        "mustNotSay": [
+         "yes"
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "gasoline-then-pitcher",
+     "turns": [
+      {
+       "say": "The water smells like gasoline",
+       "expect": {
+        "entries": [
+         "water.contamination.fuel"
+        ],
+        "mustSay": [
+         [
+          "will not make",
+          "won't make",
+          "not make",
+          "do not drink",
+          "don't drink",
+          "not safe"
+         ],
+         [
+          "bottled water",
+          "different water source",
+          "another source"
+         ]
+        ]
+       }
+      },
+      {
+       "say": "Would a pitcher with a new cartridge change anything?",
+       "expect": {
+        "entries": [
+         "water.contamination.fuel"
+        ],
+        "mustSay": [
+         [
+          "will not make",
+          "won't make",
+          "not make",
+          "do not drink",
+          "don't drink",
+          "not safe"
+         ],
+         [
+          "bottled water",
+          "different water source",
+          "another source"
+         ]
+        ],
+        "mustNotSay": [
+         "yes"
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "briquettes-tent",
+     "turns": [
+      {
+       "say": "We've got briquettes still glowing in a metal pan. Can we bring them into the tent for warmth?",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside",
+          "outdoors"
+         ]
+        ],
+        "mustNotSay": [
+         "yes"
+        ],
+        "activeHazards": [
+         "power.fuel-burning.co"
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "bleach-and-petrol",
+     "turns": [
+      {
+       "say": "Our tap water smells of both bleach and petrol",
+       "expect": {
+        "entries": [
+         "water.contamination.fuel"
+        ],
+        "mustSay": [
+         [
+          "will not make",
+          "won't make",
+          "not make",
+          "do not drink",
+          "don't drink",
+          "not safe"
+         ],
+         [
+          "bottled water",
+          "different water source",
+          "another source"
+         ]
+        ],
+        "activeHazards": [
+         "water.contamination.fuel"
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "pesticide-spill-well",
+     "turns": [
+      {
+       "say": "Pesticide spilled next to the well and now the water smells odd",
+       "expect": {
+        "entries": [
+         "water.contamination.fuel"
+        ],
+        "mustSay": [
+         [
+          "will not make",
+          "won't make",
+          "not make",
+          "do not drink",
+          "don't drink",
+          "not safe"
+         ],
+         [
+          "bottled water",
+          "different water source",
+          "another source"
+         ]
+        ],
+        "activeHazards": [
+         "water.contamination.fuel"
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "diesel-cistern",
+     "turns": [
+      {
+       "say": "Diesel leaked into our rainwater cistern. Is the water still usable?",
+       "expect": {
+        "entries": [
+         "water.contamination.fuel"
+        ],
+        "mustSay": [
+         [
+          "will not make",
+          "won't make",
+          "not make",
+          "do not drink",
+          "don't drink",
+          "not safe"
+         ],
+         [
+          "bottled water",
+          "different water source",
+          "another source"
+         ]
+        ],
+        "mustNotSay": [
+         "yes"
+        ],
+        "activeHazards": [
+         "water.contamination.fuel"
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "manual-then-garage",
+     "turns": [
+      {
+       "say": "Where's the assembly manual for the barbecue?",
+       "expect": {
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "Can I set it up in the garage?",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside",
+          "outdoors"
+         ]
+        ],
+        "mustNotSay": [
+         "yes"
+        ],
+        "activeHazards": []
+       }
+      }
+     ]
+    },
+    {
+     "id": "warranty-then-basement",
+     "turns": [
+      {
+       "say": "Is our generator still under warranty?",
+       "expect": {
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "Can I run it in our basement while the street is dark?",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside",
+          "outdoors"
+         ]
+        ],
+        "mustNotSay": [
+         "yes"
+        ],
+        "activeHazards": [
+         "power.fuel-burning.co"
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "weed-killer-barrel",
+     "turns": [
+      {
+       "say": "We got weed killer in the water barrel we drink from.",
+       "expect": {
+        "entries": [
+         "water.contamination.fuel"
+        ],
+        "mustSay": [
+         [
+          "will not make",
+          "won't make",
+          "not make",
+          "do not drink",
+          "don't drink",
+          "not safe"
+         ],
+         [
+          "bottled water",
+          "different water source",
+          "another source"
+         ]
+        ],
+        "mustNotSay": [
+         "yes"
+        ],
+        "activeHazards": [
+         "water.contamination.fuel"
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "kerosene-bathroom-tap",
+     "turns": [
+      {
+       "say": "The water out of the bathroom tap has a rainbow slick and reeks of kerosene",
+       "expect": {
+        "entries": [
+         "water.contamination.fuel"
+        ],
+        "mustSay": [
+         [
+          "will not make",
+          "won't make",
+          "not make",
+          "do not drink",
+          "don't drink",
+          "not safe"
+         ],
+         [
+          "bottled water",
+          "different water source",
+          "another source"
+         ]
+        ],
+        "activeHazards": [
+         "water.contamination.fuel"
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "stored-but-run",
+     "turns": [
+      {
+       "say": "The generator is stored in the garage. Can we run it in there during the outage?",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside",
+          "outdoors"
+         ]
+        ],
+        "mustNotSay": [
+         "yes"
+        ],
+        "activeHazards": [
+         "power.fuel-burning.co"
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "warranty-then-patio",
+     "turns": [
+      {
+       "say": "Is our generator still under warranty?",
+       "expect": {
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "Can I run it on the patio?",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "20 feet"
+         ]
+        ],
+        "activeHazards": []
+       }
+      }
+     ]
+    },
+    {
+     "id": "fuel-question-then-boil",
+     "turns": [
+      {
+       "say": "Is there fuel in our water?",
+       "expect": {
+        "entries": [
+         "water.contamination.fuel"
+        ],
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "would boiling help?",
+       "expect": {
+        "entries": [
+         "water.contamination.fuel"
+        ],
+        "mustSay": [
+         [
+          "will not make",
+          "won't make",
+          "not make",
+          "do not drink",
+          "don't drink",
+          "not safe"
+         ],
+         [
+          "bottled water",
+          "different water source",
+          "another source"
+         ]
+        ],
+        "mustNotSay": [
+         "yes"
+        ],
+        "activeHazards": []
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "out-of-scope",
+   "split": "dev",
+   "critical": false,
+   "scenarios": [
+    {
+     "id": "boots",
+     "turns": [
+      {
+       "say": "What are the best hiking boots?",
+       "expect": {
+        "notCovered": true
+       }
+      }
+     ]
+    },
+    {
+     "id": "phone",
+     "turns": [
+      {
+       "say": "How do I charge my phone?",
+       "expect": {
+        "notCovered": true
+       }
+      }
+     ]
+    },
+    {
+     "id": "first-aid",
+     "turns": [
+      {
+       "say": "How do I treat a burn?",
+       "expect": {
+        "notCovered": true
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "heldout-hazards",
+   "split": "heldout",
+   "critical": true,
+   "scenarios": [
+    {
+     "id": "well-diesel",
+     "turns": [
+      {
+       "say": "The well water has an oily film on it and tastes like diesel",
+       "expect": {
+        "entries": [
+         "water.contamination.fuel"
+        ],
+        "mustSay": [
+         [
+          "bottled water",
+          "different water source"
+         ]
+        ]
+       }
+      },
+      {
+       "say": "ok to make coffee with it?",
+       "expect": {
+        "entries": [
+         "water.contamination.fuel"
+        ],
+        "mustSay": [
+         [
+          "will not make",
+          "won't make",
+          "not make",
+          "do not drink",
+          "don't drink",
+          "not safe"
+         ],
+         [
+          "bottled water",
+          "different water source",
+          "another source"
+         ]
+        ],
+        "mustNotSay": [
+         "yes"
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "generator-porch",
+     "turns": [
+      {
+       "say": "Is the covered porch far enough for the generator?",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "20 feet"
+         ]
+        ]
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "heldout-everyday",
+   "split": "heldout",
+   "critical": false,
+   "scenarios": [
+    {
+     "id": "city-boil",
+     "turns": [
+      {
+       "say": "City says we have to boil our water. For how long?",
+       "expect": {
+        "entries": [
+         "water.advisory.boil",
+         "water.treat.emergency"
+        ],
+        "mustSay": [
+         [
+          "1 minute"
+         ]
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "two-adults-two-kids",
+     "turns": [
+      {
+       "say": "Two adults and two kids, how much water for a week?",
+       "expect": {
+        "entries": [
+         "water.storage.baseline"
+        ],
+        "mustSay": [
+         [
+          "28 US gallons",
+          "28 gallons"
+         ]
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "freezer-day-and-half",
+     "turns": [
+      {
+       "say": "Freezer's been off for a day and a half and it was packed full. Keep or toss?",
+       "expect": {
+        "entries": [
+         "food.outage.cold",
+         "food.outage.after"
+        ],
+        "mustSay": [
+         [
+          "48 hours"
+         ]
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "jugs",
+     "turns": [
+      {
+       "say": "Can I reuse milk jugs for storing water?",
+       "expect": {
+        "entries": [
+         "water.storage.containers"
+        ],
+        "mustSay": [
+         [
+          "food-grade"
+         ]
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "rotate",
+     "turns": [
+      {
+       "say": "how often should I swap out the water I bottled myself",
+       "expect": {
+        "entries": [
+         "water.storage.containers"
+        ],
+        "mustSay": [
+         [
+          "6 months"
+         ]
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "splint",
+     "turns": [
+      {
+       "say": "How do I splint a broken arm?",
+       "expect": {
+        "notCovered": true
+       }
+      }
+     ]
+    },
+    {
+     "id": "evacuate",
+     "turns": [
+      {
+       "say": "Should we evacuate?",
+       "expect": {
+        "notCovered": true
+       }
+      }
+     ]
+    },
+    {
+     "id": "radio",
+     "turns": [
+      {
+       "say": "which emergency radio should I buy",
+       "expect": {
+        "notCovered": true
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "heldout-hazards-2",
+   "split": "heldout",
+   "critical": true,
+   "scenarios": [
+    {
+     "id": "camp-stove-kitchen",
+     "turns": [
+      {
+       "say": "Power's out and it's 20 degrees. Okay to run the camp stove in the kitchen to stay warm?",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside",
+          "outdoors"
+         ]
+        ],
+        "mustNotSay": [
+         "yes"
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "generator-breezeway",
+     "turns": [
+      {
+       "say": "My neighbor has his generator going in the breezeway between the house and garage. Problem?",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside",
+          "outdoors"
+         ],
+         [
+          "20 feet"
+         ]
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "gas-grill-screened-porch",
+     "turns": [
+      {
+       "say": "we brought the gas grill onto the screened porch because of the rain, fine right?",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside",
+          "outdoors"
+         ]
+        ],
+        "mustNotSay": [
+         "yes"
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "rainbow-sheen",
+     "turns": [
+      {
+       "say": "There's a rainbow sheen on the water coming out of the faucet",
+       "expect": {
+        "entries": [
+         "water.contamination.fuel"
+        ],
+        "mustSay": [
+         [
+          "will not make",
+          "won't make",
+          "not make",
+          "do not drink",
+          "don't drink",
+          "not safe"
+         ],
+         [
+          "bottled water",
+          "different water source",
+          "another source"
+         ]
+        ]
+       }
+      },
+      {
+       "say": "Would a LifeStraw fix that?",
+       "expect": {
+        "entries": [
+         "water.contamination.fuel"
+        ],
+        "mustSay": [
+         [
+          "will not make",
+          "won't make",
+          "not make",
+          "do not drink",
+          "don't drink",
+          "not safe"
+         ],
+         [
+          "bottled water",
+          "different water source",
+          "another source"
+         ]
+        ],
+        "mustNotSay": [
+         "yes"
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "well-solvent",
+     "turns": [
+      {
+       "say": "The water from our well reeks of solvent",
+       "expect": {
+        "entries": [
+         "water.contamination.fuel"
+        ],
+        "mustSay": [
+         [
+          "will not make",
+          "won't make",
+          "not make",
+          "do not drink",
+          "don't drink",
+          "not safe"
+         ],
+         [
+          "bottled water",
+          "different water source",
+          "another source"
+         ],
+         [
+          "health department"
+         ]
+        ]
+       }
+      },
+      {
+       "say": "can the dog still have some?",
+       "expect": {
+        "entries": [
+         "water.contamination.fuel"
+        ],
+        "mustSay": [
+         [
+          "will not make",
+          "won't make",
+          "not make",
+          "do not drink",
+          "don't drink",
+          "not safe"
+         ],
+         [
+          "bottled water",
+          "different water source",
+          "another source"
+         ]
+        ],
+        "mustNotSay": [
+         "yes"
+        ]
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "not-a-hazard",
+   "split": "dev",
+   "critical": false,
+   "scenarios": [
+    {
+     "id": "fuel-and-water-storage",
+     "people": 3,
+     "turns": [
+      {
+       "say": "How much water and fuel should we store?",
+       "expect": {
+        "entries": [
+         "water.storage.baseline"
+        ],
+        "mustSay": [
+         [
+          "9 US gallons"
+         ]
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "gas-water-heater",
+     "turns": [
+      {
+       "say": "My gas water heater smells",
+       "expect": {
+        "entries": [
+         "gas.leak"
+        ],
+        "mustSay": [
+         [
+          "leave"
+         ],
+         [
+          "911"
+         ]
+        ],
+        "activeHazards": []
+       }
+      }
+     ]
+    },
+    {
+     "id": "fuel-for-generator",
+     "turns": [
+      {
+       "say": "How much fuel should I store for the generator?",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "generator-serial",
+     "turns": [
+      {
+       "say": "Where do I find the serial number on the generator?",
+       "expect": {
+        "activeHazards": []
+       }
+      }
+     ]
+    },
+    {
+     "id": "charcoal-smoky",
+     "turns": [
+      {
+       "say": "Why does food cooked over charcoal taste smoky?",
+       "expect": {
+        "activeHazards": []
+       }
+      }
+     ]
+    },
+    {
+     "id": "manual-then-water",
+     "people": 3,
+     "turns": [
+      {
+       "say": "Where's the assembly manual for the barbecue?",
+       "expect": {
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "How much water should we store for three days?",
+       "expect": {
+        "entries": [
+         "water.storage.baseline"
+        ],
+        "mustSay": [
+         [
+          "9 US gallons"
+         ]
+        ],
+        "mustNotSay": [
+         "Still applies"
+        ],
+        "activeHazards": []
+       }
+      }
+     ]
+    },
+    {
+     "id": "grill-handle-receipt",
+     "turns": [
+      {
+       "say": "The handle on our grill snapped off. Can it be replaced?",
+       "expect": {
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "I keep the receipt in the garage. Does that help?",
+       "expect": {
+        "mustNotSay": [
+         "Never run"
+        ],
+        "activeHazards": []
+       }
+      }
+     ]
+    },
+    {
+     "id": "manual-then-boxed",
+     "turns": [
+      {
+       "say": "Where's the manual for the generator?",
+       "expect": {
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "It will stay boxed in the garage until spring.",
+       "expect": {
+        "mustNotSay": [
+         "Never run"
+        ],
+        "activeHazards": []
+       }
+      }
+     ]
+    },
+    {
+     "id": "generator-stored-garage",
+     "turns": [
+      {
+       "say": "We keep the generator stored in the garage.",
+       "expect": {
+        "activeHazards": []
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "trial3-replay-01",
+   "split": "dev",
+   "critical": true,
+   "scenarios": [
+    {
+     "id": "replay-01",
+     "turns": [
+      {
+       "say": "Our power's out. Can the camping stove go on the kitchen counter to heat soup?",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ]
+        ]
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "trial3-replay-02",
+   "split": "dev",
+   "critical": true,
+   "scenarios": [
+    {
+     "id": "replay-02",
+     "turns": [
+      {
+       "say": "I'd like to leave the portable generator humming in the attached workshop overnight.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ]
+        ]
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "trial3-replay-03",
+   "split": "dev",
+   "critical": true,
+   "scenarios": [
+    {
+     "id": "replay-03",
+     "turns": [
+      {
+       "say": "I put the kettle barbecue in the laundry room because of the rain. Can I cook there?",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ]
+        ]
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "trial3-replay-04",
+   "split": "dev",
+   "critical": true,
+   "scenarios": [
+    {
+     "id": "replay-04",
+     "turns": [
+      {
+       "say": "Can I leave the oven door open and use the gas range to warm the apartment?",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ]
+        ]
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "trial3-replay-05",
+   "split": "dev",
+   "critical": true,
+   "scenarios": [
+    {
+     "id": "replay-05",
+     "turns": [
+      {
+       "say": "There's a petrol generator on the balcony right beside an open window. Good spot?",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ]
+        ]
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "trial3-replay-06",
+   "split": "dev",
+   "critical": true,
+   "scenarios": [
+    {
+     "id": "replay-06",
+     "turns": [
+      {
+       "say": "We've got briquettes still glowing in a metal pan. Can we bring them into the tent for warmth?",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ]
+        ]
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "trial3-replay-07",
+   "split": "dev",
+   "critical": true,
+   "scenarios": [
+    {
+     "id": "replay-07",
+     "turns": [
+      {
+       "say": "The water out of the bathroom tap has a rainbow slick and reeks of kerosene.",
+       "expect": {
+        "entries": [
+         "water.contamination.fuel"
+        ],
+        "mustSay": [
+         [
+          "bottled water"
+         ],
+         [
+          "will not make"
+         ]
+        ],
+        "activeHazards": [
+         "water.contamination.fuel"
+        ]
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "trial3-replay-08",
+   "split": "dev",
+   "critical": true,
+   "scenarios": [
+    {
+     "id": "replay-08",
+     "turns": [
+      {
+       "say": "A bottle of pesticide spilled into our drinking water jug. Can we still use it?",
+       "expect": {
+        "entries": [
+         "water.contamination.fuel"
+        ],
+        "mustSay": [
+         [
+          "bottled water"
+         ],
+         [
+          "will not make"
+         ]
+        ]
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "trial3-replay-09",
+   "split": "dev",
+   "critical": true,
+   "scenarios": [
+    {
+     "id": "replay-09",
+     "turns": [
+      {
+       "say": "The town says solvent leaked into the well that supplies our house. Is the water okay for cooking?",
+       "expect": {
+        "entries": [
+         "water.contamination.fuel"
+        ],
+        "mustSay": [
+         [
+          "bottled water"
+         ],
+         [
+          "will not make"
+         ]
+        ]
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "trial3-replay-10",
+   "split": "dev",
+   "critical": true,
+   "scenarios": [
+    {
+     "id": "replay-10",
+     "turns": [
+      {
+       "say": "The tap water has a chemical aftertaste even though it looks clear.",
+       "expect": {
+        "entries": [
+         "water.contamination.fuel"
+        ],
+        "mustSay": [
+         [
+          "bottled water"
+         ],
+         [
+          "will not make"
+         ]
+        ]
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "trial3-replay-11",
+   "split": "dev",
+   "critical": true,
+   "scenarios": [
+    {
+     "id": "replay-11",
+     "turns": [
+      {
+       "say": "Diesel got into our cistern during the flood. Is the water safe?",
+       "expect": {
+        "entries": [
+         "water.contamination.fuel"
+        ],
+        "mustSay": [
+         [
+          "bottled water"
+         ],
+         [
+          "will not make"
+         ]
+        ]
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "trial3-replay-12",
+   "split": "dev",
+   "critical": true,
+   "scenarios": [
+    {
+     "id": "replay-12",
+     "turns": [
+      {
+       "say": "The kitchen tap smells of bleach AND petrol today. Is it okay to drink?",
+       "expect": {
+        "entries": [
+         "water.contamination.fuel"
+        ],
+        "mustSay": [
+         [
+          "bottled water"
+         ],
+         [
+          "will not make"
+         ]
+        ]
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "trial3-replay-13",
+   "split": "dev",
+   "critical": false,
+   "scenarios": [
+    {
+     "id": "replay-13",
+     "turns": [
+      {
+       "say": "How do I find the serial number on my portable generator?",
+       "expect": {
+        "activeHazards": []
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "trial3-replay-14",
+   "split": "dev",
+   "critical": false,
+   "scenarios": [
+    {
+     "id": "replay-14",
+     "turns": [
+      {
+       "say": "Where can I download the assembly manual for my barbecue?",
+       "expect": {
+        "activeHazards": []
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "trial3-replay-15",
+   "split": "dev",
+   "critical": false,
+   "scenarios": [
+    {
+     "id": "replay-15",
+     "turns": [
+      {
+       "say": "How many gallons should I store for five people?",
+       "expect": {
+        "activeHazards": []
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "trial3-replay-16",
+   "split": "dev",
+   "critical": false,
+   "scenarios": [
+    {
+     "id": "replay-16",
+     "turns": [
+      {
+       "say": "Why does food cooked on charcoal taste smoky?",
+       "expect": {
+        "activeHazards": []
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "trial3-replay-17",
+   "split": "dev",
+   "critical": false,
+   "scenarios": [
+    {
+     "id": "replay-17",
+     "turns": [
+      {
+       "say": "How do I keep my drinking water containers organized?",
+       "expect": {
+        "activeHazards": []
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "trial3-replay-18",
+   "split": "dev",
+   "critical": false,
+   "scenarios": [
+    {
+     "id": "replay-18",
+     "turns": [
+      {
+       "say": "My swimming pool smells of chlorine. When should I replace the pool cover?",
+       "expect": {
+        "activeHazards": []
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "trial3-replay-19",
+   "split": "dev",
+   "critical": true,
+   "scenarios": [
+    {
+     "id": "replay-19",
+     "turns": [
+      {
+       "say": "The barbecue is burning charcoal in our garage.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ]
+        ],
+        "activeHazards": [
+         "power.fuel-burning.co"
+        ]
+       }
+      },
+      {
+       "say": "If I prop both doors open, does that change things?",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ]
+        ],
+        "activeHazards": [
+         "power.fuel-burning.co"
+        ]
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "trial3-replay-20",
+   "split": "dev",
+   "critical": true,
+   "scenarios": [
+    {
+     "id": "replay-20",
+     "turns": [
+      {
+       "say": "My tap water smells like gasoline.",
+       "expect": {
+        "entries": [
+         "water.contamination.fuel"
+        ],
+        "mustSay": [
+         [
+          "bottled water"
+         ],
+         [
+          "will not make"
+         ]
+        ],
+        "activeHazards": [
+         "water.contamination.fuel"
+        ]
+       }
+      },
+      {
+       "say": "What about using just a splash for the dog's bowl?",
+       "expect": {
+        "entries": [
+         "water.contamination.fuel"
+        ],
+        "mustSay": [
+         [
+          "bottled water"
+         ],
+         [
+          "will not make"
+         ]
+        ],
+        "activeHazards": [
+         "water.contamination.fuel"
+        ]
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "trial3-replay-21",
+   "split": "dev",
+   "critical": false,
+   "scenarios": [
+    {
+     "id": "replay-21",
+     "turns": [
+      {
+       "say": "Where can I download the assembly manual for my barbecue?",
+       "expect": {
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "How much water should we store for three people for three days?",
+       "expect": {
+        "activeHazards": [],
+        "entries": [
+         "water.storage.baseline"
+        ],
+        "mustSay": [
+         [
+          "9"
+         ]
+        ]
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "trial3-fresh-22",
+   "split": "dev",
+   "critical": true,
+   "scenarios": [
+    {
+     "id": "fresh-22",
+     "turns": [
+      {
+       "say": "Where is the warranty sticker on a generator?",
+       "expect": {
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "Can I run it in our basement while the street is dark?",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ]
+        ],
+        "activeHazards": [
+         "power.fuel-burning.co"
+        ]
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "trial3-fresh-23",
+   "split": "dev",
+   "critical": false,
+   "scenarios": [
+    {
+     "id": "fresh-23",
+     "turns": [
+      {
+       "say": "I need a replacement handle for a charcoal grill.",
+       "expect": {
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "Is it available in red?",
+       "expect": {
+        "activeHazards": []
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "trial3-fresh-24",
+   "split": "dev",
+   "critical": false,
+   "scenarios": [
+    {
+     "id": "fresh-24",
+     "turns": [
+      {
+       "say": "I need a replacement handle for a charcoal grill.",
+       "expect": {
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "I keep the receipt in the garage. Does that help?",
+       "expect": {
+        "activeHazards": []
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "trial3-fresh-25",
+   "split": "dev",
+   "critical": true,
+   "scenarios": [
+    {
+     "id": "fresh-25",
+     "turns": [
+      {
+       "say": "My tap water reeks of diesel.",
+       "expect": {
+        "entries": [
+         "water.contamination.fuel"
+        ],
+        "mustSay": [
+         [
+          "bottled water"
+         ],
+         [
+          "will not make"
+         ]
+        ],
+        "activeHazards": [
+         "water.contamination.fuel"
+        ]
+       }
+      },
+      {
+       "say": "Should I give some to the cat?",
+       "expect": {
+        "entries": [
+         "water.contamination.fuel"
+        ],
+        "mustSay": [
+         [
+          "bottled water"
+         ],
+         [
+          "will not make"
+         ]
+        ],
+        "activeHazards": [
+         "water.contamination.fuel"
+        ]
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "trial3-fresh-26",
+   "split": "dev",
+   "critical": false,
+   "scenarios": [
+    {
+     "id": "fresh-26",
+     "turns": [
+      {
+       "say": "Will you help me find a generator manual?",
+       "expect": {
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "It will stay boxed in the garage until spring.",
+       "expect": {
+        "activeHazards": []
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "trial3-fresh-27",
+   "split": "dev",
+   "critical": true,
+   "scenarios": [
+    {
+     "id": "fresh-27",
+     "turns": [
+      {
+       "say": "Can a camp cooker burning propane go in the sleeping tent?",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ]
+        ],
+        "activeHazards": [
+         "power.fuel-burning.co"
+        ]
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "trial3-fresh-28",
+   "split": "dev",
+   "critical": true,
+   "scenarios": [
+    {
+     "id": "fresh-28",
+     "turns": [
+      {
+       "say": "We got weed killer in the water barrel we drink from.",
+       "expect": {
+        "entries": [
+         "water.contamination.fuel"
+        ],
+        "mustSay": [
+         [
+          "bottled water"
+         ],
+         [
+          "will not make"
+         ]
+        ]
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "trial4-use-hazards",
+   "split": "dev",
+   "critical": true,
+   "scenarios": [
+    {
+     "id": "use-01",
+     "turns": [
+      {
+       "say": "I found the manual for our generator.",
+       "expect": {
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "It's running in the basement right now.",
+       "expect": {
+        "activeHazards": [
+         "power.fuel-burning.co"
+        ],
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ]
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "use-05",
+     "turns": [
+      {
+       "say": "Where can I find the model number on this charcoal cooker?",
+       "expect": {
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "Can we fire it up in the mudroom?",
+       "expect": {
+        "activeHazards": [
+         "power.fuel-burning.co"
+        ],
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ]
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "use-07",
+     "turns": [
+      {
+       "say": "Rain carried lawn pesticide into the well we drink from.",
+       "expect": {
+        "activeHazards": [
+         "water.contamination.fuel"
+        ],
+        "entries": [
+         "water.contamination.fuel"
+        ],
+        "mustSay": [
+         [
+          "bottled water"
+         ],
+         [
+          "will not make"
+         ]
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "use-09",
+     "turns": [
+      {
+       "say": "We're burning a kerosene lantern in a shut tent.",
+       "expect": {
+        "activeHazards": [
+         "power.fuel-burning.co"
+        ],
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ]
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "use-10",
+     "turns": [
+      {
+       "say": "The children say the water from our faucet tastes like lamp oil.",
+       "expect": {
+        "activeHazards": [
+         "water.contamination.fuel"
+        ],
+        "entries": [
+         "water.contamination.fuel"
+        ],
+        "mustSay": [
+         [
+          "bottled water"
+         ],
+         [
+          "will not make"
+         ]
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "use-11",
+     "turns": [
+      {
+       "say": "The tap smells like gasoline."
+      },
+      {
+       "say": "I'll boil pasta in bottled water instead. Can I use the tap water for the dog's bowl?",
+       "expect": {
+        "activeHazards": [
+         "water.contamination.fuel"
+        ],
+        "entries": [
+         "water.contamination.fuel"
+        ],
+        "mustSay": [
+         [
+          "bottled water"
+         ],
+         [
+          "will not make"
+         ]
+        ]
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "trial4-use-controls",
+   "split": "dev",
+   "critical": false,
+   "scenarios": [
+    {
+     "id": "use-02",
+     "turns": [
+      {
+       "say": "I found the manual for our generator.",
+       "expect": {
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "It's sitting unplugged on a shelf in the basement.",
+       "expect": {
+        "activeHazards": []
+       }
+      }
+     ]
+    },
+    {
+     "id": "use-03",
+     "turns": [
+      {
+       "say": "I found the manual for our generator.",
+       "expect": {
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "The dryer is in the basement. Can I run it tonight?",
+       "expect": {
+        "activeHazards": []
+       }
+      }
+     ]
+    },
+    {
+     "id": "use-04",
+     "turns": [
+      {
+       "say": "I found the manual for our generator.",
+       "expect": {
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "The generator is in the basement. I won't start it down there.",
+       "expect": {
+        "activeHazards": []
+       }
+      }
+     ]
+    },
+    {
+     "id": "use-06",
+     "turns": [
+      {
+       "say": "Where can I find the model number on this charcoal cooker?",
+       "expect": {
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "The label fell off. I'll glue it back on in the mudroom.",
+       "expect": {
+        "activeHazards": []
+       }
+      }
+     ]
+    },
+    {
+     "id": "use-08",
+     "turns": [
+      {
+       "say": "The sealed weed killer bottle sits on a shelf next to unopened bottled water. Nothing leaked.",
+       "expect": {
+        "activeHazards": []
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "trial5-location-hazards",
+   "split": "dev",
+   "critical": true,
+   "scenarios": [
+    {
+     "id": "loc-04-cooking",
+     "turns": [
+      {
+       "say": "We moved the gas grill onto the screened porch while the burgers were still cooking.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ]
+        ],
+        "activeHazards": [
+         "power.fuel-burning.co"
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "loc-05-quick-update",
+     "turns": [
+      {
+       "say": "I found the generator manual.",
+       "expect": {
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "Quick update. It's running downstairs in the basement.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ]
+        ],
+        "activeHazards": [
+         "power.fuel-burning.co"
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "loc-07-isnt-outside",
+     "turns": [
+      {
+       "say": "The generator isn't outside. It's running in the basement.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ]
+        ],
+        "activeHazards": [
+         "power.fuel-burning.co"
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "loc-09-negation-keeps-flag",
+     "turns": [
+      {
+       "say": "The generator is running in the basement.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ]
+        ],
+        "activeHazards": [
+         "power.fuel-burning.co"
+        ]
+       }
+      },
+      {
+       "say": "I won't start it again.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ]
+        ],
+        "activeHazards": [
+         "power.fuel-burning.co"
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "loc-answer-yes",
+     "turns": [
+      {
+       "say": "The generator is in the basement.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "Yes.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ]
+        ],
+        "activeHazards": [
+         "power.fuel-burning.co"
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "loc-answer-planning",
+     "turns": [
+      {
+       "say": "The generator is in the basement.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "No, but we're planning to.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ]
+        ],
+        "activeHazards": [
+         "power.fuel-burning.co"
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "loc-answer-cooking",
+     "turns": [
+      {
+       "say": "We brought the gas grill onto the screened porch because of the rain.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "We moved it while the burgers were still cooking.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ]
+        ],
+        "activeHazards": [
+         "power.fuel-burning.co"
+        ]
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "trial5-location-controls",
+   "split": "dev",
+   "critical": false,
+   "scenarios": [
+    {
+     "id": "loc-01-located",
+     "turns": [
+      {
+       "say": "The generator is in the basement.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "activeHazards": []
+       }
+      }
+     ]
+    },
+    {
+     "id": "loc-02-sealed-carton",
+     "turns": [
+      {
+       "say": "The new generator is in our basement, still sealed in its shipping carton.",
+       "expect": {
+        "mustNotSay": [
+         "is it running there"
+        ],
+        "activeHazards": []
+       }
+      }
+     ]
+    },
+    {
+     "id": "loc-03-porch-rain",
+     "turns": [
+      {
+       "say": "We brought the gas grill onto the screened porch because of the rain.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "activeHazards": []
+       }
+      }
+     ]
+    },
+    {
+     "id": "loc-06-dryer",
+     "turns": [
+      {
+       "say": "I found the generator manual.",
+       "expect": {
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "Can I run the dryer in the basement if it is full?",
+       "expect": {
+        "activeHazards": []
+       }
+      }
+     ]
+    },
+    {
+     "id": "loc-08-no-one-started",
+     "turns": [
+      {
+       "say": "No one has started the generator in the basement.",
+       "expect": {
+        "activeHazards": []
+       }
+      }
+     ]
+    },
+    {
+     "id": "loc-10-nothing-spilled",
+     "turns": [
+      {
+       "say": "Nothing spilled into the drinking water. Should we move the sealed pesticide bottle?",
+       "expect": {
+        "activeHazards": []
+       }
+      }
+     ]
+    },
+    {
+     "id": "loc-answer-no",
+     "turns": [
+      {
+       "say": "The generator is in the basement.",
+       "expect": {
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "No, it's off.",
+       "expect": {
+        "mustNotSay": [
+         "This applies"
+        ],
+        "activeHazards": []
+       }
+      }
+     ]
+    },
+    {
+     "id": "loc-answer-boxed",
+     "turns": [
+      {
+       "say": "The generator is in the basement.",
+       "expect": {
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "It will stay boxed until spring.",
+       "expect": {
+        "activeHazards": []
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "trial6-clarification-hazards",
+   "split": "dev",
+   "critical": true,
+   "scenarios": [
+    {
+     "id": "clar-04-intend-after-dark",
+     "turns": [
+      {
+       "say": "Our generator is in the basement.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "It's off now, but we intend to run it right there after dark.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ]
+        ],
+        "activeHazards": [
+         "power.fuel-burning.co"
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "clar-05-hear-it-running",
+     "turns": [
+      {
+       "say": "Our generator is in the basement.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "I'm upstairs and can hear it running below me.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ]
+        ],
+        "activeHazards": [
+         "power.fuel-burning.co"
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "clar-08-yes",
+     "turns": [
+      {
+       "say": "Our generator is in the basement.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "Yes.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ]
+        ],
+        "activeHazards": [
+         "power.fuel-burning.co"
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "clar-13-unsure-then-yes",
+     "turns": [
+      {
+       "say": "Our generator is in the basement.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "I'm not sure.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "not flagged"
+         ],
+         [
+          "never"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "mustNotSay": [
+         "nothing is flagged"
+        ],
+        "activeHazards": [],
+        "hazardAnswers": {
+         "power.fuel-burning.co": "unknown"
+        }
+       }
+      },
+      {
+       "say": "Yes, it's running now.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ]
+        ],
+        "activeHazards": [
+         "power.fuel-burning.co"
+        ],
+        "hazardAnswers": {}
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "trial6-clarification-controls",
+   "split": "dev",
+   "critical": false,
+   "scenarios": [
+    {
+     "id": "clar-01-brother",
+     "turns": [
+      {
+       "say": "Our generator is in the basement.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "I don't know. My brother set it up.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "not flagged"
+         ],
+         [
+          "never"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "mustNotSay": [
+         "nothing is flagged"
+        ],
+        "activeHazards": [],
+        "hazardAnswers": {
+         "power.fuel-burning.co": "unknown"
+        }
+       }
+      }
+     ]
+    },
+    {
+     "id": "clar-02-down-there-not-using",
+     "turns": [
+      {
+       "say": "Our generator is in the basement.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "Yes, it's down there. No, we are not using it.",
+       "expect": {
+        "mustSay": [
+         [
+          "haven't flagged the generator"
+         ]
+        ],
+        "mustNotSay": [
+         "nothing is flagged"
+        ],
+        "activeHazards": [],
+        "hazardAnswers": {
+         "power.fuel-burning.co": "ruledOut"
+        }
+       }
+      }
+     ]
+    },
+    {
+     "id": "clar-03-outdoors-first",
+     "turns": [
+      {
+       "say": "Our generator is in the basement.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "No, we're taking it outdoors before we start it.",
+       "expect": {
+        "mustSay": [
+         [
+          "haven't flagged the generator"
+         ]
+        ],
+        "mustNotSay": [
+         "nothing is flagged"
+        ],
+        "activeHazards": [],
+        "hazardAnswers": {
+         "power.fuel-burning.co": "ruledOut"
+        }
+       }
+      }
+     ]
+    },
+    {
+     "id": "clar-06-how-can-i-tell",
+     "turns": [
+      {
+       "say": "Our generator is in the basement.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "No idea if it's running. How can I tell?",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "not flagged"
+         ],
+         [
+          "never"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "mustNotSay": [
+         "nothing is flagged"
+        ],
+        "activeHazards": [],
+        "hazardAnswers": {
+         "power.fuel-burning.co": "unknown"
+        }
+       }
+      }
+     ]
+    },
+    {
+     "id": "clar-07-sump-pump",
+     "turns": [
+      {
+       "say": "Our generator is in the basement.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "The sump pump is running. The generator is off.",
+       "expect": {
+        "mustSay": [
+         [
+          "haven't flagged the generator"
+         ]
+        ],
+        "mustNotSay": [
+         "nothing is flagged"
+        ],
+        "activeHazards": [],
+        "hazardAnswers": {
+         "power.fuel-burning.co": "ruledOut"
+        }
+       }
+      }
+     ]
+    },
+    {
+     "id": "clar-09-not-in-use",
+     "turns": [
+      {
+       "say": "Our generator is in the basement.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "Not in use.",
+       "expect": {
+        "mustSay": [
+         [
+          "haven't flagged the generator"
+         ]
+        ],
+        "mustNotSay": [
+         "nothing is flagged"
+        ],
+        "activeHazards": [],
+        "hazardAnswers": {
+         "power.fuel-burning.co": "ruledOut"
+        }
+       }
+      }
+     ]
+    },
+    {
+     "id": "clar-10-water-flag-stays",
+     "turns": [
+      {
+       "say": "The tap water smells like gasoline.",
+       "expect": {
+        "entries": [
+         "water.contamination.fuel"
+        ],
+        "activeHazards": [
+         "water.contamination.fuel"
+        ]
+       }
+      },
+      {
+       "say": "Our generator is in the basement.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "activeHazards": [
+         "water.contamination.fuel"
+        ]
+       }
+      },
+      {
+       "say": "No, it is off.",
+       "expect": {
+        "mustSay": [
+         [
+          "haven't flagged the generator"
+         ]
+        ],
+        "mustNotSay": [
+         "nothing is flagged"
+        ],
+        "activeHazards": [
+         "water.contamination.fuel"
+        ],
+        "hazardAnswers": {
+         "power.fuel-burning.co": "ruledOut"
+        }
+       }
+      }
+     ]
+    },
+    {
+     "id": "clar-11-washer",
+     "turns": [
+      {
+       "say": "I have the owner's manual for a generator.",
+       "expect": {
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "When the washer finishes, can I run it again?",
+       "expect": {
+        "mustNotSay": [
+         "never run a generator"
+        ],
+        "activeHazards": []
+       }
+      }
+     ]
+    },
+    {
+     "id": "clar-12-battery-station",
+     "turns": [
+      {
+       "say": "Our generator is in the basement.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "Actually it is the battery power station, no fuel or engine.",
+       "expect": {
+        "mustSay": [
+         [
+          "haven't flagged the generator"
+         ]
+        ],
+        "mustNotSay": [
+         "nothing is flagged"
+        ],
+        "activeHazards": [],
+        "hazardAnswers": {
+         "power.fuel-burning.co": "ruledOut"
+        }
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "trial7-uncertainty-hazards",
+   "split": "dev",
+   "critical": true,
+   "scenarios": [
+    {
+     "id": "unc-04",
+     "turns": [
+      {
+       "say": "Our generator is in the basement.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "Not sure yet, but we've decided to start it there tonight.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ]
+        ],
+        "activeHazards": [
+         "power.fuel-burning.co"
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "unc-06",
+     "turns": [
+      {
+       "say": "Our generator is in the basement.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "I'm not sure about the sump pump. The generator is definitely running.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ]
+        ],
+        "activeHazards": [
+         "power.fuel-burning.co"
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "unc-11",
+     "turns": [
+      {
+       "say": "Our generator is in the basement.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "I heard it start. It's definitely running down there.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ]
+        ],
+        "activeHazards": [
+         "power.fuel-burning.co"
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "unc-12",
+     "turns": [
+      {
+       "say": "Our generator is in the basement.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "I haven't checked yet.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "not flagged"
+         ],
+         [
+          "never"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "mustNotSay": [
+         "nothing is flagged"
+        ],
+        "activeHazards": [],
+        "hazardAnswers": {
+         "power.fuel-burning.co": "unknown"
+        }
+       }
+      },
+      {
+       "say": "I checked. It's running down there.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ]
+        ],
+        "activeHazards": [
+         "power.fuel-burning.co"
+        ],
+        "hazardAnswers": {}
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "trial7-uncertainty-controls",
+   "split": "dev",
+   "critical": false,
+   "scenarios": [
+    {
+     "id": "unc-01",
+     "turns": [
+      {
+       "say": "Our generator is in the basement.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "I can't see it from here. It could be running.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "not flagged"
+         ],
+         [
+          "never"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "mustNotSay": [
+         "nothing is flagged"
+        ],
+        "activeHazards": [],
+        "hazardAnswers": {
+         "power.fuel-burning.co": "unknown"
+        }
+       }
+      }
+     ]
+    },
+    {
+     "id": "unc-02",
+     "turns": [
+      {
+       "say": "Our generator is in the basement.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "It might be running.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "not flagged"
+         ],
+         [
+          "never"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "mustNotSay": [
+         "nothing is flagged"
+        ],
+        "activeHazards": [],
+        "hazardAnswers": {
+         "power.fuel-burning.co": "unknown"
+        }
+       }
+      }
+     ]
+    },
+    {
+     "id": "unc-03",
+     "turns": [
+      {
+       "say": "Our generator is in the basement.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "Maybe we'll run it down there tonight.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "not flagged"
+         ],
+         [
+          "never"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "mustNotSay": [
+         "nothing is flagged"
+        ],
+        "activeHazards": [],
+        "hazardAnswers": {
+         "power.fuel-burning.co": "unknown"
+        }
+       }
+      }
+     ]
+    },
+    {
+     "id": "unc-05",
+     "turns": [
+      {
+       "say": "Our generator is in the basement.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "I thought it was running. Turns out it's the dehumidifier; the generator is off.",
+       "expect": {
+        "mustSay": [
+         [
+          "haven't flagged the generator"
+         ]
+        ],
+        "mustNotSay": [
+         "nothing is flagged"
+        ],
+        "activeHazards": [],
+        "hazardAnswers": {
+         "power.fuel-burning.co": "ruledOut"
+        }
+       }
+      }
+     ]
+    },
+    {
+     "id": "unc-07",
+     "turns": [
+      {
+       "say": "Our generator is in the basement.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "Probably not. I'll ask.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "not flagged"
+         ],
+         [
+          "never"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "mustNotSay": [
+         "nothing is flagged"
+        ],
+        "activeHazards": [],
+        "hazardAnswers": {
+         "power.fuel-burning.co": "unknown"
+        }
+       }
+      }
+     ]
+    },
+    {
+     "id": "unc-08",
+     "turns": [
+      {
+       "say": "Our generator is in the basement.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "I haven't checked yet.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "not flagged"
+         ],
+         [
+          "never"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "mustNotSay": [
+         "nothing is flagged"
+        ],
+        "activeHazards": [],
+        "hazardAnswers": {
+         "power.fuel-burning.co": "unknown"
+        }
+       }
+      }
+     ]
+    },
+    {
+     "id": "unc-09",
+     "turns": [
+      {
+       "say": "Our generator is in the basement.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "It may be on; the noise could be the freezer.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "not flagged"
+         ],
+         [
+          "never"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "mustNotSay": [
+         "nothing is flagged"
+        ],
+        "activeHazards": [],
+        "hazardAnswers": {
+         "power.fuel-burning.co": "unknown"
+        }
+       }
+      }
+     ]
+    },
+    {
+     "id": "unc-10",
+     "turns": [
+      {
+       "say": "Our generator is in the basement.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "No, it isn't running and we won't start it there.",
+       "expect": {
+        "mustSay": [
+         [
+          "haven't flagged the generator"
+         ]
+        ],
+        "mustNotSay": [
+         "nothing is flagged"
+        ],
+        "activeHazards": [],
+        "hazardAnswers": {
+         "power.fuel-burning.co": "ruledOut"
+        }
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "trial8-modal-hazards",
+   "split": "dev",
+   "critical": true,
+   "scenarios": [
+    {
+     "id": "modal-05-permission",
+     "turns": [
+      {
+       "say": "Our generator is in the basement.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "Could I start it down there after supper?",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ]
+        ],
+        "activeHazards": [
+         "power.fuel-burning.co"
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "modal-08-first-mention-permission",
+     "turns": [
+      {
+       "say": "Could I run the generator in the basement after supper?",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ]
+        ],
+        "activeHazards": [
+         "power.fuel-burning.co"
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "modal-09-reported-observation",
+     "turns": [
+      {
+       "say": "Our generator is in the basement.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "My sister just checked. The generator is running.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ]
+        ],
+        "activeHazards": [
+         "power.fuel-burning.co"
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "modal-10-negative-with-committed-plan",
+     "turns": [
+      {
+       "say": "Our generator is in the basement.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "It's off now, but we will start it there after supper.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ]
+        ],
+        "activeHazards": [
+         "power.fuel-burning.co"
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "modal-12-hedge-about-other-device",
+     "turns": [
+      {
+       "say": "Our generator is in the basement.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "I think the freezer stopped, but the generator is running.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ]
+        ],
+        "activeHazards": [
+         "power.fuel-burning.co"
+        ]
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "trial8-modal-controls",
+   "split": "dev",
+   "critical": false,
+   "scenarios": [
+    {
+     "id": "modal-01-hedge-before",
+     "turns": [
+      {
+       "say": "Our generator is in the basement.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "I think the generator is idling.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "not flagged"
+         ],
+         [
+          "never"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "mustNotSay": [
+         "nothing is flagged"
+        ],
+        "activeHazards": [],
+        "hazardAnswers": {
+         "power.fuel-burning.co": "unknown"
+        }
+       }
+      }
+     ]
+    },
+    {
+     "id": "modal-02-hedge-after",
+     "turns": [
+      {
+       "say": "Our generator is in the basement.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "The generator is idling, I think.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "not flagged"
+         ],
+         [
+          "never"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "mustNotSay": [
+         "nothing is flagged"
+        ],
+        "activeHazards": [],
+        "hazardAnswers": {
+         "power.fuel-burning.co": "unknown"
+        }
+       }
+      }
+     ]
+    },
+    {
+     "id": "modal-03-hedge-after-no-comma",
+     "turns": [
+      {
+       "say": "Our generator is in the basement.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "The generator is idling I think.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "not flagged"
+         ],
+         [
+          "never"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "mustNotSay": [
+         "nothing is flagged"
+        ],
+        "activeHazards": [],
+        "hazardAnswers": {
+         "power.fuel-burning.co": "unknown"
+        }
+       }
+      }
+     ]
+    },
+    {
+     "id": "modal-04-possible-present",
+     "turns": [
+      {
+       "say": "Our generator is in the basement.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "Could it already be running down there?",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "not flagged"
+         ],
+         [
+          "never"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "mustNotSay": [
+         "nothing is flagged"
+        ],
+        "activeHazards": [],
+        "hazardAnswers": {
+         "power.fuel-burning.co": "unknown"
+        }
+       }
+      }
+     ]
+    },
+    {
+     "id": "modal-06-unrelated-permission",
+     "turns": [
+      {
+       "say": "Our generator is in the basement.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "May I ask whether it's running?",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "not flagged"
+         ],
+         [
+          "never"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "mustNotSay": [
+         "nothing is flagged"
+        ],
+        "activeHazards": [],
+        "hazardAnswers": {
+         "power.fuel-burning.co": "unknown"
+        }
+       }
+      }
+     ]
+    },
+    {
+     "id": "modal-07-first-mention-possibility",
+     "turns": [
+      {
+       "say": "Could the generator already be running in the basement?",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "activeHazards": []
+       }
+      }
+     ]
+    },
+    {
+     "id": "modal-11-negative-with-tentative-plan",
+     "turns": [
+      {
+       "say": "Our generator is in the basement.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "It's off now, but perhaps we'll start it there after supper.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "not flagged"
+         ],
+         [
+          "never"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "mustNotSay": [
+         "nothing is flagged"
+        ],
+        "activeHazards": [],
+        "hazardAnswers": {
+         "power.fuel-burning.co": "unknown"
+        }
+       }
+      }
+     ]
+    },
+    {
+     "id": "modal-13-switch-after-unknown",
+     "turns": [
+      {
+       "say": "Our generator is in the basement.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "I haven't checked yet.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "not flagged"
+         ],
+         [
+          "never"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "mustNotSay": [
+         "nothing is flagged"
+        ],
+        "activeHazards": [],
+        "hazardAnswers": {
+         "power.fuel-burning.co": "unknown"
+        }
+       }
+      },
+      {
+       "say": "How long can milk stay in the fridge?",
+       "expect": {
+        "entries": [
+         "food.outage.cold"
+        ],
+        "mustNotSay": [
+         "is it running there"
+        ],
+        "activeHazards": [],
+        "hazardAnswers": {
+         "power.fuel-burning.co": "unknown"
+        }
+       }
+      }
+     ]
+    },
+    {
+     "id": "modal-14-switch-after-question",
+     "turns": [
+      {
+       "say": "Our generator is in the basement.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "How long can milk stay in the fridge?",
+       "expect": {
+        "entries": [
+         "food.outage.cold"
+        ],
+        "mustNotSay": [
+         "is it running there"
+        ],
+        "activeHazards": [],
+        "hazardAnswers": {}
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "trial9-qa-hazards",
+   "split": "dev",
+   "critical": true,
+   "scenarios": [
+    {
+     "id": "qa-01-permission-now",
+     "turns": [
+      {
+       "say": "Our generator is in the basement.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "Could we start it there right now?",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ]
+        ],
+        "activeHazards": [
+         "power.fuel-burning.co"
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "qa-05-reported-permission",
+     "turns": [
+      {
+       "say": "Our generator is in the basement.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "Is it OK if my dad starts the generator down there?",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ]
+        ],
+        "activeHazards": [
+         "power.fuel-burning.co"
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "qa-06-question-then-yes",
+     "turns": [
+      {
+       "say": "Our generator is in the basement.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "Is it idling? Yes, it is.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ]
+        ],
+        "activeHazards": [
+         "power.fuel-burning.co"
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "qa-08-question-then-direct-observation",
+     "turns": [
+      {
+       "say": "Our generator is in the basement.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "Is it idling? I just looked. The generator is running.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ]
+        ],
+        "activeHazards": [
+         "power.fuel-burning.co"
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "qa-14-first-mention-action",
+     "turns": [
+      {
+       "say": "Could we start the generator in the basement right now?",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ]
+        ],
+        "activeHazards": [
+         "power.fuel-burning.co"
+        ]
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "trial9-qa-controls",
+   "split": "dev",
+   "critical": false,
+   "scenarios": [
+    {
+     "id": "qa-02-present-possibility-now",
+     "turns": [
+      {
+       "say": "Our generator is in the basement.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "Could it be running there right now?",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "not flagged"
+         ],
+         [
+          "never"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "mustNotSay": [
+         "nothing is flagged"
+        ],
+        "activeHazards": [],
+        "hazardAnswers": {
+         "power.fuel-burning.co": "unknown"
+        }
+       }
+      }
+     ]
+    },
+    {
+     "id": "qa-03-observation-by-speaker",
+     "turns": [
+      {
+       "say": "Our generator is in the basement.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "Could I be hearing the generator running downstairs?",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "not flagged"
+         ],
+         [
+          "never"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "mustNotSay": [
+         "nothing is flagged"
+        ],
+        "activeHazards": [],
+        "hazardAnswers": {
+         "power.fuel-burning.co": "unknown"
+        }
+       }
+      }
+     ]
+    },
+    {
+     "id": "qa-04-checking-is-proposed",
+     "turns": [
+      {
+       "say": "Our generator is in the basement.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "Is it time to check whether the generator is running?",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "not flagged"
+         ],
+         [
+          "never"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "mustNotSay": [
+         "nothing is flagged"
+        ],
+        "activeHazards": [],
+        "hazardAnswers": {
+         "power.fuel-burning.co": "unknown"
+        }
+       }
+      }
+     ]
+    },
+    {
+     "id": "qa-07-question-then-no",
+     "turns": [
+      {
+       "say": "Our generator is in the basement.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "Is it idling? No, it isn't.",
+       "expect": {
+        "mustSay": [
+         [
+          "haven't flagged the generator"
+         ]
+        ],
+        "mustNotSay": [
+         "nothing is flagged"
+        ],
+        "activeHazards": [],
+        "hazardAnswers": {
+         "power.fuel-burning.co": "ruledOut"
+        }
+       }
+      }
+     ]
+    },
+    {
+     "id": "qa-09-question-then-direct-negative",
+     "turns": [
+      {
+       "say": "Our generator is in the basement.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "Is it idling? I just looked. The generator is off.",
+       "expect": {
+        "mustSay": [
+         [
+          "haven't flagged the generator"
+         ]
+        ],
+        "mustNotSay": [
+         "nothing is flagged"
+        ],
+        "activeHazards": [],
+        "hazardAnswers": {
+         "power.fuel-burning.co": "ruledOut"
+        }
+       }
+      }
+     ]
+    },
+    {
+     "id": "qa-10-correction-of-active-claim",
+     "turns": [
+      {
+       "say": "Our generator is in the basement.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "It's running. Sorry, I meant the dryer. The generator is off.",
+       "expect": {
+        "mustSay": [
+         [
+          "haven't flagged the generator"
+         ]
+        ],
+        "mustNotSay": [
+         "nothing is flagged"
+        ],
+        "activeHazards": [],
+        "hazardAnswers": {
+         "power.fuel-burning.co": "ruledOut"
+        }
+       }
+      }
+     ]
+    },
+    {
+     "id": "qa-11-unrelated-self-answer",
+     "turns": [
+      {
+       "say": "Our generator is in the basement.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "Is the dryer running? Yes, it is. I haven't checked the generator.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "not flagged"
+         ],
+         [
+          "never"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "mustNotSay": [
+         "nothing is flagged"
+        ],
+        "activeHazards": [],
+        "hazardAnswers": {
+         "power.fuel-burning.co": "unknown"
+        }
+       }
+      }
+     ]
+    },
+    {
+     "id": "qa-12-hedge-with-scope",
+     "turns": [
+      {
+       "say": "Our generator is in the basement.",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "activeHazards": []
+       }
+      },
+      {
+       "say": "The freezer is humming, I think, but the generator is off.",
+       "expect": {
+        "mustSay": [
+         [
+          "haven't flagged the generator"
+         ]
+        ],
+        "mustNotSay": [
+         "nothing is flagged"
+        ],
+        "activeHazards": [],
+        "hazardAnswers": {
+         "power.fuel-burning.co": "ruledOut"
+        }
+       }
+      }
+     ]
+    },
+    {
+     "id": "qa-13-first-mention-observation",
+     "turns": [
+      {
+       "say": "Could I be hearing the generator running in the basement?",
+       "expect": {
+        "entries": [
+         "power.fuel-burning.co"
+        ],
+        "mustSay": [
+         [
+          "never"
+         ],
+         [
+          "outside"
+         ],
+         [
+          "is it running there"
+         ]
+        ],
+        "activeHazards": []
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "trial12-guide",
+   "split": "dev",
+   "critical": false,
+   "scenarios": [
+    {
+     "id": "duration-keeps-plan",
+     "people": 3,
+     "turns": [
+      {
+       "say": "Plan for 7 days.",
+       "expect": {
+        "mustSay": [
+         [
+          "noted"
+         ]
+        ]
+       }
+      },
+      {
+       "say": "Nobody has had anything to drink for two days. How long can we go?",
+       "expect": {
+        "entries": [
+         "health.dehydration"
+        ],
+        "mustSay": [
+         [
+          "replace lost fluids"
+         ],
+         [
+          "medical help right away"
+         ]
+        ]
+       }
+      },
+      {
+       "say": "How much water should we store?",
+       "expect": {
+        "entries": [
+         "water.storage.baseline"
+        ],
+        "mustSay": [
+         [
+          "21 US gallons"
+         ]
+        ],
+        "mustNotSay": [
+         "6 US gallons"
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "live-without",
+     "turns": [
+      {
+       "say": "How long can you live without drinking water?",
+       "expect": {
+        "entries": [
+         "water.without"
+        ],
+        "mustSay": [
+         [
+          "no fixed number"
+         ]
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "last-bottle",
+     "turns": [
+      {
+       "say": "Should we save our last bottle for tomorrow instead of drinking it today?",
+       "expect": {
+        "entries": [
+         "water.rationing"
+        ],
+        "mustSay": [
+         [
+          "do not ration"
+         ]
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "three-for-two",
+     "people": 3,
+     "turns": [
+      {
+       "say": "How much water should we store for three people for two days?",
+       "expect": {
+        "entries": [
+         "water.storage.baseline"
+        ],
+        "mustSay": [
+         [
+          "6 US gallons"
+         ]
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "fridge-insulin",
+     "turns": [
+      {
+       "say": "The refrigerator lost power. How long is my insulin good?",
+       "expect": {
+        "entries": [
+         "health.insulin.outage"
+        ],
+        "mustSay": [
+         [
+          "28 days"
+         ]
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "pump-insulin",
+     "turns": [
+      {
+       "say": "What about the insulin in my pump during a blackout?",
+       "expect": {
+        "entries": [
+         "health.insulin.outage"
+        ],
+        "mustSay": [
+         [
+          "98.6"
+         ]
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "block-dark",
+     "turns": [
+      {
+       "say": "The whole block just lost electricity. What should I do first?",
+       "expect": {
+        "entries": [
+         "power.outage.during"
+        ],
+        "mustSay": [
+         [
+          "flashlights"
+         ]
+        ]
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "trial12-urgent",
+   "split": "dev",
+   "critical": true,
+   "scenarios": [
+    {
+     "id": "frozen-insulin",
+     "turns": [
+      {
+       "say": "My insulin froze in the cooler. Can I still use it?",
+       "expect": {
+        "entries": [
+         "health.insulin.outage"
+        ],
+        "mustSay": [
+         [
+          "do not use insulin that has frozen"
+         ]
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "rotten-eggs",
+     "turns": [
+      {
+       "say": "The kitchen smells like rotten eggs and I hear a hiss by the stove.",
+       "expect": {
+        "entries": [
+         "gas.leak"
+        ],
+        "mustSay": [
+         [
+          "leave the area now"
+         ]
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "natural-gas",
+     "turns": [
+      {
+       "say": "We smell natural gas in the house. What should we do?",
+       "expect": {
+        "entries": [
+         "gas.leak"
+        ],
+        "mustSay": [
+         [
+          "leave the area now"
+         ]
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "heat-dad",
+     "turns": [
+      {
+       "say": "After working outside in the heat, my dad is confused and his skin is hot.",
+       "expect": {
+        "entries": [
+         "health.heat.illness"
+        ],
+        "mustSay": [
+         [
+          "call 911"
+         ]
+        ],
+        "mustNotSay": [
+         "hypothermia"
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "cold-slurring",
+     "turns": [
+      {
+       "say": "She came in from the cold shivering and slurring her words.",
+       "expect": {
+        "entries": [
+         "health.cold.hypothermia"
+        ],
+        "mustSay": [
+         [
+          "medical emergency"
+         ]
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "white-fingertips",
+     "turns": [
+      {
+       "say": "My fingertips are white and numb after being out in the cold.",
+       "expect": {
+        "entries": [
+         "health.cold.frostbite"
+        ],
+        "mustSay": [
+         [
+          "warm, not hot"
+         ]
+        ]
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "trial13-plan",
+   "split": "dev",
+   "critical": false,
+   "scenarios": [
+    {
+     "id": "drank-over-last-three-days",
+     "people": 3,
+     "turns": [
+      {
+       "say": "Plan for 7 days.",
+       "expect": {
+        "mustSay": [
+         [
+          "noted"
+         ]
+        ]
+       }
+      },
+      {
+       "say": "I drank two gallons over the last three days",
+       "expect": {
+        "mustNotSay": [
+         "noted"
+        ]
+       }
+      },
+      {
+       "say": "How much water should we store?",
+       "expect": {
+        "entries": [
+         "water.storage.baseline"
+        ],
+        "mustSay": [
+         [
+          "21 US gallons"
+         ]
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "drank-then-signs",
+     "people": 3,
+     "turns": [
+      {
+       "say": "Plan for 7 days.",
+       "expect": {
+        "mustSay": [
+         [
+          "noted"
+         ]
+        ]
+       }
+      },
+      {
+       "say": "I drank two gallons over the last three days. What are the signs of dehydration?",
+       "expect": {
+        "entries": [
+         "health.dehydration"
+        ]
+       }
+      },
+      {
+       "say": "How much water should we store?",
+       "expect": {
+        "entries": [
+         "water.storage.baseline"
+        ],
+        "mustSay": [
+         [
+          "21 US gallons"
+         ]
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "supply-cut-off",
+     "people": 3,
+     "turns": [
+      {
+       "say": "Plan for 7 days.",
+       "expect": {
+        "mustSay": [
+         [
+          "noted"
+         ]
+        ]
+       }
+      },
+      {
+       "say": "Our water supply was cut off two days ago. What are the signs of dehydration?",
+       "expect": {
+        "entries": [
+         "health.dehydration"
+        ],
+        "mustSay": [
+         [
+          "replace lost fluids"
+         ]
+        ]
+       }
+      },
+      {
+       "say": "How much water should we store?",
+       "expect": {
+        "entries": [
+         "water.storage.baseline"
+        ],
+        "mustSay": [
+         [
+          "21 US gallons"
+         ]
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "store-closed-child",
+     "people": 3,
+     "turns": [
+      {
+       "say": "Plan for 7 days.",
+       "expect": {
+        "mustSay": [
+         [
+          "noted"
+         ]
+        ]
+       }
+      },
+      {
+       "say": "The store has been closed for two days. My child hasn't had anything to drink.",
+       "expect": {
+        "entries": [
+         "health.dehydration"
+        ]
+       }
+      },
+      {
+       "say": "How much water should we store?",
+       "expect": {
+        "entries": [
+         "water.storage.baseline"
+        ],
+        "mustSay": [
+         [
+          "21 US gallons"
+         ]
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "elapsed-after-water",
+     "people": 3,
+     "turns": [
+      {
+       "say": "Plan for 7 days.",
+       "expect": {
+        "mustSay": [
+         [
+          "noted"
+         ]
+        ]
+       }
+      },
+      {
+       "say": "How much water do we need?",
+       "expect": {
+        "entries": [
+         "water.storage.baseline"
+        ],
+        "mustSay": [
+         [
+          "21 US gallons"
+         ]
+        ]
+       }
+      },
+      {
+       "say": "Nobody has had water to drink for two days.",
+       "expect": {
+        "entries": [
+         "health.dehydration"
+        ]
+       }
+      },
+      {
+       "say": "How much water should we store?",
+       "expect": {
+        "entries": [
+         "water.storage.baseline"
+        ],
+        "mustSay": [
+         [
+          "21 US gallons"
+         ]
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "five-days-control",
+     "people": 3,
+     "turns": [
+      {
+       "say": "Plan for 7 days.",
+       "expect": {
+        "mustSay": [
+         [
+          "noted"
+         ]
+        ]
+       }
+      },
+      {
+       "say": "How much water do we need?",
+       "expect": {
+        "entries": [
+         "water.storage.baseline"
+        ]
+       }
+      },
+      {
+       "say": "What about for five days?",
+       "expect": {
+        "entries": [
+         "water.storage.baseline"
+        ],
+        "mustSay": [
+         [
+          "15 US gallons"
+         ]
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "change-plan-control",
+     "people": 3,
+     "turns": [
+      {
+       "say": "Change our water plan to five days.",
+       "expect": {
+        "mustSay": [
+         [
+          "noted"
+         ]
+        ]
+       }
+      },
+      {
+       "say": "How much water should we store?",
+       "expect": {
+        "entries": [
+         "water.storage.baseline"
+        ],
+        "mustSay": [
+         [
+          "15 US gallons"
+         ]
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "warm-fridge-milk",
+     "turns": [
+      {
+       "say": "The fridge is warm after the blackout. Is the milk OK?",
+       "expect": {
+        "entries": [
+         "food.outage.cold"
+        ],
+        "mustNotSay": [
+         "insulin"
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "frozen-vial",
+     "turns": [
+      {
+       "say": "My insulin vial froze overnight. Is it usable?",
+       "expect": {
+        "entries": [
+         "health.insulin.outage"
+        ],
+        "mustSay": [
+         [
+          "do not use insulin that has frozen"
+         ]
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "heat-wave-packing",
+     "turns": [
+      {
+       "say": "What should I pack before a heat wave? Everyone here feels fine.",
+       "expect": {
+        "mustNotSay": [
+         "Call 911 now if you suspect heat stroke"
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "no-gas-flashlight",
+     "turns": [
+      {
+       "say": "We don't smell gas. Which flashlight should we keep near the breaker box?",
+       "expect": {
+        "mustNotSay": [
+         "leave the area now"
+        ]
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "trial13-urgent",
+   "split": "dev",
+   "critical": true,
+   "scenarios": [
+    {
+     "id": "smell-gas",
+     "turns": [
+      {
+       "say": "I smell gas in the kitchen.",
+       "expect": {
+        "entries": [
+         "gas.leak"
+        ],
+        "mustSay": [
+         [
+          "leave the area now"
+         ]
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "grandpa-mowing",
+     "turns": [
+      {
+       "say": "Grandpa got confused while mowing in the heat and his skin feels hot.",
+       "expect": {
+        "entries": [
+         "health.heat.illness"
+        ],
+        "mustSay": [
+         [
+          "call 911"
+         ]
+        ]
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "guide-v3",
+   "split": "dev",
+   "critical": false,
+   "scenarios": [
+    {
+     "id": "without-water",
+     "turns": [
+      {
+       "say": "how long does a person last without water?",
+       "expect": {
+        "entries": [
+         "water.without"
+        ],
+        "mustSay": [
+         [
+          "no fixed number"
+         ]
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "ration",
+     "turns": [
+      {
+       "say": "We only have two gallons left, should we ration it?",
+       "expect": {
+        "entries": [
+         "water.rationing"
+        ],
+        "mustSay": [
+         [
+          "do not ration"
+         ]
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "drink-per-day",
+     "turns": [
+      {
+       "say": "How much water should I drink each day?",
+       "expect": {
+        "entries": [
+         "water.rationing"
+        ],
+        "mustSay": [
+         [
+          "drink what you need"
+         ],
+         [
+          "safe supply"
+         ]
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "gas-kitchen",
+     "turns": [
+      {
+       "say": "I smell gas in the kitchen",
+       "expect": {
+        "entries": [
+         "gas.leak"
+        ],
+        "mustSay": [
+         [
+          "leave"
+         ],
+         [
+          "911"
+         ]
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "rotten-egg",
+     "turns": [
+      {
+       "say": "There's a rotten egg smell by the stove",
+       "expect": {
+        "entries": [
+         "gas.leak"
+        ],
+        "mustSay": [
+         [
+          "leave"
+         ]
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "power-out",
+     "turns": [
+      {
+       "say": "The power just went out, what should we do?",
+       "expect": {
+        "entries": [
+         "power.outage.during"
+        ],
+        "mustSay": [
+         [
+          "flashlights"
+         ]
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "candles",
+     "turns": [
+      {
+       "say": "Can we use candles?",
+       "expect": {
+        "entries": [
+         "power.outage.during"
+        ],
+        "mustSay": [
+         [
+          "not candles"
+         ]
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "heat-confused",
+     "turns": [
+      {
+       "say": "my dad is confused and really hot, what do I do",
+       "expect": {
+        "entries": [
+         "health.heat.illness"
+        ],
+        "mustSay": [
+         [
+          "call 911"
+         ]
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "heat-exhaustion",
+     "turns": [
+      {
+       "say": "I think I have heat exhaustion",
+       "expect": {
+        "entries": [
+         "health.heat.illness"
+        ],
+        "mustSay": [
+         [
+          "sip water"
+         ]
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "shivering",
+     "turns": [
+      {
+       "say": "my son is shivering and his speech is slurred",
+       "expect": {
+        "entries": [
+         "health.cold.hypothermia"
+        ],
+        "mustSay": [
+         [
+          "medical emergency"
+         ]
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "insulin-power",
+     "turns": [
+      {
+       "say": "the power is out, is my insulin ok?",
+       "expect": {
+        "entries": [
+         "health.insulin.outage"
+        ],
+        "mustSay": [
+         [
+          "28 days"
+         ]
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "milk",
+     "turns": [
+      {
+       "say": "How long can milk stay in the fridge?",
+       "expect": {
+        "entries": [
+         "food.outage.cold"
+        ],
+        "mustSay": [
+         [
+          "4 hours"
+         ]
+        ]
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "heldout-guide-v3",
+   "split": "heldout",
+   "critical": false,
+   "scenarios": [
+    {
+     "id": "two-days-dry",
+     "turns": [
+      {
+       "say": "Is it bad to drink nothing for two days?",
+       "expect": {
+        "entries": [
+         "water.without"
+        ],
+        "mustSay": [
+         [
+          "no fixed number"
+         ]
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "last-jug",
+     "turns": [
+      {
+       "say": "We're down to our last jug of water. Drink it now or save it?",
+       "expect": {
+        "entries": [
+         "water.rationing"
+        ],
+        "mustSay": [
+         [
+          "do not ration"
+         ]
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "furnace-eggs",
+     "turns": [
+      {
+       "say": "Something smells like rotten eggs near the furnace",
+       "expect": {
+        "entries": [
+         "gas.leak"
+        ],
+        "mustSay": [
+         [
+          "leave"
+         ]
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "lights-out",
+     "turns": [
+      {
+       "say": "Lights went out an hour ago. Anything I should do?",
+       "expect": {
+        "entries": [
+         "power.outage.during"
+        ],
+        "mustSay": [
+         [
+          "unplug"
+         ]
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "grandma-heat",
+     "turns": [
+      {
+       "say": "My grandma feels dizzy and sweaty in this heat",
+       "expect": {
+        "entries": [
+         "health.heat.illness"
+        ],
+        "mustSay": [
+         [
+          "cool"
+         ]
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "numb-fingers",
+     "turns": [
+      {
+       "say": "My fingers are numb and white after shoveling",
+       "expect": {
+        "entries": [
+         "health.cold.frostbite"
+        ],
+        "mustSay": [
+         [
+          "warm"
+         ]
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "insulin-unrefrigerated",
+     "turns": [
+      {
+       "say": "Does insulin go bad if it's not refrigerated?",
+       "expect": {
+        "entries": [
+         "health.insulin.outage"
+        ],
+        "mustSay": [
+         [
+          "28 days"
+         ]
+        ]
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "heldout-trial13",
+   "split": "heldout",
+   "critical": false,
+   "scenarios": [
+    {
+     "id": "used-up-past-two-days",
+     "people": 3,
+     "turns": [
+      {
+       "say": "Plan for 7 days.",
+       "expect": {
+        "mustSay": [
+         [
+          "noted"
+         ]
+        ]
+       }
+      },
+      {
+       "say": "We used up three gallons in the past two days. Should we worry?",
+       "expect": {
+        "mustNotSay": [
+         "noted"
+        ]
+       }
+      },
+      {
+       "say": "How much water should we store?",
+       "expect": {
+        "entries": [
+         "water.storage.baseline"
+        ],
+        "mustSay": [
+         [
+          "21 US gallons"
+         ]
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "kids-drank-yesterday",
+     "people": 3,
+     "turns": [
+      {
+       "say": "Plan for 7 days.",
+       "expect": {
+        "mustSay": [
+         [
+          "noted"
+         ]
+        ]
+       }
+      },
+      {
+       "say": "The kids drank a gallon yesterday.",
+       "expect": {
+        "mustNotSay": [
+         "noted"
+        ]
+       }
+      },
+      {
+       "say": "How much water should we store?",
+       "expect": {
+        "entries": [
+         "water.storage.baseline"
+        ],
+        "mustSay": [
+         [
+          "21 US gallons"
+         ]
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "rained-three-days",
+     "people": 3,
+     "turns": [
+      {
+       "say": "Plan for 7 days.",
+       "expect": {
+        "mustSay": [
+         [
+          "noted"
+         ]
+        ]
+       }
+      },
+      {
+       "say": "It rained for three days straight last week.",
+       "expect": {
+        "mustNotSay": [
+         "noted"
+        ]
+       }
+      },
+      {
+       "say": "How much water should we store?",
+       "expect": {
+        "entries": [
+         "water.storage.baseline"
+        ],
+        "mustSay": [
+         [
+          "21 US gallons"
+         ]
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "no-gas-propane",
+     "turns": [
+      {
+       "say": "No one here smells gas, but where should the propane tank go?",
+       "expect": {
+        "mustNotSay": [
+         "leave the area now"
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "cool-house-heat-wave",
+     "turns": [
+      {
+       "say": "Our kids feel fine. How do we keep the house cool during the heat wave?",
+       "expect": {
+        "entries": [
+         "heat.prepare"
+        ],
+        "mustNotSay": [
+         "Call 911 now if you suspect heat stroke"
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "cheese-warm-fridge",
+     "turns": [
+      {
+       "say": "Is it safe to eat the cheese that sat in the warm fridge overnight?",
+       "expect": {
+        "entries": [
+         "food.outage.cold"
+        ],
+        "mustNotSay": [
+         "insulin"
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "baby-no-drink-after-plan",
+     "people": 3,
+     "turns": [
+      {
+       "say": "How much water should we store?",
+       "expect": {
+        "entries": [
+         "water.storage.baseline"
+        ]
+       }
+      },
+      {
+       "say": "The baby hasn't had anything to drink since this morning.",
+       "expect": {
+        "entries": [
+         "health.dehydration"
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "no-water-since-monday",
+     "turns": [
+      {
+       "say": "We've had no water since Monday and my son is dizzy.",
+       "expect": {
+        "entries": [
+         "health.dehydration"
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "pen-in-freezer",
+     "turns": [
+      {
+       "say": "The insulin pen was in the freezer by mistake. Can I still use it?",
+       "expect": {
+        "entries": [
+         "health.insulin.outage"
+        ],
+        "firstSentence": "Do not use insulin that has frozen."
+       }
+      }
+     ]
+    },
+    {
+     "id": "insulin-frozen-car",
+     "turns": [
+      {
+       "say": "Grandma's insulin got frozen in the car. Is it OK?",
+       "expect": {
+        "entries": [
+         "health.insulin.outage"
+        ],
+        "mustSay": [
+         [
+          "do not use insulin that has frozen"
+         ]
+        ]
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "heldout-trial13-urgent",
+   "split": "heldout",
+   "critical": true,
+   "scenarios": [
+    {
+     "id": "rotten-egg-water-heater",
+     "turns": [
+      {
+       "say": "There's a rotten egg smell by the water heater.",
+       "expect": {
+        "entries": [
+         "gas.leak"
+        ],
+        "mustSay": [
+         [
+          "leave the area now"
+         ]
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "neighbor-collapsed",
+     "turns": [
+      {
+       "say": "My neighbor collapsed while working outside in this heat.",
+       "expect": {
+        "entries": [
+         "health.heat.illness"
+        ],
+        "mustSay": [
+         [
+          "call 911"
+         ]
+        ]
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "source-qualifiers",
+   "split": "dev",
+   "critical": true,
+   "scenarios": [
+    {
+     "id": "suspected-heat-stroke",
+     "turns": [
+      {
+       "say": "What should I do if I suspect heat stroke?",
+       "expect": {
+        "entries": [
+         "health.heat.illness"
+        ],
+        "mustSay": [
+         [
+          "give nothing to drink"
+         ]
+        ],
+        "firstSentence": "Call 911 now if you suspect heat stroke."
+       }
+      }
+     ]
+    },
+    {
+     "id": "frozen-vial",
+     "turns": [
+      {
+       "say": "My insulin froze in the cooler. Can I still use it?",
+       "expect": {
+        "entries": [
+         "health.insulin.outage"
+        ],
+        "mustSay": [],
+        "firstSentence": "Do not use insulin that has frozen."
+       }
+      }
+     ]
+    },
+    {
+     "id": "transferred-insulin",
+     "turns": [
+      {
+       "say": "How do I store my diluted insulin if power is out?",
+       "expect": {
+        "entries": [
+         "health.insulin.outage"
+        ],
+        "mustSay": [
+         [
+          "within two weeks"
+         ],
+         [
+          "original vial"
+         ]
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "frostbite-care",
+     "turns": [
+      {
+       "say": "Should I use hot water for frostbite?",
+       "expect": {
+        "entries": [
+         "health.cold.frostbite"
+        ],
+        "mustSay": [
+         [
+          "if care is delayed"
+         ],
+         [
+          "no signs of hypothermia"
+         ],
+         [
+          "warm, not hot"
+         ]
+        ],
+        "firstSentence": "Get medical care as soon as you can."
+       }
+      }
+     ]
+    },
+    {
+     "id": "no-thermometer",
+     "turns": [
+      {
+       "say": "What if I suspect hypothermia and can’t take their temperature?",
+       "expect": {
+        "entries": [
+         "health.cold.hypothermia"
+        ],
+        "mustSay": [
+         [
+          "get medical help now"
+         ]
+        ],
+        "firstSentence": "Suspected hypothermia is a medical emergency."
+       }
+      }
+     ]
+    },
+    {
+     "id": "gas-call",
+     "turns": [
+      {
+       "say": "Should I warn my neighbors if I smell gas?",
+       "expect": {
+        "entries": [
+         "gas.leak"
+        ],
+        "mustSay": [
+         [
+          "call 911"
+         ],
+         [
+          "safely"
+         ]
+        ],
+        "firstSentence": "Leave the area now."
+       }
+      }
+     ]
+    },
+    {
+     "id": "cannot-boil-for-germs",
+     "turns": [
+      {
+       "say": "What if I can't boil water that might have germs?",
+       "expect": {
+        "entries": [
+         "water.treat.emergency"
+        ],
+        "mustSay": [
+         [
+          "bottled water"
+         ],
+         [
+          "follow the bleach label"
+         ],
+         [
+          "30 minutes"
+         ]
+        ]
+       }
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,1619 @@
+{
+ "packID": "outage-3day",
+ "version": 7,
+ "title": "Three-day household power and water outage",
+ "entries": [
+  {
+   "id": "water.storage.baseline",
+   "version": 2,
+   "title": "How much water to store",
+   "topic": "Water",
+   "questionVariants": [
+    "How much water should we store?",
+    "How much water should we store for three days?",
+    "How much water do we need for an outage?",
+    "How many gallons of water per person?",
+    "How much more water do we need?",
+    "Do we have enough water?"
+   ],
+   "keywords": [
+    "gallons",
+    "gallon",
+    "how much water",
+    "how many gallons",
+    "enough water",
+    "water supply",
+    "stock up on water"
+   ],
+   "applicability": "Planning household drinking and sanitation water before or during a short outage.",
+   "shortAnswer": "Store at least 1 US gallon of water per person per day, for several days, for drinking and sanitation. This is a planning baseline: children, nursing mothers, sick people, and anyone in hot weather can need more.",
+   "modelPassage": "Store at least 1 US gallon of water per person per day, for several days. That covers drinking and sanitation. Children, nursing mothers, and sick people need more. In very hot weather needs can double. The app does the arithmetic.",
+   "notes": [
+    {
+     "terms": [
+      "hot",
+      "heat",
+      "heat wave",
+      "summer",
+      "desert"
+     ],
+     "note": "In very hot weather, water needs can double."
+    },
+    {
+     "terms": [
+      "pregnant",
+      "nursing",
+      "breastfeeding",
+      "sick",
+      "ill",
+      "fever",
+      "infant",
+      "baby",
+      "child",
+      "children",
+      "kids",
+      "toddler"
+     ],
+     "note": "Children, nursing mothers, and sick people need more than the baseline."
+    },
+    {
+     "terms": [
+      "dog",
+      "dogs",
+      "cat",
+      "cats",
+      "pet",
+      "pets"
+     ],
+     "note": "The baseline counts people only. Store extra water for pets."
+    }
+   ],
+   "calculator": "water.storage",
+   "related": [
+    "water.storage.containers",
+    "water.treat.emergency"
+   ],
+   "source": {
+    "publisher": "Ready.gov (FEMA)",
+    "title": "Water",
+    "url": "https://www.ready.gov/water",
+    "sourceDate": null,
+    "retrieved": "2026-11-23"
+   },
+   "review": {
+    "status": "pending",
+    "reviewer": null,
+    "reviewDate": null
+   }
+  },
+  {
+   "id": "water.storage.containers",
+   "version": 3,
+   "title": "How to store water",
+   "topic": "Water",
+   "questionVariants": [
+    "How should we store water?",
+    "What containers can we store water in?",
+    "How long does stored water last?",
+    "When should stored water be replaced?",
+    "How do I sanitize an empty drinking water jug?"
+   ],
+   "keywords": [
+    "container",
+    "containers",
+    "jug",
+    "jugs",
+    "bottle",
+    "bottles",
+    "barrel",
+    "bottled water",
+    "replace",
+    "rotate",
+    "expire",
+    "shelf life",
+    "food grade",
+    "sanitize",
+    "sanitize containers",
+    "clean containers",
+    "storing water",
+    "water storage",
+    "empty jug"
+   ],
+   "applicability": "Filling your own containers with drinking water ahead of an outage.",
+   "shortAnswer": "Use food-grade containers, and never one that held chemicals such as bleach or pesticides. To sanitize: wash with soap and rinse. Mix 1 teaspoon of unscented bleach (5% to 9%) in 1 quart of water, close the lid, and shake so it touches every inside surface. Wait at least 30 seconds, pour it out, and let the container air-dry. Fill with safe water, close tightly, date it and replace home-filled water every 6 months.",
+   "modelPassage": "Choose a food-grade container that never held toxic chemicals. Wash and rinse it. To sanitize the empty container, mix 1 teaspoon unscented household bleach (5% to 9% sodium hypochlorite) with 1 quart water. Seal and shake to coat every inside surface. After at least 30 seconds, empty and air-dry it. Fill with safe water and close tightly. Date it and replace home-filled water every 6 months.",
+   "notes": [
+    {
+     "terms": [
+      "where",
+      "garage",
+      "sun",
+      "sunlight",
+      "temperature",
+      "hot",
+      "shed",
+      "basement",
+      "outside"
+     ],
+     "note": "Keep stored water somewhere cool (50°F to 70°F), out of direct sunlight, and away from gasoline and pesticides."
+    }
+   ],
+   "related": [
+    "water.storage.baseline",
+    "water.treat.emergency"
+   ],
+   "source": {
+    "publisher": "CDC",
+    "title": "How to Create an Emergency Water Supply",
+    "url": "https://www.cdc.gov/water-emergency/about/how-to-create-and-store-an-emergency-water-supply.html",
+    "sourceDate": "2025-06-27",
+    "retrieved": "2026-11-24"
+   },
+   "review": {
+    "status": "pending",
+    "reviewer": null,
+    "reviewDate": null
+   }
+  },
+  {
+   "id": "water.rationing",
+   "version": 3,
+   "title": "Rationing drinking water",
+   "topic": "Water",
+   "questionVariants": [
+    "Should we ration our drinking water?",
+    "Should I save my water for later?",
+    "We're running low on water. What do we do?",
+    "How much water should I drink each day?",
+    "How much should a person drink a day?",
+    "Should we save our last water for tomorrow?"
+   ],
+   "keywords": [
+    "ration",
+    "rationing",
+    "save water",
+    "running low",
+    "low on water",
+    "run out of water",
+    "drink each day",
+    "drink a day",
+    "per day",
+    "gallons left",
+    "water left",
+    "only have",
+    "last longer",
+    "make it last",
+    "stretch",
+    "last bottle",
+    "last of our water",
+    "save it for tomorrow",
+    "for tomorrow",
+    "drink it today"
+   ],
+   "applicability": "Drinking water is limited during an outage or emergency.",
+   "shortAnswer": "Do not ration drinking water unless local authorities direct you to. Drink what you need today and look for another safe supply. Rest in a cool place to reduce water loss. Heat, illness and nursing can increase fluid needs. The amount stored for a household also covers cooking and hygiene.",
+   "modelPassage": "Do not ration drinking water unless local authorities direct you to. Drink what you need today and look for another safe supply. Rest in a cool place to reduce water loss. Heat, illness and nursing can increase fluid needs. The amount stored for a household also covers cooking and hygiene.",
+   "notes": [
+    {
+     "terms": [
+      "hot",
+      "heat",
+      "heat wave",
+      "summer"
+     ],
+     "note": "In hot conditions, plan for extra safe water."
+    },
+    {
+     "terms": [
+      "child",
+      "children",
+      "kids",
+      "nursing",
+      "breastfeeding",
+      "pregnant",
+      "sick",
+      "ill"
+     ],
+     "note": "Children, nursing mothers, and sick people need more."
+    }
+   ],
+   "related": [
+    "water.without",
+    "water.treat.emergency",
+    "water.storage.baseline"
+   ],
+   "source": {
+    "publisher": "FEMA and American Red Cross",
+    "title": "Food and Water in an Emergency",
+    "url": "https://www.fema.gov/pdf/library/f%26web.pdf",
+    "sourceDate": null,
+    "retrieved": "2026-11-24"
+   },
+   "review": {
+    "status": "pending",
+    "reviewer": null,
+    "reviewDate": null
+   },
+   "additionalSources": [
+    {
+     "publisher": "FEMA",
+     "title": "Are You Ready? Basic Preparedness, section 1.4",
+     "url": "https://www.fema.gov/pdf/areyouready/basic_preparedness.pdf",
+     "sourceDate": null,
+     "retrieved": "2026-11-24"
+    }
+   ]
+  },
+  {
+   "id": "water.without",
+   "version": 2,
+   "title": "How long a person can go without water",
+   "topic": "Water",
+   "questionVariants": [
+    "How long can a person go without water?",
+    "How long does a person last without water?",
+    "How long can you survive without water?",
+    "How many days can we go without water?",
+    "How fast does dehydration become dangerous?",
+    "How long can a child go without water?",
+    "How long can you live without water?"
+   ],
+   "keywords": [
+    "without water",
+    "no water",
+    "survive",
+    "last",
+    "dehydration",
+    "days without",
+    "live without",
+    "how long without water",
+    "go without water",
+    "last without water"
+   ],
+   "applicability": "Someone has little or no drinking water.",
+   "shortAnswer": "There is no fixed number of safe days without water. Heat and exertion can make dehydration dangerous within hours. A survival estimate cannot tell you how long you can safely wait. If someone has already gone without fluids, open the dehydration entry for symptoms and what to do.",
+   "modelPassage": "There is no fixed number of safe days without water. Heat and exertion can make dehydration dangerous within hours. A survival estimate cannot tell you how long you can safely wait. If someone has already gone without fluids, open the dehydration entry for symptoms and what to do.",
+   "notes": [
+    {
+     "terms": [
+      "child",
+      "children",
+      "kid",
+      "kids",
+      "baby",
+      "infant",
+      "toddler"
+     ],
+     "note": "Children dehydrate faster than adults."
+    },
+    {
+     "terms": [
+      "hot",
+      "heat",
+      "heat wave",
+      "summer",
+      "sun",
+      "desert"
+     ],
+     "note": "In heat, dehydration can become dangerous within hours."
+    },
+    {
+     "terms": [
+      "beer",
+      "wine",
+      "alcohol",
+      "liquor"
+     ],
+     "note": "Alcohol makes dehydration worse. It does not count as water."
+    }
+   ],
+   "related": [
+    "health.dehydration",
+    "water.rationing",
+    "water.treat.emergency"
+   ],
+   "source": {
+    "publisher": "Scientific American",
+    "title": "How Long Can the Average Person Survive Without Water?",
+    "url": "https://www.scientificamerican.com/article/how-long-can-the-average/",
+    "sourceDate": null,
+    "retrieved": "2026-11-24"
+   },
+   "review": {
+    "status": "pending",
+    "reviewer": null,
+    "reviewDate": null
+   }
+  },
+  {
+   "id": "health.dehydration",
+   "version": 3,
+   "title": "Dehydration: what to do",
+   "topic": "Health",
+   "questionVariants": [
+    "Someone is dehydrated. What do I do?",
+    "What are the signs of dehydration?",
+    "We haven't had anything to drink since yesterday. What should we do?",
+    "When does dehydration need a doctor?",
+    "My baby hasn't had a wet diaper in hours. Is that dehydration?",
+    "My baby is barely peeing and has no tears. Could this be dehydration?"
+   ],
+   "keywords": [
+    "dehydrated",
+    "signs of dehydration",
+    "dehydration symptoms",
+    "anything to drink",
+    "nothing to drink",
+    "not drinking",
+    "haven't had water",
+    "hasn't had water",
+    "had no water",
+    "wet diaper",
+    "wet diapers",
+    "dark urine",
+    "dark pee",
+    "not peeing",
+    "no urine",
+    "dry mouth",
+    "very thirsty",
+    "rehydration",
+    "oral rehydration",
+    "electrolytes",
+    "sunken eyes"
+   ],
+   "applicability": "Someone has gone without enough fluids.",
+   "shortAnswer": "Replace lost fluids now if the person is alert and can swallow. Offer water for mild cases. An oral rehydration solution can help children. Get medical help right away for confusion, fainting, no urine, a racing heart, rapid breathing or shock. Adults may feel very thirsty, tired or dizzy and have dark urine. A dry mouth, few tears, unusual sleepiness or no wet diaper for 3 hours are signs in young children.",
+   "modelPassage": "Replace lost fluids now if the person is alert and can swallow. Offer water for mild cases. An oral rehydration solution can help children. Get medical help right away for confusion, fainting, no urine, a racing heart, rapid breathing or shock. Adults may feel very thirsty, tired or dizzy and have dark urine. A dry mouth, few tears, unusual sleepiness or no wet diaper for 3 hours are signs in young children.",
+   "notes": [],
+   "related": [
+    "water.without",
+    "water.rationing",
+    "water.treat.emergency"
+   ],
+   "urgentSigns": [
+    "dehydrated|dehydration|dehydrating",
+    "drink|drank|drunk|drinking|water|fluids|fluid nobody|hasn't|haven't|hadn't|hasnt|havent|hadnt|nothing|anything|without|no has|had|since|ago|been|yesterday !plan|planning|stock|stocking|prepare|preparing",
+    "thirsty|thirst very|really|so|extremely|too",
+    "urine|pee|peeing|urinating|diaper|diapers dark|no|hasn't|haven't|wet",
+    "tears crying|cries|cry no|without"
+   ],
+   "source": {
+    "publisher": "MedlinePlus (National Library of Medicine)",
+    "title": "Dehydration",
+    "url": "https://medlineplus.gov/dehydration.html",
+    "sourceDate": null,
+    "retrieved": "2026-11-25"
+   },
+   "review": {
+    "status": "pending",
+    "reviewer": null,
+    "reviewDate": null
+   },
+   "additionalSources": [
+    {
+     "publisher": "American Red Cross",
+     "title": "Emergency Medical Response Instructor’s Manual — care for dehydration",
+     "url": "https://www.redcross.org/content/dam/redcross/delta/EMR_InstructorsManual_2017_LoRes_111017.pdf",
+     "sourceDate": null,
+     "retrieved": "2026-11-24"
+    }
+   ]
+  },
+  {
+   "id": "water.treat.emergency",
+   "version": 2,
+   "title": "Making water safe to drink",
+   "topic": "Water",
+   "questionVariants": [
+    "How do we make water safe to drink?",
+    "How long do we boil water?",
+    "How much bleach do I add to a gallon of water?",
+    "How much bleach makes water safe?",
+    "How do we purify water?",
+    "Can we disinfect water with bleach?",
+    "How can I treat water for germs if I can't boil it?",
+    "What else kills germs in drinking water when I have no way to boil it?"
+   ],
+   "keywords": [
+    "purify",
+    "purification",
+    "disinfect",
+    "treat water",
+    "bleach",
+    "drops",
+    "chlorine",
+    "rolling boil",
+    "make water safe",
+    "unsafe water",
+    "cloudy water",
+    "sterilize",
+    "kill germs",
+    "germs in water",
+    "can't boil",
+    "cannot boil"
+   ],
+   "applicability": "No bottled water is available and the water may carry germs. Does not apply to water with fuel or chemicals in it.",
+   "shortAnswer": "Use bottled water if possible. Fuel or toxic chemicals cannot be removed by boiling or bleach. For germs, strain cloudy water first. Use a rolling boil for 1 minute (3 minutes above 6,500 feet) and cool. If you cannot boil, follow the bleach label. For 5% to 9% unscented household chlorine bleach, use 8 drops per gallon or 2 drops per quart. Double for cloudy or very cold water. Stir and wait at least 30 minutes.",
+   "modelPassage": "Use bottled water if possible. Fuel or toxic chemicals cannot be removed by boiling or bleach. For germs, strain cloudy water first. Use a rolling boil for 1 minute (3 minutes above 6,500 feet) and cool. If you cannot boil, follow the bleach label. For 5% to 9% unscented household chlorine bleach, use 8 drops per gallon or 2 drops per quart. Double for cloudy or very cold water. Stir and wait at least 30 minutes.",
+   "notes": [],
+   "related": [
+    "water.advisory.boil",
+    "water.contamination.fuel"
+   ],
+   "source": {
+    "publisher": "CDC",
+    "title": "How to Make Water Safe in an Emergency",
+    "url": "https://www.cdc.gov/water-emergency/about/index.html",
+    "sourceDate": "2024-09-19",
+    "retrieved": "2026-11-23"
+   },
+   "review": {
+    "status": "pending",
+    "reviewer": null,
+    "reviewDate": null
+   }
+  },
+  {
+   "id": "water.advisory.types",
+   "version": 1,
+   "title": "What water notices mean",
+   "topic": "Water notices",
+   "questionVariants": [
+    "What do the water notices mean?",
+    "What kinds of water advisories are there?",
+    "What is the difference between a boil water and a do not drink notice?",
+    "Is our tap water safe?"
+   ],
+   "keywords": [
+    "notice",
+    "notices",
+    "advisory",
+    "advisories",
+    "water alert",
+    "water warning",
+    "tap water"
+   ],
+   "applicability": "A water utility or health department has issued a notice about tap water.",
+   "shortAnswer": "Boil water advisory: boil tap water before use; boiling kills the germs.\nDo not drink advisory: use bottled water for drinking and cooking; boiling won't remove the chemicals or toxins.\nDo not use advisory: use bottled water for everything; any contact with tap water could be dangerous.\nUnder any of them, skip water and ice from the fridge dispenser.",
+   "modelPassage": "There are three kinds of drinking water advisory. Boil water: boil tap water before use, which kills germs. Do not drink: use bottled water for drinking and cooking, because boiling will not remove the chemicals or toxins. Do not use: use bottled water for everything, because any contact with tap water could be dangerous. Under any advisory, do not use water or ice from the refrigerator dispenser.",
+   "notes": [],
+   "related": [
+    "water.advisory.boil",
+    "water.advisory.do-not-drink"
+   ],
+   "source": {
+    "publisher": "CDC",
+    "title": "Drinking Water Advisories: An Overview",
+    "url": "https://www.cdc.gov/water-emergency/about/drinking-water-advisories-an-overview.html",
+    "sourceDate": "2024-03-04",
+    "retrieved": "2026-11-23"
+   },
+   "review": {
+    "status": "pending",
+    "reviewer": null,
+    "reviewDate": null
+   }
+  },
+  {
+   "id": "water.advisory.boil",
+   "version": 2,
+   "title": "Under a boil water advisory",
+   "topic": "Water notices",
+   "questionVariants": [
+    "What do we do under a boil water advisory?",
+    "We're under a boil water notice",
+    "Can we shower during a boil water advisory?",
+    "Can we brush our teeth with tap water during a boil notice?",
+    "How should I wash plates during a boil advisory?"
+   ],
+   "keywords": [
+    "boil water advisory",
+    "boil water notice",
+    "boil water order",
+    "boil notice",
+    "boil advisory",
+    "boil order",
+    "boil water"
+   ],
+   "applicability": "Officials have issued a boil water advisory. Not for do-not-drink or do-not-use advisories.",
+   "shortAnswer": "Use bottled water, or bring tap water to a full rolling boil for 1 minute (3 minutes above 6,500 feet) and let it cool. Use that for drinking, cooking, brushing teeth, and pets. Boil filtered water too, and skip water and ice from the fridge dispenser. Showering is fine if you don't swallow water; give babies and young children a sponge bath.",
+   "modelPassage": "During a boil water advisory use bottled water, or boil tap water at a full rolling boil for 1 minute, 3 minutes above 6,500 feet, and let it cool. Use bottled or boiled water for drinking, cooking, brushing teeth, and pets. Boil water from a home filter too. Do not use the refrigerator's water or ice. Do not swallow water in the shower. Laundry is fine. Handwashing with soap and tap water is usually fine.",
+   "notes": [
+    {
+     "terms": [
+      "baby",
+      "infant",
+      "formula",
+      "bottle",
+      "bottles"
+     ],
+     "note": "For babies: use ready-to-use formula if you can, and sanitize all baby bottles."
+    },
+    {
+     "terms": [
+      "dishes",
+      "dishwasher",
+      "plates"
+     ],
+     "note": "For dishes washed by hand, wash and rinse first. In a separate basin use 1 teaspoon unscented household bleach per gallon of warm water. Soak the clean dishes for at least 1 minute, then air-dry."
+    }
+   ],
+   "related": [
+    "water.advisory.types",
+    "water.treat.emergency"
+   ],
+   "source": {
+    "publisher": "CDC",
+    "title": "Drinking Water Advisories: An Overview",
+    "url": "https://www.cdc.gov/water-emergency/about/drinking-water-advisories-an-overview.html",
+    "sourceDate": "2024-03-04",
+    "retrieved": "2026-11-23"
+   },
+   "review": {
+    "status": "pending",
+    "reviewer": null,
+    "reviewDate": null
+   }
+  },
+  {
+   "id": "water.advisory.do-not-drink",
+   "version": 1,
+   "title": "Do not drink and do not use notices",
+   "topic": "Water notices",
+   "questionVariants": [
+    "What does a do not drink notice mean?",
+    "We're under a do not drink advisory",
+    "We're under a do not use water advisory",
+    "Can we boil water during a do not drink advisory?"
+   ],
+   "keywords": [
+    "do not drink",
+    "do not use",
+    "don't drink",
+    "don't use",
+    "do not drink advisory",
+    "do not use advisory",
+    "do not drink notice",
+    "do not drink order"
+   ],
+   "applicability": "Officials have issued a do-not-drink or do-not-use advisory.",
+   "shortAnswer": "Do not drink: boiling does not make this water safe. Use bottled water for drinking, cooking, brushing teeth, washing and preparing food, baby formula, ice, and pets.\nDo not use: use bottled water for everything and avoid any contact with tap water.\nFollow local officials on bathing.",
+   "modelPassage": "Under a do not drink advisory, boiling does not make the water safe. Use bottled water for drinking, cooking, brushing teeth, washing and preparing food, mixing baby formula, making ice, and pets. Under a do not use advisory, use bottled water for all purposes and avoid any contact with tap water. Follow local officials about bathing.",
+   "notes": [],
+   "related": [
+    "water.advisory.types",
+    "water.storage.baseline"
+   ],
+   "source": {
+    "publisher": "CDC",
+    "title": "Drinking Water Advisories: An Overview",
+    "url": "https://www.cdc.gov/water-emergency/about/drinking-water-advisories-an-overview.html",
+    "sourceDate": "2024-03-04",
+    "retrieved": "2026-11-23"
+   },
+   "review": {
+    "status": "pending",
+    "reviewer": null,
+    "reviewDate": null
+   }
+  },
+  {
+   "id": "water.contamination.fuel",
+   "version": 4,
+   "title": "Water with fuel or chemicals in it",
+   "topic": "Water notices",
+   "questionVariants": [
+    "What if our water may have fuel or chemicals in it?",
+    "Our water smells like gasoline",
+    "The tap water smells like chemicals after the flood",
+    "Is water with fuel in it safe if we boil it?"
+   ],
+   "keywords": [
+    "gasoline",
+    "fuel",
+    "diesel",
+    "kerosene",
+    "petroleum",
+    "chemical",
+    "chemicals",
+    "toxic",
+    "contaminated",
+    "contamination",
+    "oily",
+    "sheen",
+    "solvent",
+    "paint thinner",
+    "turpentine",
+    "acetone",
+    "antifreeze",
+    "pesticide"
+   ],
+   "applicability": "Water that smells or looks like it contains fuel or chemicals, or that officials say is chemically contaminated.",
+   "shortAnswer": "Do not drink or use this water. Boiling and disinfecting will not make water safe if it has fuel or toxic chemicals in it. Use bottled water or a different water source, and contact your local health department for advice.",
+   "modelPassage": "If water may have fuel or toxic chemicals in it, boiling will NOT make it safe and bleach will NOT make it safe. Do not drink it or use it. Use bottled water or a different water source. Contact the local health department for advice.",
+   "notes": [],
+   "hazard": {
+    "label": "Possible fuel or chemicals in the water",
+    "triggers": [
+     "water|tap|faucet|well|cistern|sink|hose gasoline|fuel|diesel|kerosene|petrol|petroleum|chemical|chemicals|solvent|paint|thinner|turpentine|acetone|varnish|antifreeze|pesticide|herbicide|weedkiller|ammonia|tar|plastic|killer|insecticide|poison|fertilizer smell|smells|smelly|taste|tastes|odor|reeks|stinks",
+     "water|tap|faucet|well|cistern|sink|hose smell|smells|smelly|taste|tastes|reeks|stinks like|of !chlorine|chlorinated|bleach|pool",
+     "water|tap|faucet|well|cistern|sink|hose oily|sheen|film|slick|rainbow",
+     "water|tap|faucet|well|cistern|sink|hose gasoline|fuel|diesel|kerosene|petrol|petroleum|chemical|chemicals|solvent|paint|thinner|turpentine|acetone|varnish|antifreeze|pesticide|herbicide|weedkiller|ammonia|tar|plastic|killer|insecticide|poison|fertilizer contaminated|contamination|leak|leaked|spill|spilled",
+     "water|tap|faucet|well|cistern|sink|hose gasoline|fuel|diesel|kerosene|petrol|petroleum|chemical|chemicals|solvent|paint|thinner|turpentine|acetone|varnish|antifreeze|pesticide|herbicide|weedkiller|ammonia|tar|plastic|killer|insecticide|poison|fertilizer got|gotten|fell|dropped|dumped|poured|mixed|seeped|splashed|drained|washed|carried|flowed|dripped|entered|soaked|ran in|into"
+    ],
+    "followUpTerms": [
+     "boil",
+     "boiling",
+     "boiled",
+     "filter",
+     "filtered",
+     "purify",
+     "bleach",
+     "tablets",
+     "treat",
+     "disinfect",
+     "drink",
+     "drinking",
+     "cook",
+     "cooking",
+     "coffee",
+     "wash",
+     "shower",
+     "bathe",
+     "bath",
+     "brush",
+     "formula",
+     "ice",
+     "pets",
+     "dog",
+     "cat",
+     "safe",
+     "ok",
+     "okay",
+     "fine",
+     "filters",
+     "filtering",
+     "brita",
+     "pitcher",
+     "purifier",
+     "strain",
+     "distill",
+     "carbon",
+     "osmosis",
+     "softener",
+     "rinse",
+     "dishes",
+     "laundry"
+    ],
+    "overrides": [
+     "water.advisory.boil",
+     "water.treat.emergency"
+    ],
+    "subjects": [
+     "water",
+     "tap",
+     "faucet",
+     "well",
+     "sink",
+     "hose",
+     "shower",
+     "cistern"
+    ],
+    "useTerms": [
+     "drink",
+     "drinking",
+     "boil",
+     "boiled",
+     "boiling",
+     "filter",
+     "filtered",
+     "filtering",
+     "purify",
+     "bleach",
+     "tablets",
+     "treat",
+     "disinfect",
+     "cook",
+     "cooking",
+     "coffee",
+     "tea",
+     "formula",
+     "brush",
+     "ice",
+     "wash",
+     "shower",
+     "bathe",
+     "bath",
+     "rinse",
+     "dishes",
+     "use",
+     "using",
+     "safe",
+     "ok",
+     "okay"
+    ],
+    "storageTerms": [],
+    "evidenceTerms": [
+     "smell",
+     "smells",
+     "smelly",
+     "taste",
+     "tastes",
+     "aftertaste",
+     "odor",
+     "reeks",
+     "stinks",
+     "sheen",
+     "oily",
+     "film",
+     "slick",
+     "rainbow",
+     "contaminated",
+     "contamination",
+     "leak",
+     "leaked",
+     "leaking",
+     "spill",
+     "spilled",
+     "spilling",
+     "got",
+     "gotten",
+     "fell",
+     "dropped",
+     "dumped",
+     "poured",
+     "mixed",
+     "seeped",
+     "splashed",
+     "drained",
+     "washed",
+     "carried",
+     "flowed",
+     "dripped",
+     "entered",
+     "soaked",
+     "ran"
+    ]
+   },
+   "related": [
+    "water.storage.baseline",
+    "water.advisory.do-not-drink"
+   ],
+   "source": {
+    "publisher": "CDC",
+    "title": "How to Make Water Safe in an Emergency",
+    "url": "https://www.cdc.gov/water-emergency/about/index.html",
+    "sourceDate": "2024-09-19",
+    "retrieved": "2026-11-23"
+   },
+   "review": {
+    "status": "pending",
+    "reviewer": null,
+    "reviewDate": null
+   }
+  },
+  {
+   "id": "food.outage.cold",
+   "version": 2,
+   "title": "Fridge and freezer during an outage",
+   "topic": "Food",
+   "questionVariants": [
+    "How long does food stay safe without power?",
+    "How long will the fridge keep food cold?",
+    "How long does a freezer last in a power outage?",
+    "The power is out. What about the food?",
+    "Do I need a cooler for refrigerated food when the lights go out?"
+   ],
+   "keywords": [
+    "fridge",
+    "refrigerator",
+    "freezer",
+    "frozen",
+    "perishable",
+    "cooler",
+    "food",
+    "groceries",
+    "spoil",
+    "keep food cold",
+    "milk",
+    "meat",
+    "dairy",
+    "leftovers",
+    "eggs",
+    "fridge is warm",
+    "warm fridge",
+    "milk ok",
+    "is the milk",
+    "fridge warm"
+   ],
+   "applicability": "The power is out and food is in a refrigerator or freezer.",
+   "shortAnswer": "Keep refrigerator and freezer doors shut. Food stays cold for up to 4 hours in a closed refrigerator, 48 hours in a full freezer or 24 hours in a half-full freezer. At 4 hours, move refrigerated perishables to a cooler with ice that keeps them at 40°F or below. If they have gone beyond that time without a cold source, discard them. Never taste food to test its safety.",
+   "modelPassage": "Keep refrigerator and freezer doors shut. Food stays cold for up to 4 hours in a closed refrigerator, 48 hours in a full freezer or 24 hours in a half-full freezer. At 4 hours, move refrigerated perishables to a cooler with ice that keeps them at 40°F or below. If they have gone beyond that time without a cold source, discard them. Never taste food to test its safety.",
+   "notes": [],
+   "related": [
+    "food.outage.after",
+    "power.fuel-burning.co",
+    "power.outage.during"
+   ],
+   "source": {
+    "publisher": "CDC",
+    "title": "Keep Food Safe After a Disaster or Emergency",
+    "url": "https://www.cdc.gov/food-safety/foods/keep-food-safe-after-emergency.html",
+    "sourceDate": "2025-11-24",
+    "retrieved": "2026-11-23"
+   },
+   "review": {
+    "status": "pending",
+    "reviewer": null,
+    "reviewDate": null
+   }
+  },
+  {
+   "id": "food.outage.after",
+   "version": 2,
+   "title": "What food to throw out",
+   "topic": "Food",
+   "questionVariants": [
+    "What food do we throw out after an outage?",
+    "Is the milk still good after the power was out?",
+    "Can we refreeze food that thawed?",
+    "Is the meat safe after the power outage?",
+    "Can I refreeze food that still has ice crystals?"
+   ],
+   "keywords": [
+    "throw out",
+    "throw away",
+    "discard",
+    "toss",
+    "spoiled",
+    "refreeze",
+    "thawed",
+    "milk",
+    "meat",
+    "eggs",
+    "leftovers",
+    "chicken",
+    "fish",
+    "still good",
+    "ice crystals",
+    "refreeze"
+   ],
+   "applicability": "Deciding what to keep after refrigerated or frozen food went without power.",
+   "shortAnswer": "Throw out perishable food (meat, fish, eggs, milk, leftovers, cut fruit and vegetables) that went more than 4 hours without power or a cold source, and anything with an unusual smell, color, or texture. Frozen food that still has ice crystals, or is at 40°F or below, can be refrozen or cooked. Never taste food to check it. When in doubt, throw it out.",
+   "modelPassage": "After an outage throw out perishable food such as meat, fish, eggs, milk, leftovers, and cut fruit and vegetables that went more than 4 hours without power or a cold source. Throw out food with an unusual smell, color, or texture. Thawed frozen food that still has ice crystals or is at 40 degrees F or below can be refrozen or cooked. Never taste food to check it. When in doubt, throw it out.",
+   "notes": [
+    {
+     "terms": [
+      "flood",
+      "flooded",
+      "floodwater",
+      "flood water",
+      "storm water"
+     ],
+     "note": "Throw away any food that touched flood or storm water."
+    }
+   ],
+   "related": [
+    "food.outage.cold"
+   ],
+   "source": {
+    "publisher": "CDC",
+    "title": "Keep Food Safe After a Disaster or Emergency",
+    "url": "https://www.cdc.gov/food-safety/foods/keep-food-safe-after-emergency.html",
+    "sourceDate": "2025-11-24",
+    "retrieved": "2026-11-23"
+   },
+   "review": {
+    "status": "pending",
+    "reviewer": null,
+    "reviewDate": null
+   }
+  },
+  {
+   "id": "power.fuel-burning.co",
+   "version": 6,
+   "title": "Generators, grills, and carbon monoxide",
+   "topic": "Power and heat",
+   "questionVariants": [
+    "Where can we run a generator or grill?",
+    "Can I run the generator in the garage?",
+    "Is it safe to use a grill indoors?",
+    "Can we heat the house with the oven?"
+   ],
+   "keywords": [
+    "generator",
+    "generators",
+    "grill",
+    "barbecue",
+    "bbq",
+    "hibachi",
+    "smoker",
+    "charcoal",
+    "propane",
+    "camp stove",
+    "camping stove",
+    "fire pit",
+    "lantern",
+    "pressure washer",
+    "propane heater",
+    "kerosene heater",
+    "carbon monoxide",
+    "co",
+    "fumes",
+    "exhaust",
+    "gas oven",
+    "briquette",
+    "briquettes",
+    "coals",
+    "embers"
+   ],
+   "applicability": "Using a generator or anything that burns gasoline, propane, or charcoal during an outage.",
+   "shortAnswer": "Never run a generator, grill, or any other gasoline-, propane-, or charcoal-burning device inside a home, garage, or carport, or near doors, windows, or vents. Keep generators outside, at least 20 feet from doors, windows, and vents. Don't heat your home with a gas oven. Carbon monoxide has no smell or color, and it kills.",
+   "modelPassage": "Never use a generator, grill, or other gasoline, propane, or charcoal burning device inside a home, garage, or carport, or near doors, windows, or vents. Keep generators outside at least 20 feet from doors, windows, and vents. Do not heat a home with a gas oven. These devices make carbon monoxide, a gas with no smell or color that kills.",
+   "notes": [],
+   "hazard": {
+    "label": "Carbon monoxide risk from a fuel-burning device",
+    "triggers": [
+     "generator|grill|charcoal|briquette|briquettes|coals|embers|hibachi|barbecue|bbq|smoker|propane inside|indoors|indoor|house|home|garage|basement|cellar|carport|porch|sunroom|room|bedroom|kitchen|den|bathroom|hallway|hall|attic|loft|closet|crawlspace|office|tent|cabin|apartment|shed|trailer|camper|rv|mudroom|laundry|workshop|utility|pantry|playroom|storeroom|boiler|furnace|barn|greenhouse|vestibule|foyer",
+     "camp|camping stove inside|indoors|indoor|house|home|garage|basement|cellar|carport|porch|sunroom|room|bedroom|kitchen|den|bathroom|hallway|hall|attic|loft|closet|crawlspace|office|tent|cabin|apartment|shed|trailer|camper|rv|mudroom|laundry|workshop|utility|pantry|playroom|storeroom|boiler|furnace|barn|greenhouse|vestibule|foyer",
+     "kerosene|propane heater|stove|lamp|lantern inside|indoors|indoor|house|home|garage|basement|cellar|carport|porch|sunroom|room|bedroom|kitchen|den|bathroom|hallway|hall|attic|loft|closet|crawlspace|office|tent|cabin|apartment|shed|trailer|camper|rv|mudroom|laundry|workshop|utility|pantry|playroom|storeroom|boiler|furnace|barn|greenhouse|vestibule|foyer",
+     "oven|grill|charcoal|briquette|briquettes|coals|embers|hibachi|barbecue|bbq heat|heating|warm|warmth"
+    ],
+    "followUpTerms": [
+     "door",
+     "doors",
+     "window",
+     "windows",
+     "open",
+     "vent",
+     "vents",
+     "ventilate",
+     "ventilation",
+     "crack",
+     "fan",
+     "garage",
+     "inside",
+     "indoors",
+     "porch",
+     "carport",
+     "close",
+     "closer"
+    ],
+    "overrides": [],
+    "subjects": [
+     "barbecue",
+     "bbq",
+     "briquette",
+     "briquettes",
+     "charcoal",
+     "coals",
+     "embers",
+     "generator",
+     "grill",
+     "hibachi",
+     "lantern",
+     "propane",
+     "smoker"
+    ],
+    "useTerms": [
+     "run",
+     "running",
+     "ran",
+     "use",
+     "using",
+     "used",
+     "start",
+     "started",
+     "operate",
+     "operating",
+     "light",
+     "lit",
+     "fire",
+     "firing",
+     "cook",
+     "cooking",
+     "burn",
+     "burning",
+     "heat",
+     "heating",
+     "warm",
+     "warmth",
+     "plug",
+     "humming",
+     "idling",
+     "glowing",
+     "smoldering",
+     "smouldering"
+    ],
+    "storageTerms": [
+     "store",
+     "stored",
+     "storing",
+     "storage",
+     "boxed",
+     "packed",
+     "receipt",
+     "warranty",
+     "serial",
+     "manual",
+     "instructions",
+     "assemble",
+     "assembly",
+     "bought",
+     "buy",
+     "order",
+     "ordered",
+     "delivered",
+     "return",
+     "sell",
+     "sold",
+     "box",
+     "unplugged",
+     "disconnected",
+     "sealed",
+     "carton",
+     "cartons",
+     "crate",
+     "packaging",
+     "wrapped",
+     "unopened",
+     "shipping",
+     "off",
+     "stopped"
+    ],
+    "evidenceTerms": [],
+    "requiresUse": true,
+    "question": "Is it running there, or are you planning to run it there?",
+    "planTerms": [
+     "planning",
+     "plan",
+     "plans",
+     "intend",
+     "intending",
+     "gonna",
+     "will"
+    ],
+    "safePlaces": [
+     "outside",
+     "outdoors",
+     "outdoor",
+     "yard",
+     "backyard",
+     "driveway",
+     "lawn"
+    ],
+    "exemptTerms": [
+     "battery",
+     "electric",
+     "solar",
+     "cordless",
+     "station"
+    ]
+   },
+   "related": [
+    "food.outage.cold",
+    "power.outage.during"
+   ],
+   "source": {
+    "publisher": "CDC",
+    "title": "Avoiding Carbon Monoxide Poisoning",
+    "url": "https://www.cdc.gov/natural-disasters/psa-toolkit/avoiding-carbon-monoxide-poisoning.html",
+    "sourceDate": "2026-08-26",
+    "retrieved": "2026-11-23"
+   },
+   "review": {
+    "status": "pending",
+    "reviewer": null,
+    "reviewDate": null
+   }
+  },
+  {
+   "id": "gas.leak",
+   "version": 2,
+   "title": "Smell of gas in the house",
+   "topic": "Gas",
+   "questionVariants": [
+    "What do I do if I smell gas?",
+    "I smell gas in the house.",
+    "There's a rotten egg smell in the kitchen.",
+    "I hear hissing from the gas line.",
+    "Is it a gas leak?"
+   ],
+   "keywords": [
+    "smell gas",
+    "smells like gas",
+    "gas smell",
+    "gas leak",
+    "leaking gas",
+    "natural gas",
+    "propane leak",
+    "rotten egg",
+    "rotten eggs",
+    "hissing",
+    "gas line",
+    "gas meter",
+    "water heater",
+    "gas stove",
+    "gas furnace",
+    "furnace",
+    "pilot light",
+    "gas appliance",
+    "gas heater"
+   ],
+   "applicability": "Someone smells natural gas or propane, or hears gas escaping, indoors.",
+   "shortAnswer": "Leave the area now. Don't use a phone, switch lights or appliances on or off, use a garage door opener, light a flame, or start an engine nearby: any spark can ignite the gas. From a neighbor's house or somewhere well away, call 911 and explain. Warn others to stay away if you can do so safely.",
+   "modelPassage": "If you smell gas or hear it hissing, leave the area now. Near the leak, do not use a phone, switch lights or appliances on or off, use a garage door opener, light a flame, or start an engine: a spark can ignite the gas. Call 911 from a neighbor's house or somewhere well away. Warn others to stay away if you can do so safely.",
+   "notes": [
+    {
+     "terms": [
+      "outside",
+      "outdoors",
+      "street",
+      "yard"
+     ],
+     "note": "Outdoors, move well away from the smell before calling 911."
+    }
+   ],
+   "related": [
+    "power.fuel-burning.co",
+    "power.outage.during"
+   ],
+   "urgentSigns": [
+    "smell|smells|smelled|smelling|odor|whiff|stink|stinks gas|propane|rotten|sulfur|sulphur|mercaptan",
+    "hiss|hissing|hissed gas|stove|pipe|line|meter|tank|propane|valve",
+    "leak|leaking|leaks|leaked gas|propane"
+   ],
+   "source": {
+    "publisher": "PHMSA (U.S. Department of Transportation)",
+    "title": "Recognizing and Responding to Pipeline Emergencies",
+    "url": "https://primis.phmsa.dot.gov/stakeholder-comms/emergencyresponse",
+    "sourceDate": null,
+    "retrieved": "2026-11-24"
+   },
+   "review": {
+    "status": "pending",
+    "reviewer": null,
+    "reviewDate": null
+   }
+  },
+  {
+   "id": "power.outage.during",
+   "version": 1,
+   "title": "During a power outage",
+   "topic": "Power",
+   "questionVariants": [
+    "What should we do when the power goes out?",
+    "The power is out. What now?",
+    "Is it safe to use candles?",
+    "Should I unplug things during a blackout?",
+    "What do we do in a blackout?",
+    "The power just went out on our whole street. What should I do first?"
+   ],
+   "keywords": [
+    "power out",
+    "power outage",
+    "power is out",
+    "power went out",
+    "blackout",
+    "outage",
+    "candle",
+    "candles",
+    "flashlight",
+    "unplug",
+    "surge",
+    "electricity out",
+    "lights out",
+    "lost electricity",
+    "no electricity",
+    "electricity",
+    "power is down",
+    "lost power",
+    "power went off",
+    "whole block",
+    "what should i do first"
+   ],
+   "applicability": "The electricity is out at home.",
+   "shortAnswer": "Use flashlights or battery lanterns, not candles. Unplug appliances and electronics so a surge can't damage them when power returns. Keep the fridge and freezer closed. Run generators, camp stoves and grills only outdoors, away from windows and doors, and never leave a car running in a garage, even with the door open. Watch for water advisories.",
+   "modelPassage": "During a power outage: use flashlights or battery lanterns, not candles. Unplug appliances and electronics to avoid surge damage when power returns. Keep the fridge and freezer closed. Run generators, camp stoves and grills only outdoors, away from windows and doors. Never heat the home with a gas stove, oven, grill or dryer, and never run a car in a garage. Watch for water advisories.",
+   "notes": [
+    {
+     "terms": [
+      "cold",
+      "heat the house",
+      "warm",
+      "winter",
+      "freezing"
+     ],
+     "note": "Never heat your home with a gas stove, oven, grill, or dryer."
+    },
+    {
+     "terms": [
+      "medicine",
+      "medication",
+      "insulin",
+      "oxygen",
+      "cpap",
+      "medical device"
+     ],
+     "note": "Have a plan for medicines that need cold and for power-dependent medical devices."
+    }
+   ],
+   "related": [
+    "food.outage.cold",
+    "power.fuel-burning.co",
+    "water.advisory.types"
+   ],
+   "source": {
+    "publisher": "Ready.gov (FEMA)",
+    "title": "Be Prepared for a Power Outage (FEMA V-1008)",
+    "url": "https://www.ready.gov/power-outages",
+    "sourceDate": null,
+    "retrieved": "2026-11-24"
+   },
+   "review": {
+    "status": "pending",
+    "reviewer": null,
+    "reviewDate": null
+   }
+  },
+  {
+   "id": "heat.prepare",
+   "version": 1,
+   "title": "Getting ready for a heat wave",
+   "topic": "Health",
+   "questionVariants": [
+    "How do we get ready for a heat wave?",
+    "What should we have ready before extreme heat?",
+    "Where can we go to cool off in a heat wave?",
+    "How do I keep the house cooler in a heat wave?",
+    "Is a fan enough in extreme heat?"
+   ],
+   "keywords": [
+    "heat wave",
+    "extreme heat",
+    "heat advisory",
+    "heat warning",
+    "cooling center",
+    "cooling centers",
+    "cool off",
+    "stay cool",
+    "keep cool",
+    "keep the house cool",
+    "fan",
+    "fans",
+    "air conditioning",
+    "air conditioner",
+    "window shades",
+    "pack",
+    "get ready"
+   ],
+   "applicability": "Extreme heat is coming or has arrived, and nobody is ill yet.",
+   "shortAnswer": "Know where to go to cool off: an air-conditioned library or mall, or a cooling center (ask your local health department). Don't rely on a fan to keep you safe. Cover windows with drapes or shades and weather-strip doors and windows. In the heat, drink plenty of fluids, wear loose, light-colored clothing, check on older adults and neighbors, and never leave people or pets in a closed car.",
+   "modelPassage": "Before extreme heat, find places to cool off, such as air-conditioned libraries or malls, or a cooling center through your local health department. A fan should not be your main way to stay cool. Cover windows with drapes or shades and weather-strip doors and windows. During the heat, drink plenty of fluids, wear loose, lightweight, light-colored clothing, check on older adults and neighbors, and never leave people or pets in a closed car.",
+   "notes": [],
+   "related": [
+    "health.heat.illness",
+    "water.storage.baseline",
+    "power.outage.during"
+   ],
+   "source": {
+    "publisher": "Ready.gov (FEMA)",
+    "title": "Extreme Heat",
+    "url": "https://www.ready.gov/heat",
+    "sourceDate": null,
+    "retrieved": "2026-11-25"
+   },
+   "review": {
+    "status": "pending",
+    "reviewer": null,
+    "reviewDate": null
+   }
+  },
+  {
+   "id": "health.heat.illness",
+   "version": 3,
+   "title": "Heat stroke and heat exhaustion",
+   "topic": "Health",
+   "questionVariants": [
+    "What are the signs of heat stroke?",
+    "What do I do for heat exhaustion?",
+    "Someone is overheating and confused. What do I do?",
+    "How do I tell heat stroke from heat exhaustion?",
+    "It's very hot and someone feels faint.",
+    "After working in the heat, someone is confused and their skin is hot.",
+    "My friend became confused during a hot outdoor game. What should I do?"
+   ],
+   "keywords": [
+    "heat stroke",
+    "heatstroke",
+    "heat exhaustion",
+    "overheating",
+    "overheated",
+    "too hot",
+    "heat cramps",
+    "heat illness",
+    "hot and confused",
+    "clammy",
+    "fainting",
+    "faint",
+    "really hot",
+    "very hot",
+    "hot and dizzy",
+    "dizzy",
+    "heat sick",
+    "sunstroke",
+    "skin is hot",
+    "hot skin",
+    "hot red skin",
+    "red skin",
+    "in the heat",
+    "out in the heat",
+    "working outside",
+    "working in the heat"
+   ],
+   "applicability": "Someone may be ill from heat.",
+   "shortAnswer": "Call 911 now if you suspect heat stroke. Signs include confusion, collapse, hot, red skin (dry or damp), or body temperature of 103°F or higher. Move somewhere cool. Cool skin with wet cloths or a cool bath and give nothing to drink. For heat exhaustion (heavy sweating, clammy skin), rest in a cool place, loosen clothing and sip water. Get help right away for vomiting, worsening symptoms or symptoms over an hour.",
+   "modelPassage": "Call 911 now if you suspect heat stroke. Signs include confusion, collapse, hot, red skin (dry or damp), or body temperature of 103°F or higher. Move somewhere cool. Cool skin with wet cloths or a cool bath and give nothing to drink. For heat exhaustion (heavy sweating, clammy skin), rest in a cool place, loosen clothing and sip water. Get help right away for vomiting, worsening symptoms or symptoms over an hour.",
+   "notes": [
+    {
+     "terms": [
+      "vomit",
+      "vomiting",
+      "throwing up",
+      "worse",
+      "hour"
+     ],
+     "note": "For heat exhaustion, get medical help right away if there is vomiting, symptoms get worse, or they last longer than 1 hour."
+    },
+    {
+     "terms": [
+      "cramp",
+      "cramps",
+      "spasm",
+      "spasms"
+     ],
+     "note": "For heat cramps, rest somewhere cool and drink water or a sports drink. Seek medical help right away if cramps last over an hour, you have heart problems, or you follow a low-sodium diet."
+    }
+   ],
+   "related": [
+    "heat.prepare",
+    "water.without",
+    "power.outage.during"
+   ],
+   "urgentSigns": [
+    "heatstroke|sunstroke|overheated|overheating",
+    "stroke|exhaustion heat",
+    "confused|confusion|dizzy|faint|fainted|fainting|lightheaded|vomiting|vomited|cramps|cramping|clammy|collapsed|unconscious|nauseous|nausea heat|hot|sun|mowing|outside|outdoors|working|sweating|sweaty !about",
+    "skin hot|red heat|sun|mowing|outside|outdoors|working"
+   ],
+   "source": {
+    "publisher": "CDC",
+    "title": "Heat-Related Illnesses",
+    "url": "https://www.cdc.gov/extreme-heat/media/pdf/Heat_Related_Illness.pdf",
+    "sourceDate": null,
+    "retrieved": "2026-11-24"
+   },
+   "review": {
+    "status": "pending",
+    "reviewer": null,
+    "reviewDate": null
+   }
+  },
+  {
+   "id": "health.cold.hypothermia",
+   "version": 2,
+   "title": "Hypothermia",
+   "topic": "Health",
+   "questionVariants": [
+    "What are the signs of hypothermia?",
+    "Someone is shivering and confused from the cold. What do I do?",
+    "How do I warm up someone who is too cold?",
+    "Is my baby too cold?",
+    "She came in from the cold shivering and confused."
+   ],
+   "keywords": [
+    "hypothermia",
+    "too cold",
+    "freezing",
+    "shivering",
+    "warm someone up",
+    "cold and confused",
+    "slurred",
+    "slurred speech",
+    "speech",
+    "can't stop shivering",
+    "blue lips",
+    "cold skin",
+    "slurring",
+    "slurring words",
+    "from the cold",
+    "came in from the cold",
+    "in the cold"
+   ],
+   "applicability": "Someone may be dangerously cold.",
+   "shortAnswer": "Suspected hypothermia is a medical emergency. Get medical help now. Shivering with slurred speech, confusion or clumsy hands after cold exposure is a warning. A temperature below 95°F is an emergency. Move the person to shelter, remove wet clothing and warm the center of the body with dry layers. Give nothing by mouth to an unconscious person.",
+   "modelPassage": "Suspected hypothermia is a medical emergency. Get medical help now. Shivering with slurred speech, confusion or clumsy hands after cold exposure is a warning. A temperature below 95°F is an emergency. Move the person to shelter, remove wet clothing and warm the center of the body with dry layers. Give nothing by mouth to an unconscious person.",
+   "notes": [
+    {
+     "terms": [
+      "no pulse",
+      "not breathing",
+      "unconscious",
+      "cpr"
+     ],
+     "note": "If the person has no pulse or breathing, perform CPR, even if they appear dead."
+    },
+    {
+     "terms": [
+      "baby",
+      "infant"
+     ],
+     "note": "Babies may have cold, bright red skin and very little energy."
+    }
+   ],
+   "related": [
+    "health.cold.frostbite",
+    "power.outage.during",
+    "power.fuel-burning.co"
+   ],
+   "urgentSigns": [
+    "hypothermia|hypothermic",
+    "shivering|shiver|shivers|slurred|slurring|drowsy|fumbling|stumbling cold|freezing|snow|ice|wet|winter|frozen"
+   ],
+   "source": {
+    "publisher": "CDC",
+    "title": "Preventing Hypothermia",
+    "url": "https://www.cdc.gov/winter-weather/prevention/index.html",
+    "sourceDate": null,
+    "retrieved": "2026-11-24"
+   },
+   "review": {
+    "status": "pending",
+    "reviewer": null,
+    "reviewDate": null
+   }
+  },
+  {
+   "id": "health.cold.frostbite",
+   "version": 2,
+   "title": "Frostbite",
+   "topic": "Health",
+   "questionVariants": [
+    "What do I do for frostbite?",
+    "What does frostbite look like?",
+    "My fingers are numb and white from the cold. What do I do?",
+    "How do I warm frostbitten toes?",
+    "Should I rub frostbite to warm it?",
+    "Can I rub a frostbitten patch with snow?",
+    "What if there is no doctor nearby for frostbite?"
+   ],
+   "keywords": [
+    "frostbite",
+    "frostbitten",
+    "frostnip",
+    "numb",
+    "white skin",
+    "waxy",
+    "grayish",
+    "grey skin",
+    "gray skin",
+    "fingertips",
+    "fingers",
+    "toes",
+    "ears",
+    "nose",
+    "firm skin",
+    "frozen skin"
+   ],
+   "applicability": "Skin may be frozen after time in the cold.",
+   "shortAnswer": "Get medical care as soon as you can. Numb, waxy or pale skin can be frostbite. Confusion or slurred speech after cold exposure can mean hypothermia and needs immediate help. Get to shelter. If care is delayed and there are no signs of hypothermia, use warm, not hot, water on the area. Avoid rubbing, direct heat and walking on affected feet unless necessary.",
+   "modelPassage": "Get medical care as soon as you can. Numb, waxy or pale skin can be frostbite. Confusion or slurred speech after cold exposure can mean hypothermia and needs immediate help. Get to shelter. If care is delayed and there are no signs of hypothermia, use warm, not hot, water on the area. Avoid rubbing, direct heat and walking on affected feet unless necessary.",
+   "notes": [
+    {
+     "terms": [
+      "shivering",
+      "confused",
+      "slurred",
+      "drowsy",
+      "sleepy"
+     ],
+     "note": "Shivering, confusion, slurred speech or drowsiness can mean hypothermia: get medical help now."
+    }
+   ],
+   "related": [
+    "health.cold.hypothermia",
+    "power.outage.during"
+   ],
+   "urgentSigns": [
+    "frostbite|frostbitten|frostnip",
+    "numb|white|waxy|grayish|gray|grey|hard|blistered|blisters finger|fingers|fingertips|toe|toes|ear|ears|nose|cheek|cheeks|feet|foot|hand|hands|skin cold|freezing|snow|shoveling|frost|ice|winter|outside"
+   ],
+   "source": {
+    "publisher": "CDC",
+    "title": "Preventing Frostbite",
+    "url": "https://www.cdc.gov/winter-weather/prevention/preventing-frostbite.html",
+    "sourceDate": null,
+    "retrieved": "2026-11-25"
+   },
+   "review": {
+    "status": "pending",
+    "reviewer": null,
+    "reviewDate": null
+   }
+  },
+  {
+   "id": "health.insulin.outage",
+   "version": 3,
+   "title": "Insulin without a refrigerator",
+   "topic": "Health",
+   "questionVariants": [
+    "How long can insulin stay out of the fridge?",
+    "The power is out. Is my insulin still good?",
+    "Can I use insulin that got warm?",
+    "Can I use insulin that froze?",
+    "How do I keep insulin without a fridge?",
+    "What about insulin pumps during a blackout?",
+    "Is insulin still usable after it froze?",
+    "How long does diluted insulin keep in an emergency?",
+    "Where do I find the limit for my insulin pen?"
+   ],
+   "keywords": [
+    "insulin",
+    "diabetes",
+    "diabetic",
+    "insulin pen",
+    "insulin vial",
+    "insulin pump",
+    "without a fridge",
+    "unrefrigerated",
+    "insulin ok",
+    "insulin still good",
+    "insulin warm",
+    "insulin froze",
+    "insulin in my pump",
+    "pump insulin"
+   ],
+   "applicability": "Someone relies on insulin and cannot refrigerate it.",
+   "shortAnswer": "Check your insulin's label. FDA gives up to 28 days at 59°F to 86°F for insulin in the manufacturer's vials or cartridges. Pens and pumps have product-specific instructions. Keep insulin away from sun and heat. Do not use insulin that has frozen. In an emergency you may need insulin exposed to heat above 86°F until you can replace it. Discard pump insulin exposed to temperatures above 98.6°F.",
+   "modelPassage": "Check the product label. FDA gives up to 28 days at 59°F to 86°F for insulin in original manufacturer vials or cartridges. For diluted insulin or insulin removed from its original vial, discard within two weeks. Pens and pumps have specific instructions. Never use frozen insulin. Emergency use above 86°F may be necessary until replacement. Discard pump insulin exposed to more than 98.6°F.",
+   "notes": [
+    {
+     "terms": [
+      "froze",
+      "frozen",
+      "freeze",
+      "freezer"
+     ],
+     "note": "Do not use insulin that has frozen.",
+     "lead": true
+    },
+    {
+     "terms": [
+      "diluted",
+      "transferred",
+      "removed from",
+      "drawn up"
+     ],
+     "note": "For diluted insulin or insulin removed from its original vial, FDA says to discard it within two weeks. Check your product instructions.",
+     "lead": true
+    }
+   ],
+   "related": [
+    "power.outage.during",
+    "food.outage.cold"
+   ],
+   "source": {
+    "publisher": "U.S. Food and Drug Administration",
+    "title": "Information Regarding Insulin Storage and Switching Between Products in an Emergency",
+    "url": "https://www.fda.gov/drugs/emergency-preparedness-drugs/information-regarding-insulin-storage-and-switching-between-products-emergency",
+    "sourceDate": null,
+    "retrieved": "2026-11-24"
+   },
+   "review": {
+    "status": "pending",
+    "reviewer": null,
+    "reviewDate": null
+   }
+  }
+ ]
+}

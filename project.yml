@@ -1,0 +1,109 @@
+# XcodeGen spec. Generate the project with:  xcodegen generate
+# Then open KITT.xcodeproj, pick your team, and run on the paired Series 5.
+#
+# To change the model: edit scripts/versions.env, then the two marked lines below.
+name: KITT
+options:
+  bundleIdPrefix: com.palvaran.kitt
+  deploymentTarget:
+    watchOS: "10.0"
+  createIntermediateGroups: true
+
+settings:
+  base:
+    ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+    SWIFT_VERSION: "5.0"
+    DEVELOPMENT_TEAM: "NWV5APGHL5"   # IDEASQUANTIFIED LLC (as chosen in Xcode › Signing)
+    CODE_SIGN_STYLE: Automatic
+    ENABLE_USER_SCRIPT_SANDBOXING: NO
+    # llama.xcframework's simulator slice is arm64 only (Apple silicon Macs). Release builds
+    # every architecture, so without this the simulator build also tries x86_64 and fails to link.
+    "EXCLUDED_ARCHS[sdk=watchsimulator*]": x86_64
+
+packages:
+  KITTCore:
+    path: Packages/KITTCore
+  KITTEngine:                     # brings llama.xcframework with it (scripts/build-llama.sh)
+    path: Packages/KITTEngine
+
+targets:
+  KITTWatch:
+    type: application
+    platform: watchOS
+    deploymentTarget: "10.0"
+    sources:
+      - path: Apps/Shared
+      - path: Apps/KITTWatch
+      - path: Models/SmolLM2-135M-Instruct-Q4_0.gguf        # model file (MODEL_FILE in versions.env)
+        optional: true
+        buildPhase: resources
+    dependencies:
+      - package: KITTCore
+      - package: KITTEngine
+        product: KITTEngine
+    info:
+      path: Apps/KITTWatch/Info.plist
+      properties:
+        CFBundleDisplayName: KITT
+        WKApplication: true
+        # Runs without the iPhone app. The iPhone app (KITTPhone) only carries it to the watch,
+        # because installing straight from Xcode to a Series 5 over Wi-Fi proved unreliable.
+        WKRunsIndependentlyOfCompanionApp: true
+        WKCompanionAppBundleIdentifier: com.palvaran.kitt
+        KITTModelSHA256: bcc3af2849ad6095af57e9b5cd43775256efdc66e306acb529172f92d0c04b03   # MODEL_SHA256 in versions.env
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.palvaran.kitt.watch
+        PRODUCT_NAME: KITT
+        TARGETED_DEVICE_FAMILY: "4"
+        GENERATE_INFOPLIST_FILE: NO
+        DEAD_CODE_STRIPPING: YES
+      configs:
+        Debug:
+          # Debug Swift is far slower; measure with Release (Product › Scheme › Edit › Run › Release).
+          SWIFT_OPTIMIZATION_LEVEL: "-Onone"
+    preBuildScripts:
+      - name: Verify pinned model
+        script: |
+          "$SRCROOT/scripts/verify-model.sh"
+        basedOnDependencyAnalysis: false
+
+  KITTPhone:
+    type: application
+    platform: iOS
+    deploymentTarget: "17.0"
+    sources:
+      - path: Apps/Shared
+      - path: Apps/KITTPhone
+    dependencies:
+      - target: KITTWatch          # embedded under Watch/; the iPhone installs it on the watch
+    info:
+      path: Apps/KITTPhone/Info.plist
+      properties:
+        CFBundleDisplayName: KITT
+        LSRequiresIPhoneOS: true
+        UILaunchScreen: {}
+        UIRequiredDeviceCapabilities: [arm64]
+        UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.palvaran.kitt
+        PRODUCT_NAME: KITT
+        TARGETED_DEVICE_FAMILY: "1"
+        GENERATE_INFOPLIST_FILE: NO
+
+schemes:
+  KITTPhone:                       # run this on the iPhone (USB) to put KITT on the watch
+    build:
+      targets:
+        KITTPhone: all
+    run:
+      config: Release
+  KITTWatch:
+    build:
+      targets:
+        KITTWatch: all
+    run:
+      config: Release
+    profile:
+      config: Release

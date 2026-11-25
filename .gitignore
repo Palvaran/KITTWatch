@@ -1,0 +1,13 @@
+.DS_Store
+*.xcodeproj/
+xcuserdata/
+.build/
+.build-llama/
+.swiftpm/
+DerivedData/
+Models/*.gguf
+Models/*.part
+Models/.verified
+Packages/KITTEngine/Frameworks/
+Apps/KITTWatch/Info.plist
+kitt-v1-scaffold.tgz

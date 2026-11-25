@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# Run the kitt command-line tool (or the engine tests) against the host build of
+# llama.cpp. Builds that first if it is missing.
+#
+#   scripts/kitt ask --model Models/SmolLM2-135M-Instruct-Q4_0.gguf --people 3 "How much water should we store?"
+#   scripts/kitt eval --model Models/SmolLM2-135M-Instruct-Q4_0.gguf --scenarios Eval/scenarios.json --out Eval/results
+#   KITT_MODEL=Models/SmolLM2-135M-Instruct-Q4_0.gguf scripts/kitt test
+set -euo pipefail
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+export KITT_LLAMA_PREFIX="$ROOT/.build-llama/host"
+[[ -f "$KITT_LLAMA_PREFIX/lib/libllama-kitt.a" ]] || "$ROOT/scripts/build-llama-host.sh"
+
+# Relative paths in arguments are relative to where you ran this from.
+ARGS=()
+for a in "$@"; do
+  if [[ "$a" != -* && "$a" != /* && -e "$a" ]]; then ARGS+=("$PWD/$a"); else ARGS+=("$a"); fi
+done
+if [[ -n "${KITT_MODEL:-}" && "$KITT_MODEL" != /* ]]; then export KITT_MODEL="$PWD/$KITT_MODEL"; fi
+
+cd "$ROOT/Packages/KITTEngine"
+if [[ "${ARGS[0]:-}" == "test" ]]; then
+  exec swift test
+fi
+swift build -c release --product kitt >/dev/null
+exec "$(swift build -c release --show-bin-path)/kitt" "${ARGS[@]}"

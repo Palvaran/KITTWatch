@@ -1,0 +1,350 @@
+{
+  "scope": "13 independent model-off sessions on the Mac, plus one seeded household replay into a second local log. Spoken strings reconstructed from AppModel. No recording or physical-watch playback test.",
+  "turns": [
+    {
+      "message": {
+        "text": "Noted: plan for 2 days.",
+        "interrupted": false,
+        "citations": [],
+        "origin": "app",
+        "asksHazardQuestion": false,
+        "unsupportedNumbers": [],
+        "offersModel": false,
+        "suggestions": []
+      },
+      "answers": {},
+      "active": [],
+      "prompt": "Nobody has had anything to drink for two days. How long can we go?",
+      "group": 1,
+      "speechTextFromCurrentAppFormatter": "Noted: plan for 2 days.",
+      "expectedTopic": "water.without",
+      "offeredTitles": []
+    },
+    {
+      "message": {
+        "text": "I'm not sure which guide entry fits. Is it one of these?",
+        "interrupted": false,
+        "citations": [],
+        "origin": "app",
+        "asksHazardQuestion": false,
+        "unsupportedNumbers": [],
+        "offersModel": true,
+        "suggestions": [
+          "water.without",
+          "water.treat.emergency",
+          "food.outage.cold"
+        ]
+      },
+      "answers": {},
+      "active": [],
+      "prompt": "How long can you live without drinking water?",
+      "group": 2,
+      "speechTextFromCurrentAppFormatter": "I'm not sure which guide entry fits. Is it one of these? How long a person can go without water. Making water safe to drink. Fridge and freezer during an outage.",
+      "expectedTopic": "water.without",
+      "offeredTitles": [
+        "How long a person can go without water",
+        "Making water safe to drink",
+        "Fridge and freezer during an outage"
+      ]
+    },
+    {
+      "message": {
+        "text": "I'm not sure which guide entry fits. Is it one of these?",
+        "interrupted": false,
+        "citations": [],
+        "origin": "app",
+        "asksHazardQuestion": false,
+        "unsupportedNumbers": [],
+        "offersModel": true,
+        "suggestions": [
+          "water.rationing",
+          "water.storage.containers",
+          "water.without"
+        ]
+      },
+      "answers": {},
+      "active": [],
+      "prompt": "Should we save our last bottle for tomorrow instead of drinking it today?",
+      "group": 3,
+      "speechTextFromCurrentAppFormatter": "I'm not sure which guide entry fits. Is it one of these? Rationing drinking water. How to store water. How long a person can go without water.",
+      "expectedTopic": "water.rationing",
+      "offeredTitles": [
+        "Rationing drinking water",
+        "How to store water",
+        "How long a person can go without water"
+      ]
+    },
+    {
+      "message": {
+        "text": "Plan for 6 US gallons.\n3 people × 2 days × 1 gal per person per day = 6 gal\nPlanning baseline from Ready.gov (FEMA).",
+        "interrupted": false,
+        "citations": [
+          "water.storage.baseline@v2"
+        ],
+        "origin": "guide",
+        "asksHazardQuestion": false,
+        "unsupportedNumbers": [],
+        "offersModel": false,
+        "suggestions": [
+          "water.storage.containers",
+          "water.treat.emergency"
+        ]
+      },
+      "answers": {},
+      "active": [],
+      "prompt": "How much water should we store for three people for two days?",
+      "group": 4,
+      "speechTextFromCurrentAppFormatter": "Plan for 6 US gallons.\n3 people × 2 days × 1 gal per person per day = 6 gal\nPlanning baseline from Ready.gov (FEMA). How to store water. Making water safe to drink.",
+      "expectedTopic": "water.storage.baseline",
+      "offeredTitles": [
+        "How to store water",
+        "Making water safe to drink"
+      ]
+    },
+    {
+      "message": {
+        "text": "Insulin vials and cartridges can stay unrefrigerated between 59°F and 86°F for up to 28 days and still work. Keep it out of direct heat and sunlight. Don't use insulin that has frozen. In an emergency you may need to use insulin stored above 86°F; replace it with properly stored insulin as soon as you can. Throw away pump insulin exposed to over 98.6°F.",
+        "interrupted": false,
+        "citations": [
+          "health.insulin.outage@v1"
+        ],
+        "origin": "guide",
+        "asksHazardQuestion": false,
+        "unsupportedNumbers": [],
+        "offersModel": false,
+        "suggestions": [
+          "power.outage.during",
+          "food.outage.cold"
+        ]
+      },
+      "answers": {},
+      "active": [],
+      "prompt": "The refrigerator lost power. How long is my insulin good for?",
+      "group": 5,
+      "speechTextFromCurrentAppFormatter": "Insulin vials and cartridges can stay unrefrigerated between 59°F and 86°F for up to 28 days and still work. Keep it out of direct heat and sunlight. Don't use insulin that has frozen. In an emergency you may need to use insulin stored above 86°F; replace it with properly stored insulin as soon as you can. Throw away pump insulin exposed to over 98.6°F. During a power outage. Fridge and freezer during an outage.",
+      "expectedTopic": "health.insulin.outage",
+      "offeredTitles": [
+        "During a power outage",
+        "Fridge and freezer during an outage"
+      ]
+    },
+    {
+      "message": {
+        "text": "Insulin vials and cartridges can stay unrefrigerated between 59°F and 86°F for up to 28 days and still work. Keep it out of direct heat and sunlight. Don't use insulin that has frozen. In an emergency you may need to use insulin stored above 86°F; replace it with properly stored insulin as soon as you can. Throw away pump insulin exposed to over 98.6°F.",
+        "interrupted": false,
+        "citations": [
+          "health.insulin.outage@v1"
+        ],
+        "origin": "guide",
+        "asksHazardQuestion": false,
+        "unsupportedNumbers": [],
+        "offersModel": false,
+        "suggestions": [
+          "power.outage.during",
+          "food.outage.cold"
+        ]
+      },
+      "answers": {},
+      "active": [],
+      "prompt": "My insulin froze in the cooler. Can I still use it?",
+      "group": 6,
+      "speechTextFromCurrentAppFormatter": "Insulin vials and cartridges can stay unrefrigerated between 59°F and 86°F for up to 28 days and still work. Keep it out of direct heat and sunlight. Don't use insulin that has frozen. In an emergency you may need to use insulin stored above 86°F; replace it with properly stored insulin as soon as you can. Throw away pump insulin exposed to over 98.6°F. During a power outage. Fridge and freezer during an outage.",
+      "expectedTopic": "health.insulin.outage",
+      "offeredTitles": [
+        "During a power outage",
+        "Fridge and freezer during an outage"
+      ]
+    },
+    {
+      "message": {
+        "text": "I'm not sure which guide entry fits. Is it one of these?",
+        "interrupted": false,
+        "citations": [],
+        "origin": "app",
+        "asksHazardQuestion": false,
+        "unsupportedNumbers": [],
+        "offersModel": true,
+        "suggestions": [
+          "health.insulin.outage",
+          "power.outage.during"
+        ]
+      },
+      "answers": {},
+      "active": [],
+      "prompt": "What about the insulin in my pump during a blackout?",
+      "group": 7,
+      "speechTextFromCurrentAppFormatter": "I'm not sure which guide entry fits. Is it one of these? Insulin without a refrigerator. During a power outage.",
+      "expectedTopic": "health.insulin.outage",
+      "offeredTitles": [
+        "Insulin without a refrigerator",
+        "During a power outage"
+      ]
+    },
+    {
+      "message": {
+        "text": "Leave the area now. Don't use a phone, switch lights or appliances on or off, use a garage door opener, light a flame, or start an engine nearby: any spark can ignite the gas. From a neighbor's house or somewhere well away, call 911 and explain. Warn others to stay away and not make sparks.",
+        "interrupted": false,
+        "citations": [
+          "gas.leak@v1"
+        ],
+        "origin": "guide",
+        "asksHazardQuestion": false,
+        "unsupportedNumbers": [],
+        "offersModel": false,
+        "suggestions": [
+          "power.fuel-burning.co",
+          "power.outage.during"
+        ]
+      },
+      "answers": {},
+      "active": [],
+      "prompt": "The kitchen smells like rotten eggs and I hear a hiss by the stove.",
+      "group": 8,
+      "speechTextFromCurrentAppFormatter": "Leave the area now. Don't use a phone, switch lights or appliances on or off, use a garage door opener, light a flame, or start an engine nearby: any spark can ignite the gas. From a neighbor's house or somewhere well away, call 911 and explain. Warn others to stay away and not make sparks. Generators, grills, and carbon monoxide. During a power outage.",
+      "expectedTopic": "gas.leak",
+      "offeredTitles": [
+        "Generators, grills, and carbon monoxide",
+        "During a power outage"
+      ]
+    },
+    {
+      "message": {
+        "text": "Leave the area now. Don't use a phone, switch lights or appliances on or off, use a garage door opener, light a flame, or start an engine nearby: any spark can ignite the gas. From a neighbor's house or somewhere well away, call 911 and explain. Warn others to stay away and not make sparks.",
+        "interrupted": false,
+        "citations": [
+          "gas.leak@v1"
+        ],
+        "origin": "guide",
+        "asksHazardQuestion": false,
+        "unsupportedNumbers": [],
+        "offersModel": false,
+        "suggestions": [
+          "power.fuel-burning.co",
+          "power.outage.during"
+        ]
+      },
+      "answers": {},
+      "active": [],
+      "prompt": "We smell natural gas in the house. What should we do?",
+      "group": 9,
+      "speechTextFromCurrentAppFormatter": "Leave the area now. Don't use a phone, switch lights or appliances on or off, use a garage door opener, light a flame, or start an engine nearby: any spark can ignite the gas. From a neighbor's house or somewhere well away, call 911 and explain. Warn others to stay away and not make sparks. Generators, grills, and carbon monoxide. During a power outage.",
+      "expectedTopic": "gas.leak",
+      "offeredTitles": [
+        "Generators, grills, and carbon monoxide",
+        "During a power outage"
+      ]
+    },
+    {
+      "message": {
+        "text": "I'm not sure which guide entry fits. Is it one of these?",
+        "interrupted": false,
+        "citations": [],
+        "origin": "app",
+        "asksHazardQuestion": false,
+        "unsupportedNumbers": [],
+        "offersModel": true,
+        "suggestions": [
+          "health.cold.hypothermia",
+          "health.heat.illness",
+          "water.storage.containers"
+        ]
+      },
+      "answers": {},
+      "active": [],
+      "prompt": "After working outside in the heat, my dad is confused and his skin is hot.",
+      "group": 10,
+      "speechTextFromCurrentAppFormatter": "I'm not sure which guide entry fits. Is it one of these? Hypothermia. Heat stroke and heat exhaustion. How to store water.",
+      "expectedTopic": "health.heat.illness",
+      "offeredTitles": [
+        "Hypothermia",
+        "Heat stroke and heat exhaustion",
+        "How to store water"
+      ]
+    },
+    {
+      "message": {
+        "text": "I'm not sure which guide entry fits. Is it one of these?",
+        "interrupted": false,
+        "citations": [],
+        "origin": "app",
+        "asksHazardQuestion": false,
+        "unsupportedNumbers": [],
+        "offersModel": true,
+        "suggestions": [
+          "health.cold.hypothermia",
+          "food.outage.cold",
+          "power.outage.during"
+        ]
+      },
+      "answers": {},
+      "active": [],
+      "prompt": "She came in from the cold shivering and slurring her words.",
+      "group": 11,
+      "speechTextFromCurrentAppFormatter": "I'm not sure which guide entry fits. Is it one of these? Hypothermia. Fridge and freezer during an outage. During a power outage.",
+      "expectedTopic": "health.cold.hypothermia",
+      "offeredTitles": [
+        "Hypothermia",
+        "Fridge and freezer during an outage",
+        "During a power outage"
+      ]
+    },
+    {
+      "message": {
+        "text": "I'm not sure which guide entry fits. Is it one of these?",
+        "interrupted": false,
+        "citations": [],
+        "origin": "app",
+        "asksHazardQuestion": false,
+        "unsupportedNumbers": [],
+        "offersModel": true,
+        "suggestions": [
+          "health.cold.hypothermia",
+          "food.outage.cold",
+          "power.outage.during"
+        ]
+      },
+      "answers": {},
+      "active": [],
+      "prompt": "My fingertips are white and numb after being out in the cold.",
+      "group": 12,
+      "speechTextFromCurrentAppFormatter": "I'm not sure which guide entry fits. Is it one of these? Hypothermia. Fridge and freezer during an outage. During a power outage.",
+      "expectedTopic": "frostbite",
+      "offeredTitles": [
+        "Hypothermia",
+        "Fridge and freezer during an outage",
+        "During a power outage"
+      ]
+    },
+    {
+      "message": {
+        "text": "I'm not sure which guide entry fits. Is it one of these?",
+        "interrupted": false,
+        "citations": [],
+        "origin": "app",
+        "asksHazardQuestion": false,
+        "unsupportedNumbers": [],
+        "offersModel": true,
+        "suggestions": [
+          "power.outage.during"
+        ]
+      },
+      "answers": {},
+      "active": [],
+      "prompt": "The whole block just lost electricity. What should I do first?",
+      "group": 13,
+      "speechTextFromCurrentAppFormatter": "I'm not sure which guide entry fits. Is it one of these? During a power outage.",
+      "expectedTopic": "power.outage.during",
+      "offeredTitles": [
+        "During a power outage"
+      ]
+    }
+  ],
+  "householdReplay": {
+    "newConversationPlanAfterReplay": "2 days",
+    "answer": "Plan for 6 US gallons.\n3 people × 2 days × 1 gal per person per day = 6 gal\nPlanning baseline from Ready.gov (FEMA).",
+    "followUp": "How much water should we store?",
+    "originalPlan": "7 days",
+    "reply": "Noted: plan for 2 days.",
+    "input": "Nobody has had anything to drink for two days. How long can we go?"
+  }
+}
