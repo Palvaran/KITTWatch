@@ -1,4 +1,19 @@
-# Off-watch evaluation, 2026-11-25
+# Off-watch evaluation
+
+## Current results for guide pack v7
+
+The model-off pipeline ran on macOS across 229 conversations and 352 turns. The 67 core tests also passed. A routing check asks whether the first reply gave the expected answer. The button column counts turns where the expected entry required another tap.
+
+| Suite split | Correct direct routing | Expected topic offered as a button | Answer text passed | Flag checks passed | Scored critical failures |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Development | 234/234 | 0 | 252/252 | 199/199 | 0 |
+| Historical held-out | 25/37 | 11 | 28/38 | — | 0 |
+
+Of the 37 historical routing checks, one missed the expected topic entirely. The freezer-pen case now requires the frozen-insulin warning in the first sentence. Its wording was used to tune v7, so its pass is a regression result. The 14 stop-and-guide conversations also retained their expected plan lengths after event-log replay. [Source review and trial results](SOURCE-REVIEW.md)
+
+The signed v7 install and physical Series 5 checks are pending. Earlier on-watch speech observations and the older model benchmarks are recorded below.
+
+## Archived v5 evaluation and earlier trials
 
 What was measured: 222 scenarios (345 turns, 283 with answer checks, 199 with flag checks, some of which also check the recorded answer to KITT's question) from `scenarios.json`, run on Linux x86-64 with llama.cpp `af5c583` (the pinned revision), CPU only, Q4_0 weights, greedy decoding. Guide pack `outage-3day@v5` (20 entries). Full transcripts for every model and build are in `results/`.
 
@@ -310,7 +325,7 @@ What changed:
 
 So the trial's exact failures are fixed and pinned, and the fresh set found no new wrong answers, but it didn't show the new rules doing better than the old ones on unseen wording.
 
-## The short version
+## V5 model comparison
 
 - **On its own, SmolLM2-135M passed 17 of 283 checks**, all of them checks that only forbid a phrase (routing is not judged for the model alone). It failed all 128 answer checks in the critical families.
 - **Given the best-matching guide passage, it managed 26 of 283.**
@@ -351,7 +366,7 @@ Read this as "none of them is usable untuned", not as a ranking. The checks ask 
 
 Unsafe replies from the model-alone runs, verbatim: "Boiling water can help remove gasoline odors" (LFM2.5), "Yes, the milk is still good" (Gemma 3), "If you leave the door open, you can run the generator" (Falcon-H1).
 
-## What the held-out scenarios still miss
+## Held-out misses in v5
 
 1. **"Two adults and two kids, how much water for a week?"**: "a week" and the two groups are not understood. Since household facts wait for a planning question, KITT now offers buttons instead of replying "Noted: 2 people."
 2. "City says we have to boil our water. For how long?", "Freezer's been off for a day and a half...", "Can I reuse milk jugs...", "how often should I swap out the water I bottled myself": the right entry is offered as a button, not shown outright.
