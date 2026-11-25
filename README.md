@@ -2,7 +2,7 @@
 
 KITT distills emergency guidance from the CDC and FEMA into a field guide you can query offline on an Apple Watch. Ask a question in your own words or browse by topic. The watch can read the guidance aloud even when your phone is out of reach.
 
-**Project status.** The development build has run on a Series 5 with watchOS 10.6.2, including spoken replies. This repository currently contains the project overview. The app source and an installable build have yet to be published here.
+**Project status.** The development build has run on a Series 5 with watchOS 10.6.2, including spoken replies. This branch contains the app source, guide pack, training examples, and evaluation suite. See the [development guide](DEVELOPMENT.md) for build and installation instructions.
 
 ## A question on the watch
 
@@ -12,7 +12,7 @@ Other questions need clarification. Tell KITT **“The generator is in the garag
 
 ## Where answers come from
 
-- **Field guide.** Nineteen entries cover water storage and treatment, food during outages, generators, gas leaks, heat and cold exposure, dehydration, and insulin storage. Each entry identifies its source and review status. Sources include FEMA’s Ready.gov, CDC, FDA, PHMSA, MedlinePlus, and one *Scientific American* explainer.
+- **Field guide.** The development guide contains 20 entries, including heat-wave preparation, food during outages, water storage and treatment, generators, gas leaks, heat and cold exposure, dehydration, and insulin storage. Each entry identifies its source and review status. Sources include FEMA’s Ready.gov, CDC, FDA, PHMSA, MedlinePlus, and one *Scientific American* explainer.
 - **Water calculator.** Swift code does the arithmetic using household size, plan length, and stored water. The same inputs give the same result on the watch and in the Mac command-line tool.
 - **Optional language model.** **Ask the model anyway** runs a quantized SmolLM2-135M-Instruct model locally through llama.cpp. Generated replies are labeled **Unverified**. In project trials, the small model frequently missed important warnings, so the guide and calculator handle ordinary turns.
 
@@ -24,6 +24,6 @@ The core also runs on macOS and Linux. Its evaluation suite checks which guide e
 
 ## Current limitations
 
-All 19 guide entries are **pending human source review**. Unfamiliar wording can trigger the wrong topic or miss a warning, and a duration mentioned in conversation can be mistaken for a change to the water plan. Check the source behind a guide answer and the inputs shown for a calculation. For an active emergency, follow instructions from local emergency services.
+All 20 entries are **pending human source review**. The watch answers and the passages supplied to the optional model have undergone a [machine-assisted source review](Eval/SOURCE-REVIEW.md). An unfamiliar question can still bring up the wrong topic, leave the relevant entry behind a button, or miss a warning. Each guide answer names its source, and each water calculation shows the household size and duration it used. For an active emergency, follow instructions from local emergency services.
 
 Concrete examples help improve KITT. A useful issue includes the exact question, any preceding turn that changes its meaning, the reply KITT gave, and what you expected it to show or remember. Use fictional household details when sharing a transcript.

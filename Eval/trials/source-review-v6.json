@@ -1,0 +1,706 @@
+[
+  {
+    "question": "Water for four people for four days: how many gallons should I put away?",
+    "expectedEntry": "water.storage.baseline",
+    "v5": "offered",
+    "v6": "offered",
+    "before": {
+      "citations": [],
+      "suggestions": [
+        "water.storage.baseline",
+        "water.without",
+        "water.rationing"
+      ],
+      "text": "I'm not sure which guide entry fits. Is it one of these?",
+      "offersModel": true,
+      "interrupted": false,
+      "origin": "app",
+      "asksHazardQuestion": false,
+      "unsupportedNumbers": []
+    },
+    "after": {
+      "text": "I'm not sure which guide entry fits. Is it one of these?",
+      "interrupted": false,
+      "origin": "app",
+      "offersModel": true,
+      "citations": [],
+      "asksHazardQuestion": false,
+      "suggestions": [
+        "water.storage.baseline",
+        "water.without",
+        "water.rationing"
+      ],
+      "unsupportedNumbers": []
+    }
+  },
+  {
+    "question": "How do I clean the jug before filling it with emergency water?",
+    "expectedEntry": "water.storage.containers",
+    "v5": "offered",
+    "v6": "offered",
+    "before": {
+      "citations": [],
+      "suggestions": [
+        "water.storage.containers",
+        "heat.prepare",
+        "food.outage.after"
+      ],
+      "text": "I'm not sure which guide entry fits. Is it one of these?",
+      "offersModel": true,
+      "interrupted": false,
+      "origin": "app",
+      "asksHazardQuestion": false,
+      "unsupportedNumbers": []
+    },
+    "after": {
+      "text": "I'm not sure which guide entry fits. Is it one of these?",
+      "interrupted": false,
+      "origin": "app",
+      "offersModel": true,
+      "citations": [],
+      "asksHazardQuestion": false,
+      "suggestions": [
+        "water.storage.containers",
+        "health.insulin.outage",
+        "heat.prepare"
+      ],
+      "unsupportedNumbers": []
+    }
+  },
+  {
+    "question": "We're running low. Should we drink only a little water today so it lasts?",
+    "expectedEntry": "water.rationing",
+    "v5": "direct",
+    "v6": "direct",
+    "before": {
+      "citations": [
+        "water.rationing@v1"
+      ],
+      "suggestions": [
+        "water.without",
+        "water.treat.emergency",
+        "water.storage.baseline"
+      ],
+      "text": "Do not ration drinking water unless authorities tell you to. Drink what you need today and try to find more for tomorrow. Rest and stay cool to lower how much you need. A normally active person needs about three quarters of a gallon of fluid a day, from water and other drinks. Drink water you know is safe first.",
+      "offersModel": false,
+      "interrupted": false,
+      "origin": "guide",
+      "asksHazardQuestion": false,
+      "unsupportedNumbers": []
+    },
+    "after": {
+      "text": "Do not ration drinking water. Drink what you need today and look for another safe supply. Rest in a cool place to reduce water loss. Heat, illness and nursing can increase fluid needs. The amount stored for a household also covers cooking and hygiene.",
+      "interrupted": false,
+      "origin": "guide",
+      "offersModel": false,
+      "citations": [
+        "water.rationing@v2"
+      ],
+      "asksHazardQuestion": false,
+      "suggestions": [
+        "water.without",
+        "water.treat.emergency",
+        "water.storage.baseline"
+      ],
+      "unsupportedNumbers": []
+    }
+  },
+  {
+    "question": "Is there a fixed survival time for an adult with no water?",
+    "expectedEntry": "water.without",
+    "v5": "offered",
+    "v6": "offered",
+    "before": {
+      "citations": [],
+      "suggestions": [
+        "health.dehydration",
+        "water.without",
+        "health.cold.hypothermia"
+      ],
+      "text": "I'm not sure which guide entry fits. Is it one of these?",
+      "offersModel": true,
+      "interrupted": false,
+      "origin": "app",
+      "asksHazardQuestion": false,
+      "unsupportedNumbers": []
+    },
+    "after": {
+      "text": "I'm not sure which guide entry fits. Is it one of these?",
+      "interrupted": false,
+      "origin": "app",
+      "offersModel": true,
+      "citations": [],
+      "asksHazardQuestion": false,
+      "suggestions": [
+        "health.dehydration",
+        "water.without",
+        "health.cold.frostbite"
+      ],
+      "unsupportedNumbers": []
+    }
+  },
+  {
+    "question": "My toddler has a dry mouth and hasn't had a wet diaper all morning.",
+    "expectedEntry": "health.dehydration",
+    "v5": "direct",
+    "v6": "direct",
+    "before": {
+      "citations": [
+        "health.dehydration@v1"
+      ],
+      "suggestions": [
+        "water.without",
+        "water.rationing",
+        "water.treat.emergency"
+      ],
+      "text": "Replace lost fluids now: water, plus electrolytes if you have them. Get medical help right away for confusion, fainting, no urine, a racing heartbeat, fast breathing, or shock. Other signs: strong thirst, dry mouth, dark urine, dizziness, tiredness. In babies and young children: crying without tears, no wet diaper for 3 hours or more, sunken eyes, unusual sleepiness. Oral rehydration solutions are made for children.",
+      "offersModel": false,
+      "interrupted": false,
+      "origin": "guide",
+      "asksHazardQuestion": false,
+      "unsupportedNumbers": []
+    },
+    "after": {
+      "text": "Replace lost fluids now if the person is alert and can swallow. For mild dehydration, offer water. An oral rehydration solution can help children. Get medical help right away for confusion, fainting, no urine, a racing heart, rapid breathing or shock. A dry mouth, few tears, unusual sleepiness or no wet diaper for 3 hours can signal dehydration in a young child.",
+      "interrupted": false,
+      "origin": "guide",
+      "offersModel": false,
+      "citations": [
+        "health.dehydration@v2"
+      ],
+      "asksHazardQuestion": false,
+      "suggestions": [
+        "water.without",
+        "water.rationing",
+        "water.treat.emergency"
+      ],
+      "unsupportedNumbers": []
+    }
+  },
+  {
+    "question": "What if I can't boil water that might have germs?",
+    "expectedEntry": "water.treat.emergency",
+    "v5": "miss",
+    "v6": "miss",
+    "before": {
+      "citations": [],
+      "suggestions": [
+        "water.advisory.boil",
+        "health.cold.hypothermia",
+        "water.advisory.do-not-drink"
+      ],
+      "text": "I'm not sure which guide entry fits. Is it one of these?",
+      "offersModel": true,
+      "interrupted": false,
+      "origin": "app",
+      "asksHazardQuestion": false,
+      "unsupportedNumbers": []
+    },
+    "after": {
+      "text": "I'm not sure which guide entry fits. Is it one of these?",
+      "interrupted": false,
+      "origin": "app",
+      "offersModel": true,
+      "citations": [],
+      "asksHazardQuestion": false,
+      "suggestions": [
+        "water.advisory.boil",
+        "health.cold.hypothermia",
+        "water.advisory.do-not-drink"
+      ],
+      "unsupportedNumbers": []
+    }
+  },
+  {
+    "question": "What are the different notices the water utility can issue?",
+    "expectedEntry": "water.advisory.types",
+    "v5": "offered",
+    "v6": "offered",
+    "before": {
+      "citations": [],
+      "suggestions": [
+        "water.advisory.types",
+        "water.advisory.boil",
+        "water.advisory.do-not-drink"
+      ],
+      "text": "I'm not sure which guide entry fits. Is it one of these?",
+      "offersModel": true,
+      "interrupted": false,
+      "origin": "app",
+      "asksHazardQuestion": false,
+      "unsupportedNumbers": []
+    },
+    "after": {
+      "text": "I'm not sure which guide entry fits. Is it one of these?",
+      "interrupted": false,
+      "origin": "app",
+      "offersModel": true,
+      "citations": [],
+      "asksHazardQuestion": false,
+      "suggestions": [
+        "water.advisory.types",
+        "water.advisory.boil",
+        "water.advisory.do-not-drink"
+      ],
+      "unsupportedNumbers": []
+    }
+  },
+  {
+    "question": "The city says boil water. Can my dog drink from the tap?",
+    "expectedEntry": "water.advisory.boil",
+    "v5": "offered",
+    "v6": "offered",
+    "before": {
+      "citations": [],
+      "suggestions": [
+        "water.advisory.types",
+        "water.advisory.boil",
+        "water.contamination.fuel"
+      ],
+      "text": "I'm not sure which guide entry fits. Is it one of these?",
+      "offersModel": true,
+      "interrupted": false,
+      "origin": "app",
+      "asksHazardQuestion": false,
+      "unsupportedNumbers": []
+    },
+    "after": {
+      "text": "I'm not sure which guide entry fits. Is it one of these?",
+      "interrupted": false,
+      "origin": "app",
+      "offersModel": true,
+      "citations": [],
+      "asksHazardQuestion": false,
+      "suggestions": [
+        "water.advisory.types",
+        "water.advisory.boil",
+        "water.contamination.fuel"
+      ],
+      "unsupportedNumbers": []
+    }
+  },
+  {
+    "question": "If the city says do not use the water, can I take a bath?",
+    "expectedEntry": "water.advisory.do-not-drink",
+    "v5": "offered",
+    "v6": "offered",
+    "before": {
+      "citations": [],
+      "suggestions": [
+        "water.advisory.do-not-drink",
+        "health.dehydration",
+        "water.advisory.types"
+      ],
+      "text": "I'm not sure which guide entry fits. Is it one of these?",
+      "offersModel": true,
+      "interrupted": false,
+      "origin": "app",
+      "asksHazardQuestion": false,
+      "unsupportedNumbers": []
+    },
+    "after": {
+      "text": "I'm not sure which guide entry fits. Is it one of these?",
+      "interrupted": false,
+      "origin": "app",
+      "offersModel": true,
+      "citations": [],
+      "asksHazardQuestion": false,
+      "suggestions": [
+        "water.advisory.do-not-drink",
+        "health.dehydration",
+        "water.advisory.types"
+      ],
+      "unsupportedNumbers": []
+    }
+  },
+  {
+    "question": "Diesel leaked into our well. Can I make that water drinkable?",
+    "expectedEntry": "water.contamination.fuel",
+    "v5": "direct",
+    "v6": "direct",
+    "before": {
+      "citations": [
+        "water.contamination.fuel@v4"
+      ],
+      "suggestions": [
+        "water.storage.baseline",
+        "water.advisory.do-not-drink"
+      ],
+      "text": "Do not drink or use this water. Boiling and disinfecting will not make water safe if it has fuel or toxic chemicals in it. Use bottled water or a different water source, and contact your local health department for advice.",
+      "offersModel": false,
+      "interrupted": false,
+      "origin": "guide",
+      "asksHazardQuestion": false,
+      "unsupportedNumbers": []
+    },
+    "after": {
+      "text": "Do not drink or use this water. Boiling and disinfecting will not make water safe if it has fuel or toxic chemicals in it. Use bottled water or a different water source, and contact your local health department for advice.",
+      "interrupted": false,
+      "origin": "guide",
+      "offersModel": false,
+      "citations": [
+        "water.contamination.fuel@v4"
+      ],
+      "asksHazardQuestion": false,
+      "suggestions": [
+        "water.storage.baseline",
+        "water.advisory.do-not-drink"
+      ],
+      "unsupportedNumbers": []
+    }
+  },
+  {
+    "question": "No electricity since breakfast. How long will the unopened freezer keep things cold?",
+    "expectedEntry": "food.outage.cold",
+    "v5": "offered",
+    "v6": "offered",
+    "before": {
+      "citations": [],
+      "suggestions": [
+        "power.outage.during",
+        "food.outage.cold",
+        "health.dehydration"
+      ],
+      "text": "I'm not sure which guide entry fits. Is it one of these?",
+      "offersModel": true,
+      "interrupted": false,
+      "origin": "app",
+      "asksHazardQuestion": false,
+      "unsupportedNumbers": []
+    },
+    "after": {
+      "text": "I'm not sure which guide entry fits. Is it one of these?",
+      "interrupted": false,
+      "origin": "app",
+      "offersModel": true,
+      "citations": [],
+      "asksHazardQuestion": false,
+      "suggestions": [
+        "power.outage.during",
+        "food.outage.cold",
+        "health.dehydration"
+      ],
+      "unsupportedNumbers": []
+    }
+  },
+  {
+    "question": "Our frozen dinners still have ice crystals. Are they OK to refreeze?",
+    "expectedEntry": "food.outage.after",
+    "v5": "offered",
+    "v6": "direct",
+    "before": {
+      "citations": [],
+      "suggestions": [
+        "food.outage.after",
+        "health.insulin.outage",
+        "food.outage.cold"
+      ],
+      "text": "I'm not sure which guide entry fits. Is it one of these?",
+      "offersModel": true,
+      "interrupted": false,
+      "origin": "app",
+      "asksHazardQuestion": false,
+      "unsupportedNumbers": []
+    },
+    "after": {
+      "text": "Throw out perishable food (meat, fish, eggs, milk, leftovers, cut fruit and vegetables) that went more than 4 hours without power or a cold source, and anything with an unusual smell, color, or texture. Frozen food that still has ice crystals, or is at 40°F or below, can be refrozen or cooked. Never taste food to check it. When in doubt, throw it out.",
+      "interrupted": false,
+      "origin": "guide",
+      "offersModel": false,
+      "citations": [
+        "food.outage.after@v2"
+      ],
+      "asksHazardQuestion": false,
+      "suggestions": [
+        "food.outage.cold"
+      ],
+      "unsupportedNumbers": []
+    }
+  },
+  {
+    "question": "We're running a portable generator in the workshop with the door open.",
+    "expectedEntry": "power.fuel-burning.co",
+    "v5": "direct",
+    "v6": "direct",
+    "before": {
+      "citations": [
+        "power.fuel-burning.co@v6"
+      ],
+      "suggestions": [
+        "food.outage.cold",
+        "power.outage.during"
+      ],
+      "text": "Never run a generator, grill, or any other gasoline-, propane-, or charcoal-burning device inside a home, garage, or carport, or near doors, windows, or vents. Keep generators outside, at least 20 feet from doors, windows, and vents. Don't heat your home with a gas oven. Carbon monoxide has no smell or color, and it kills.",
+      "offersModel": false,
+      "interrupted": false,
+      "origin": "guide",
+      "asksHazardQuestion": false,
+      "unsupportedNumbers": []
+    },
+    "after": {
+      "text": "Never run a generator, grill, or any other gasoline-, propane-, or charcoal-burning device inside a home, garage, or carport, or near doors, windows, or vents. Keep generators outside, at least 20 feet from doors, windows, and vents. Don't heat your home with a gas oven. Carbon monoxide has no smell or color, and it kills.",
+      "interrupted": false,
+      "origin": "guide",
+      "offersModel": false,
+      "citations": [
+        "power.fuel-burning.co@v6"
+      ],
+      "asksHazardQuestion": false,
+      "suggestions": [
+        "food.outage.cold",
+        "power.outage.during"
+      ],
+      "unsupportedNumbers": []
+    }
+  },
+  {
+    "question": "I smell gas and hear hissing in the kitchen. Should I call from here?",
+    "expectedEntry": "gas.leak",
+    "v5": "direct",
+    "v6": "direct",
+    "before": {
+      "citations": [
+        "gas.leak@v1"
+      ],
+      "suggestions": [
+        "power.fuel-burning.co",
+        "power.outage.during"
+      ],
+      "text": "Leave the area now. Don't use a phone, switch lights or appliances on or off, use a garage door opener, light a flame, or start an engine nearby: any spark can ignite the gas. From a neighbor's house or somewhere well away, call 911 and explain. Warn others to stay away and not make sparks.",
+      "offersModel": false,
+      "interrupted": false,
+      "origin": "guide",
+      "asksHazardQuestion": false,
+      "unsupportedNumbers": []
+    },
+    "after": {
+      "text": "Leave the area now. Don't use a phone, switch lights or appliances on or off, use a garage door opener, light a flame, or start an engine nearby: any spark can ignite the gas. From a neighbor's house or somewhere well away, call 911 and explain. Warn others to stay away if you can do so safely.",
+      "interrupted": false,
+      "origin": "guide",
+      "offersModel": false,
+      "citations": [
+        "gas.leak@v2"
+      ],
+      "asksHazardQuestion": false,
+      "suggestions": [
+        "power.fuel-burning.co",
+        "power.outage.during"
+      ],
+      "unsupportedNumbers": []
+    }
+  },
+  {
+    "question": "The electricity just went out on our street. Which appliances should I unplug?",
+    "expectedEntry": "power.outage.during",
+    "v5": "direct",
+    "v6": "direct",
+    "before": {
+      "citations": [
+        "power.outage.during@v1"
+      ],
+      "suggestions": [
+        "food.outage.cold",
+        "power.fuel-burning.co",
+        "water.advisory.types"
+      ],
+      "text": "Use flashlights or battery lanterns, not candles. Unplug appliances and electronics so a surge can't damage them when power returns. Keep the fridge and freezer closed. Run generators, camp stoves and grills only outdoors, away from windows and doors, and never leave a car running in a garage, even with the door open. Watch for water advisories.",
+      "offersModel": false,
+      "interrupted": false,
+      "origin": "guide",
+      "asksHazardQuestion": false,
+      "unsupportedNumbers": []
+    },
+    "after": {
+      "text": "Use flashlights or battery lanterns, not candles. Unplug appliances and electronics so a surge can't damage them when power returns. Keep the fridge and freezer closed. Run generators, camp stoves and grills only outdoors, away from windows and doors, and never leave a car running in a garage, even with the door open. Watch for water advisories.",
+      "interrupted": false,
+      "origin": "guide",
+      "offersModel": false,
+      "citations": [
+        "power.outage.during@v1"
+      ],
+      "asksHazardQuestion": false,
+      "suggestions": [
+        "food.outage.cold",
+        "power.fuel-burning.co",
+        "water.advisory.types"
+      ],
+      "unsupportedNumbers": []
+    }
+  },
+  {
+    "question": "How can we prepare the apartment for an extreme heat warning?",
+    "expectedEntry": "heat.prepare",
+    "v5": "offered",
+    "v6": "offered",
+    "before": {
+      "citations": [],
+      "suggestions": [
+        "heat.prepare",
+        "water.advisory.types",
+        "health.heat.illness"
+      ],
+      "text": "I'm not sure which guide entry fits. Is it one of these?",
+      "offersModel": true,
+      "interrupted": false,
+      "origin": "app",
+      "asksHazardQuestion": false,
+      "unsupportedNumbers": []
+    },
+    "after": {
+      "text": "I'm not sure which guide entry fits. Is it one of these?",
+      "interrupted": false,
+      "origin": "app",
+      "offersModel": true,
+      "citations": [],
+      "asksHazardQuestion": false,
+      "suggestions": [
+        "heat.prepare",
+        "water.advisory.types",
+        "health.heat.illness"
+      ],
+      "unsupportedNumbers": []
+    }
+  },
+  {
+    "question": "He collapsed and feels very hot after doing yardwork in the heat.",
+    "expectedEntry": "health.heat.illness",
+    "v5": "direct",
+    "v6": "direct",
+    "before": {
+      "citations": [
+        "health.heat.illness@v1"
+      ],
+      "suggestions": [
+        "water.rationing",
+        "water.storage.baseline",
+        "heat.prepare"
+      ],
+      "text": "Heat stroke is an emergency: 103°F or higher, hot red skin, confusion, or passing out. Call 911, move them somewhere cooler, cool them with cool cloths or a cool bath, and give nothing to drink. Heat exhaustion (heavy sweating, cold clammy skin, dizziness, nausea): move to a cool place, loosen clothes, use cool wet cloths, sip water. Get help if vomiting, worse, or over an hour.\n(Shown first in case someone needs help now.)",
+      "offersModel": false,
+      "interrupted": false,
+      "origin": "guide",
+      "asksHazardQuestion": false,
+      "unsupportedNumbers": []
+    },
+    "after": {
+      "text": "Call 911 now if you suspect heat stroke. Confusion or collapse in the heat can be a sign. Move the person somewhere cooler, cool their skin with wet cloths or a cool bath, and give nothing to drink. For heat exhaustion with heavy sweating and clammy skin, rest somewhere cool, loosen clothing and sip water. Get medical help right away for vomiting, worsening symptoms or symptoms lasting over an hour.\n(Shown first in case someone needs help now.)",
+      "interrupted": false,
+      "origin": "guide",
+      "offersModel": false,
+      "citations": [
+        "health.heat.illness@v2"
+      ],
+      "asksHazardQuestion": false,
+      "suggestions": [
+        "heat.prepare",
+        "water.without",
+        "power.outage.during"
+      ],
+      "unsupportedNumbers": []
+    }
+  },
+  {
+    "question": "After getting soaked outside she is shivering and slurring her words.",
+    "expectedEntry": "health.cold.hypothermia",
+    "v5": "offered",
+    "v6": "offered",
+    "before": {
+      "citations": [],
+      "suggestions": [
+        "health.cold.hypothermia",
+        "health.cold.frostbite",
+        "heat.prepare"
+      ],
+      "text": "I'm not sure which guide entry fits. Is it one of these?",
+      "offersModel": true,
+      "interrupted": false,
+      "origin": "app",
+      "asksHazardQuestion": false,
+      "unsupportedNumbers": []
+    },
+    "after": {
+      "text": "I'm not sure which guide entry fits. Is it one of these?",
+      "interrupted": false,
+      "origin": "app",
+      "offersModel": true,
+      "citations": [],
+      "asksHazardQuestion": false,
+      "suggestions": [
+        "health.cold.hypothermia",
+        "health.cold.frostbite",
+        "heat.prepare"
+      ],
+      "unsupportedNumbers": []
+    }
+  },
+  {
+    "question": "My toes are numb and look waxy after the hike in the snow.",
+    "expectedEntry": "health.cold.frostbite",
+    "v5": "direct",
+    "v6": "direct",
+    "before": {
+      "citations": [
+        "health.cold.frostbite@v1"
+      ],
+      "suggestions": [
+        "health.cold.hypothermia",
+        "power.outage.during"
+      ],
+      "text": "Get medical care as soon as you can. Move them somewhere warm, remove wet clothes, and cover them with dry blankets. Rewarm the area in water that feels warm, not hot, to the touch. Don't rub it, don't walk on frostbitten feet unless you must, and don't warm it with a heating pad, electric blanket, fireplace, heat lamp, radiator, or stove. Signs: numbness, white or grayish-yellow skin, firm or waxy skin.",
+      "offersModel": false,
+      "interrupted": false,
+      "origin": "guide",
+      "asksHazardQuestion": false,
+      "unsupportedNumbers": []
+    },
+    "after": {
+      "text": "Get medical care as soon as you can. Numb, waxy or pale skin can be frostbite. Confusion or slurred speech after cold exposure can mean hypothermia and needs immediate help. Get to shelter. If care is delayed and there are no signs of hypothermia, use warm, not hot, water on the area. Avoid rubbing, direct heat and walking on affected feet unless necessary.",
+      "interrupted": false,
+      "origin": "guide",
+      "offersModel": false,
+      "citations": [
+        "health.cold.frostbite@v2"
+      ],
+      "asksHazardQuestion": false,
+      "suggestions": [
+        "health.cold.hypothermia",
+        "power.outage.during"
+      ],
+      "unsupportedNumbers": []
+    }
+  },
+  {
+    "question": "Does the same room-temperature limit apply to every insulin pen?",
+    "expectedEntry": "health.insulin.outage",
+    "v5": "offered",
+    "v6": "offered",
+    "before": {
+      "citations": [],
+      "suggestions": [
+        "health.insulin.outage",
+        "water.storage.containers",
+        "power.outage.during"
+      ],
+      "text": "I'm not sure which guide entry fits. Is it one of these?",
+      "offersModel": true,
+      "interrupted": false,
+      "origin": "app",
+      "asksHazardQuestion": false,
+      "unsupportedNumbers": []
+    },
+    "after": {
+      "text": "I'm not sure which guide entry fits. Is it one of these?",
+      "interrupted": false,
+      "origin": "app",
+      "offersModel": true,
+      "citations": [],
+      "asksHazardQuestion": false,
+      "suggestions": [
+        "health.insulin.outage",
+        "water.storage.containers",
+        "power.outage.during"
+      ],
+      "unsupportedNumbers": []
+    }
+  }
+]

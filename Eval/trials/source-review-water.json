@@ -1,0 +1,204 @@
+[
+  {
+    "question": "There's no safe bottled water and the stove is broken. How can we kill germs in our water?",
+    "expectedEntry": "water.treat.emergency",
+    "before": {
+      "citations": [],
+      "text": "I'm not sure which guide entry fits. Is it one of these?",
+      "offersModel": true,
+      "origin": "app",
+      "unsupportedNumbers": [],
+      "interrupted": false,
+      "asksHazardQuestion": false,
+      "suggestions": [
+        "gas.leak",
+        "water.storage.containers",
+        "power.fuel-burning.co"
+      ]
+    },
+    "after": {
+      "origin": "app",
+      "unsupportedNumbers": [],
+      "suggestions": [
+        "water.treat.emergency",
+        "gas.leak",
+        "water.storage.containers"
+      ],
+      "text": "I'm not sure which guide entry fits. Is it one of these?",
+      "citations": [],
+      "interrupted": false,
+      "asksHazardQuestion": false,
+      "offersModel": true
+    },
+    "beforeClassification": "miss",
+    "afterClassification": "offered"
+  },
+  {
+    "question": "Can you disinfect drinking water when boiling isn't possible?",
+    "expectedEntry": "water.treat.emergency",
+    "before": {
+      "citations": [],
+      "text": "I'm not sure which guide entry fits. Is it one of these?",
+      "offersModel": true,
+      "origin": "app",
+      "unsupportedNumbers": [],
+      "interrupted": false,
+      "asksHazardQuestion": false,
+      "suggestions": [
+        "water.treat.emergency",
+        "water.advisory.do-not-drink",
+        "water.advisory.types"
+      ]
+    },
+    "after": {
+      "origin": "app",
+      "unsupportedNumbers": [],
+      "suggestions": [
+        "water.treat.emergency",
+        "water.advisory.do-not-drink",
+        "water.advisory.types"
+      ],
+      "text": "I'm not sure which guide entry fits. Is it one of these?",
+      "citations": [],
+      "interrupted": false,
+      "asksHazardQuestion": false,
+      "offersModel": true
+    },
+    "beforeClassification": "offered",
+    "afterClassification": "offered"
+  },
+  {
+    "question": "There is gasoline in our well. Can disinfecting the water help?",
+    "expectedEntry": "water.contamination.fuel",
+    "before": {
+      "citations": [
+        "water.contamination.fuel@v4"
+      ],
+      "text": "Do not drink or use this water. Boiling and disinfecting will not make water safe if it has fuel or toxic chemicals in it. Use bottled water or a different water source, and contact your local health department for advice.\n(Shown in case your question involves this.)",
+      "offersModel": false,
+      "origin": "guide",
+      "suggestedHazard": "water.contamination.fuel",
+      "unsupportedNumbers": [],
+      "interrupted": false,
+      "asksHazardQuestion": false,
+      "suggestions": [
+        "water.storage.baseline",
+        "water.advisory.do-not-drink"
+      ]
+    },
+    "after": {
+      "origin": "guide",
+      "unsupportedNumbers": [],
+      "suggestedHazard": "water.contamination.fuel",
+      "suggestions": [
+        "water.storage.baseline",
+        "water.advisory.do-not-drink"
+      ],
+      "text": "Do not drink or use this water. Boiling and disinfecting will not make water safe if it has fuel or toxic chemicals in it. Use bottled water or a different water source, and contact your local health department for advice.\n(Shown in case your question involves this.)",
+      "citations": [
+        "water.contamination.fuel@v4"
+      ],
+      "interrupted": false,
+      "asksHazardQuestion": false,
+      "offersModel": false
+    },
+    "beforeClassification": "direct",
+    "afterClassification": "direct"
+  },
+  {
+    "question": "My city issued a boil water notice. Should I boil the filtered water too?",
+    "expectedEntry": "water.advisory.boil",
+    "before": {
+      "citations": [],
+      "text": "I'm not sure which guide entry fits. Is it one of these?",
+      "offersModel": true,
+      "origin": "app",
+      "unsupportedNumbers": [],
+      "interrupted": false,
+      "asksHazardQuestion": false,
+      "suggestions": [
+        "water.advisory.boil",
+        "water.advisory.types",
+        "water.advisory.do-not-drink"
+      ]
+    },
+    "after": {
+      "origin": "app",
+      "unsupportedNumbers": [],
+      "suggestions": [
+        "water.advisory.boil",
+        "water.advisory.types",
+        "water.advisory.do-not-drink"
+      ],
+      "text": "I'm not sure which guide entry fits. Is it one of these?",
+      "citations": [],
+      "interrupted": false,
+      "asksHazardQuestion": false,
+      "offersModel": true
+    },
+    "beforeClassification": "offered",
+    "afterClassification": "offered"
+  },
+  {
+    "question": "Do I empty the jug after sanitizing the inside with bleach?",
+    "expectedEntry": "water.storage.containers",
+    "before": {
+      "citations": [
+        "water.storage.containers@v3"
+      ],
+      "text": "Use food-grade containers, and never one that held chemicals such as bleach or pesticides. To sanitize: wash with soap and rinse. Mix 1 teaspoon of unscented bleach (5% to 9%) in 1 quart of water, close the lid, and shake so it touches every inside surface. Wait at least 30 seconds, pour it out, and let the container air-dry. Fill with safe water, close tightly, date it and replace home-filled water every 6 months.",
+      "offersModel": false,
+      "origin": "guide",
+      "unsupportedNumbers": [],
+      "interrupted": false,
+      "asksHazardQuestion": false,
+      "suggestions": [
+        "water.storage.baseline",
+        "water.treat.emergency"
+      ]
+    },
+    "after": {
+      "origin": "guide",
+      "unsupportedNumbers": [],
+      "suggestions": [
+        "water.storage.baseline",
+        "water.treat.emergency"
+      ],
+      "text": "Use food-grade containers, and never one that held chemicals such as bleach or pesticides. To sanitize: wash with soap and rinse. Mix 1 teaspoon of unscented bleach (5% to 9%) in 1 quart of water, close the lid, and shake so it touches every inside surface. Wait at least 30 seconds, pour it out, and let the container air-dry. Fill with safe water, close tightly, date it and replace home-filled water every 6 months.",
+      "citations": [
+        "water.storage.containers@v3"
+      ],
+      "interrupted": false,
+      "asksHazardQuestion": false,
+      "offersModel": false
+    },
+    "beforeClassification": "direct",
+    "afterClassification": "direct"
+  },
+  {
+    "question": "How much drinking water should a family of 3 store for 3 days?",
+    "expectedEntry": "water.storage.baseline",
+    "before": {
+      "citations": [],
+      "text": "Noted: 3 people, plan for 3 days.",
+      "offersModel": false,
+      "origin": "app",
+      "unsupportedNumbers": [],
+      "interrupted": false,
+      "asksHazardQuestion": false,
+      "suggestions": []
+    },
+    "after": {
+      "origin": "app",
+      "unsupportedNumbers": [],
+      "suggestions": [],
+      "text": "Noted: 3 people, plan for 3 days.",
+      "citations": [],
+      "interrupted": false,
+      "asksHazardQuestion": false,
+      "offersModel": false
+    },
+    "beforeClassification": "miss",
+    "afterClassification": "miss"
+  }
+]

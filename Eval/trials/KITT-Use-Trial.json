@@ -1,0 +1,211 @@
+[
+  {
+    "expected_flag_after_final_turn": "power.fuel-burning.co",
+    "turns": [
+      {
+        "say": "I found the manual for our generator.",
+        "reply": "Never run a generator, grill, or any other gasoline-, propane-, or charcoal-burning device inside a home, garage, or carport, or near doors, windows, or vents. Keep generators outside, at least 20 feet from doors, windows, and vents. Don't heat your home with a gas oven. Carbon monoxide has no smell or color, and it kills.\n(Shown in case your question involves this.)",
+        "citations": [
+          "power.fuel-burning.co@v3"
+        ],
+        "actual_flags": []
+      },
+      {
+        "say": "It's running in the basement right now.",
+        "reply": "I'm not sure which guide entry fits. Is it one of these?",
+        "citations": [],
+        "actual_flags": []
+      }
+    ]
+  },
+  {
+    "expected_flag_after_final_turn": null,
+    "turns": [
+      {
+        "say": "I found the manual for our generator.",
+        "reply": "Never run a generator, grill, or any other gasoline-, propane-, or charcoal-burning device inside a home, garage, or carport, or near doors, windows, or vents. Keep generators outside, at least 20 feet from doors, windows, and vents. Don't heat your home with a gas oven. Carbon monoxide has no smell or color, and it kills.\n(Shown in case your question involves this.)",
+        "citations": [
+          "power.fuel-burning.co@v3"
+        ],
+        "actual_flags": []
+      },
+      {
+        "say": "It's sitting unplugged on a shelf in the basement.",
+        "reply": "I'm not sure which guide entry fits. Is it one of these?",
+        "citations": [],
+        "actual_flags": []
+      }
+    ]
+  },
+  {
+    "expected_flag_after_final_turn": null,
+    "turns": [
+      {
+        "say": "I found the manual for our generator.",
+        "reply": "Never run a generator, grill, or any other gasoline-, propane-, or charcoal-burning device inside a home, garage, or carport, or near doors, windows, or vents. Keep generators outside, at least 20 feet from doors, windows, and vents. Don't heat your home with a gas oven. Carbon monoxide has no smell or color, and it kills.\n(Shown in case your question involves this.)",
+        "citations": [
+          "power.fuel-burning.co@v3"
+        ],
+        "actual_flags": []
+      },
+      {
+        "say": "The dryer is in the basement. Can I run it tonight?",
+        "reply": "This applies: Carbon monoxide risk from a fuel-burning device.\nNever run a generator, grill, or any other gasoline-, propane-, or charcoal-burning device inside a home, garage, or carport, or near doors, windows, or vents. Keep generators outside, at least 20 feet from doors, windows, and vents. Don't heat your home with a gas oven. Carbon monoxide has no smell or color, and it kills.",
+        "citations": [
+          "power.fuel-burning.co@v3"
+        ],
+        "actual_flags": [
+          "power.fuel-burning.co"
+        ]
+      }
+    ]
+  },
+  {
+    "expected_flag_after_final_turn": null,
+    "turns": [
+      {
+        "say": "I found the manual for our generator.",
+        "reply": "Never run a generator, grill, or any other gasoline-, propane-, or charcoal-burning device inside a home, garage, or carport, or near doors, windows, or vents. Keep generators outside, at least 20 feet from doors, windows, and vents. Don't heat your home with a gas oven. Carbon monoxide has no smell or color, and it kills.\n(Shown in case your question involves this.)",
+        "citations": [
+          "power.fuel-burning.co@v3"
+        ],
+        "actual_flags": []
+      },
+      {
+        "say": "The generator is in the basement. I won't start it down there.",
+        "reply": "Never run a generator, grill, or any other gasoline-, propane-, or charcoal-burning device inside a home, garage, or carport, or near doors, windows, or vents. Keep generators outside, at least 20 feet from doors, windows, and vents. Don't heat your home with a gas oven. Carbon monoxide has no smell or color, and it kills.",
+        "citations": [
+          "power.fuel-burning.co@v3"
+        ],
+        "actual_flags": [
+          "power.fuel-burning.co"
+        ]
+      }
+    ]
+  },
+  {
+    "expected_flag_after_final_turn": "power.fuel-burning.co",
+    "turns": [
+      {
+        "say": "Where can I find the model number on this charcoal cooker?",
+        "reply": "Never run a generator, grill, or any other gasoline-, propane-, or charcoal-burning device inside a home, garage, or carport, or near doors, windows, or vents. Keep generators outside, at least 20 feet from doors, windows, and vents. Don't heat your home with a gas oven. Carbon monoxide has no smell or color, and it kills.\n(Shown in case your question involves this.)",
+        "citations": [
+          "power.fuel-burning.co@v3"
+        ],
+        "actual_flags": []
+      },
+      {
+        "say": "Can we fire it up in the mudroom?",
+        "reply": "Never run a generator, grill, or any other gasoline-, propane-, or charcoal-burning device inside a home, garage, or carport, or near doors, windows, or vents. Keep generators outside, at least 20 feet from doors, windows, and vents. Don't heat your home with a gas oven. Carbon monoxide has no smell or color, and it kills.\n(Shown in case your question involves this.)",
+        "citations": [
+          "power.fuel-burning.co@v3"
+        ],
+        "actual_flags": []
+      }
+    ]
+  },
+  {
+    "expected_flag_after_final_turn": null,
+    "turns": [
+      {
+        "say": "Where can I find the model number on this charcoal cooker?",
+        "reply": "Never run a generator, grill, or any other gasoline-, propane-, or charcoal-burning device inside a home, garage, or carport, or near doors, windows, or vents. Keep generators outside, at least 20 feet from doors, windows, and vents. Don't heat your home with a gas oven. Carbon monoxide has no smell or color, and it kills.\n(Shown in case your question involves this.)",
+        "citations": [
+          "power.fuel-burning.co@v3"
+        ],
+        "actual_flags": []
+      },
+      {
+        "say": "The label fell off. I'll glue it back on in the mudroom.",
+        "reply": "Never run a generator, grill, or any other gasoline-, propane-, or charcoal-burning device inside a home, garage, or carport, or near doors, windows, or vents. Keep generators outside, at least 20 feet from doors, windows, and vents. Don't heat your home with a gas oven. Carbon monoxide has no smell or color, and it kills.\n(Shown in case your question involves this.)",
+        "citations": [
+          "power.fuel-burning.co@v3"
+        ],
+        "actual_flags": []
+      }
+    ]
+  },
+  {
+    "expected_flag_after_final_turn": "water.contamination.fuel",
+    "turns": [
+      {
+        "say": "Rain carried lawn pesticide into the well we drink from.",
+        "reply": "Do not drink or use this water. Boiling and disinfecting will not make water safe if it has fuel or toxic chemicals in it. Use bottled water or a different water source, and contact your local health department for advice.\n(Shown in case your question involves this.)",
+        "citations": [
+          "water.contamination.fuel@v3"
+        ],
+        "actual_flags": []
+      }
+    ]
+  },
+  {
+    "expected_flag_after_final_turn": null,
+    "turns": [
+      {
+        "say": "The sealed weed killer bottle sits on a shelf next to unopened bottled water. Nothing leaked.",
+        "reply": "Do not drink or use this water. Boiling and disinfecting will not make water safe if it has fuel or toxic chemicals in it. Use bottled water or a different water source, and contact your local health department for advice.",
+        "citations": [
+          "water.contamination.fuel@v3"
+        ],
+        "actual_flags": [
+          "water.contamination.fuel"
+        ]
+      }
+    ]
+  },
+  {
+    "expected_flag_after_final_turn": "power.fuel-burning.co",
+    "turns": [
+      {
+        "say": "We're burning a kerosene lantern in a shut tent.",
+        "reply": "Never run a generator, grill, or any other gasoline-, propane-, or charcoal-burning device inside a home, garage, or carport, or near doors, windows, or vents. Keep generators outside, at least 20 feet from doors, windows, and vents. Don't heat your home with a gas oven. Carbon monoxide has no smell or color, and it kills.",
+        "citations": [
+          "power.fuel-burning.co@v3"
+        ],
+        "actual_flags": [
+          "power.fuel-burning.co"
+        ]
+      }
+    ]
+  },
+  {
+    "expected_flag_after_final_turn": "water.contamination.fuel",
+    "turns": [
+      {
+        "say": "The children say the water from our faucet tastes like lamp oil.",
+        "reply": "Do not drink or use this water. Boiling and disinfecting will not make water safe if it has fuel or toxic chemicals in it. Use bottled water or a different water source, and contact your local health department for advice.",
+        "citations": [
+          "water.contamination.fuel@v3"
+        ],
+        "actual_flags": [
+          "water.contamination.fuel"
+        ]
+      }
+    ]
+  },
+  {
+    "expected_flag_after_final_turn": "water.contamination.fuel",
+    "turns": [
+      {
+        "say": "The tap smells like gasoline.",
+        "reply": "Do not drink or use this water. Boiling and disinfecting will not make water safe if it has fuel or toxic chemicals in it. Use bottled water or a different water source, and contact your local health department for advice.",
+        "citations": [
+          "water.contamination.fuel@v3"
+        ],
+        "actual_flags": [
+          "water.contamination.fuel"
+        ]
+      },
+      {
+        "say": "I'll boil pasta in bottled water instead. Can I use the tap water for the dog's bowl?",
+        "reply": "Still applies: Possible fuel or chemicals in the water.\nDo not drink or use this water. Boiling and disinfecting will not make water safe if it has fuel or toxic chemicals in it. Use bottled water or a different water source, and contact your local health department for advice.",
+        "citations": [
+          "water.contamination.fuel@v3"
+        ],
+        "actual_flags": [
+          "water.contamination.fuel"
+        ]
+      }
+    ]
+  }
+]
