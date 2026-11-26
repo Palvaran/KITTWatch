@@ -2,7 +2,7 @@
 
 KITT distills emergency guidance from the CDC and FEMA into a field guide you can query offline on an Apple Watch. Ask a question in your own words or browse by topic. The watch can read the guidance aloud even when your phone is out of reach.
 
-**Project status.** Guide pack v7 passed all 67 core tests on macOS. Guide pack v8 adds 45 everyday phrasings. With the speech change, the offline-model download, blind-trial scoring and the water-notice question there are 97 core tests; on Linux 95 pass, one is skipped, and one fails on a known scoring case (a burn question gets topic buttons instead of "not covered"). An earlier development build answered questions aloud on a Series 5 running watchOS 10.6.2. The v7 executable links for the Series 5. The signed install, the speech changes (pauses, wrist tap, Read again, voice choice), the model download and the revised source screen still need an on-watch check. See the [evaluation results](Eval/RESULTS.md) and [development guide](DEVELOPMENT.md).
+**Project status.** Guide pack v7 passed all 67 core tests on macOS. Guide pack v8 adds 45 everyday phrasings. With the speech change, the offline-model download, blind-trial scoring, the water-notice question and the downloadable guide voices there are 116 core tests; on Linux all pass but one, which is skipped. An earlier development build answered questions aloud on a Series 5 running watchOS 10.6.2. The v7 executable links for the Series 5. The signed install, the speech changes (pauses, wrist tap, Read again, voice choice), the model download and the revised source screen still need an on-watch check. See the [evaluation results](Eval/RESULTS.md) and [development guide](DEVELOPMENT.md).
 
 ## A question on the watch
 

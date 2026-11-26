@@ -1,4 +1,30 @@
-# Off-watch evaluation
+# Model benchmarks and guide evaluation
+
+## Watch model benchmark (2026-11-26)
+
+Three runs reported during the Series 5 trial used the same 139-token prompt with SmolLM2-135M-Instruct. Each produced 60 output tokens. The benchmark runs in the watch app. Phone range, Wi-Fi state and a cold launch were not confirmed in the report.
+
+| Run | First word (s) | Output (tokens/s) | Prompt tokens reused | Prompt tokens evaluated | Prompt processing (tokens/s) | Peak app footprint (MiB) |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| 1 | 2.3 | 25.0 | 66 | 73 | 32 | 52 |
+| 2 | 0.1 | 24.8 | 138 | 1 | 7 | 52 |
+| 3 | 0.1 | 24.6 | 138 | 1 | 14 | 52 |
+
+Run 1 took approximately 4.7 seconds from the start of prompt processing to completion. This estimate uses the rounded display values. The first-word timer starts after model loading and prewarming. The identical repeats demonstrate prompt reuse. Other questions can have different prompt lengths, shared prefixes and output lengths. Two runs, the load and prewarm timings, battery readings and thermal state remain outstanding.
+
+## Burn routing, people in groups, plans in weeks (2026-11-26)
+
+Same guide (v8) and scorer as the water-notice results below.
+
+| Suite split | Correct routing | Expected topic offered as a button | Answer text passed | Flag and notice checks passed | Scored critical failures |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Development | 261/261 | 0 | 265/265 | 218/218 | 0 |
+| Historical held-out | 29/37 | 7 | 32/38 | — | 0 |
+
+- **"How do I treat a burn?" now says "not covered".** A topic button needs two words in common with the question, one of the entry's keywords, or most of the question explained. "Burn" shares only "treat" with treating water. The same rule turned two held-out out-of-scope questions from wrong buttons into "not covered". Nothing that was answered or offered correctly changed.
+- **People in groups and plans in weeks.** "Two adults and two kids, how much water for a week?" is answered by the calculator: 28 US gallons. Two or more counted groups listed together are added up ("2 adults, 3 children and a baby" is 6); a single group ("we have two kids") is not taken for the household. "For a week", "a two-week supply" and "make it two weeks" set the plan in days. A water-amount question that states the household reaches the calculator when the water entry leads, unless someone may need help now: "Two people haven't had any water for two days. How much water should they drink?" still shows the dehydration entry first.
+- **New development families** `household-groups` (3 conversations) and `household-groups-urgent` (critical, 1): all pass.
+- **Held-out went from 26 to 29.** It isn't evidence: two of the three are the burn rule above, and the third is the two-adults-and-two-kids question, already written out in this file as a known miss. The blind trial is the measurement.
 
 ## Water-notice question (2026-11-26)
 

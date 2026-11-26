@@ -17,6 +17,12 @@ KITT ships with these components. Keep these notices with any build you distribu
 - GGUF quantization: https://huggingface.co/bartowski/SmolLM2-135M-Instruct-GGUF, file and revision pinned in `scripts/versions.env`
 - License: Apache License 2.0. https://www.apache.org/licenses/LICENSE-2.0
 
+## Kokoro-82M (guide voice recordings)
+
+- Model and voices: https://huggingface.co/hexgrad/Kokoro-82M (hexgrad)
+- License: Apache License 2.0. https://www.apache.org/licenses/LICENSE-2.0
+- Use: the Heart (`af_heart`) and Michael (`am_michael`) voices read every guide reply, recorded offline on a Mac with `scripts/try-kokoro-voice.py` through kokoro-onnx (MIT, https://github.com/thewh1teagle/kokoro-onnx). The recordings are in `Voices/narration` and reach the watch as optional downloads (the `voices-v1` release), not inside the app. The model itself is not shipped.
+
 ## Other models used in evaluation only
 
 `Eval/RESULTS.md` compares models that are **not** shipped: LFM2.5-350M (LFM Open License v1.0), SmolLM2-360M-Instruct (Apache 2.0), Gemma 3 270M (Gemma Terms of Use) and Falcon-H1-Tiny-90M-Instruct (Falcon LLM License). Read the licence before putting any of them on the watch.

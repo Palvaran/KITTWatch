@@ -63,6 +63,36 @@ final class IntentParserTests: XCTestCase {
         XCTAssertEqual(question.tentative, [.people, .planDays])
         XCTAssertEqual(IntentParser.parse("The outage has lasted a while; plan for 4 days.").declaredFacts.map(\.value), [4])
     }
+
+    /// People in groups add up; a single group of children is not the household.
+    func testPeopleListedInGroups() {
+        let question = IntentParser.parse("Two adults and two kids, how much water for a week?")
+        XCTAssertEqual(facts("Two adults and two kids, how much water for a week?"), [.people: 4, .planDays: 7])
+        XCTAssertTrue(question.asksWater)
+        XCTAssertEqual(facts("We're 2 adults, 3 children and a baby."), [.people: 6])
+        XCTAssertTrue(IntentParser.parse("We're 2 adults, 3 children and a baby.").tentative.isEmpty)
+        XCTAssertEqual(facts("Our family is one adult with a toddler."), [.people: 2])
+        XCTAssertEqual(facts("How much water should we store for 2 grown-ups plus 3 teenagers?"), [.people: 5])
+        XCTAssertEqual(facts("Family of 5: two adults and three kids."), [.people: 5])
+        XCTAssertEqual(IntentParser.parse("Two adults and a child were treated for heat stroke.").tentative, [.people])
+        XCTAssertEqual(facts("We have three kids."), [:], "the adults are unsaid")
+        XCTAssertEqual(facts("Is tap water safe for a baby?"), [:])
+        XCTAssertEqual(facts("We are two adults."), [.people: 2])
+    }
+
+    func testPlansInWeeks() {
+        XCTAssertEqual(facts("Make it two weeks."), [.planDays: 14])
+        XCTAssertEqual(facts("We want a two-week supply."), [.planDays: 14])
+        XCTAssertEqual(IntentParser.parse("How much water do we need for a week?").tentative, [.planDays])
+        XCTAssertTrue(IntentParser.parse("How much water do we need for a week?").asksWater)
+        XCTAssertEqual(IntentParser.parse("Plan for a week.").declaredFacts.map(\.value), [7])
+        XCTAssertTrue(IntentParser.parse("What about a week?").onlyFacts == false, "no number pattern without 'for'")
+        XCTAssertTrue(IntentParser.parse("What about for a week?").onlyFacts)
+        XCTAssertEqual(facts("We bought water last week."), [:])
+        XCTAssertEqual(facts("The power was out a week ago."), [:])
+        XCTAssertEqual(IntentParser.parse("Nobody has eaten for a week.").tentative, [.planDays])
+        XCTAssertEqual(facts("Plan for 5 days, not a week."), [.planDays: 5], "days are read first")
+    }
 }
 
 final class EventLogTests: XCTestCase {
@@ -258,6 +288,24 @@ final class SessionTests: XCTestCase {
         XCTAssertEqual(a.needsFact, .people)
         let b = answered(try s.send("We're a family of 4"))
         XCTAssertTrue(b.text.hasPrefix("Plan for 12 US gallons."), b.text)
+    }
+
+    func testShelterCountAndElapsedOutageLeaveSavedPlanAlone() throws {
+        let s = try makeSession()
+        _ = try s.setFact(.people, 5)
+        _ = try s.setFact(.planDays, 3)
+        _ = try s.send("How much water should we store?")
+        _ = try s.send("There are two adults and a child waiting at the shelter.")
+        _ = try s.send("Our water supply has been off for a week.")
+        let reopened = try makeSession()
+        XCTAssertEqual(reopened.household.people, People(5))
+        XCTAssertEqual(reopened.household.planDays, Days(3))
+        let answer = answered(try reopened.send("Two adults and two kids, how much water for a week?"))
+        XCTAssertTrue(answer.text.hasPrefix("Plan for 28 US gallons."), answer.text)
+        _ = try reopened.send("There are two adults and one toddler in our household.")
+        XCTAssertEqual(reopened.household.people, People(3))
+        _ = try reopened.send("Family of 5: two adults and two kids.")
+        XCTAssertEqual(reopened.household.people, People(5))
     }
 
     /// Guide-and-speech trial acceptance: a question about going without water must not

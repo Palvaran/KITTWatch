@@ -9,6 +9,8 @@ public struct GuideCandidate: Equatable, Sendable {
     public var notes: [GuideNote]
     /// How many of the entry's curated keywords (words or phrases) the question used.
     public var keywordHits: Int
+    /// How many of the question's content words the entry knows.
+    public var matchedWords: Int = 0
 }
 
 public enum Retrieval: Equatable, Sendable {
@@ -164,10 +166,11 @@ public struct GuideSearch: Sendable {
 
         return index.compactMap { item -> GuideCandidate? in
             var score = 0.0, mass = 0.0
-            var keywordHits = 0
+            var keywordHits = 0, matchedWords = 0
             for s in querySet where item.stems.contains(s) {
                 let w = idf[s] ?? maxIDF
                 mass += w
+                matchedWords += 1
                 if item.keywordStems.contains(s) { score += w * 1.5; keywordHits += 1 } else { score += w }
             }
             for p in item.phrases where Self.containsSequence(query, p) { score += 1.0; keywordHits += 1 }
@@ -182,7 +185,7 @@ public struct GuideSearch: Sendable {
                 n.terms.contains { Text.containsPhrase(norm, Text.normalize($0)) }
             }
             return GuideCandidate(entry: item.entry, score: score, coverage: totalMass > 0 ? mass / totalMass : 0,
-                                  notes: notes, keywordHits: keywordHits)
+                                  notes: notes, keywordHits: keywordHits, matchedWords: matchedWords)
         }
         .sorted { $0.score != $1.score ? $0.score > $1.score : $0.entry.id < $1.entry.id }
     }

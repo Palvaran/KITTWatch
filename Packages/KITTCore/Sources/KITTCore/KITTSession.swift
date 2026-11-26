@@ -174,6 +174,13 @@ public final class KITTSession: @unchecked Sendable {
         try log.append(.condition(ConditionChange(entryID: entryID, state: .cleared)), conversation: conversationID)
     }
 
+    /// The user says the water notice is over (cleared the banner on the home screen).
+    public func clearWaterNotice() throws {
+        let s = state
+        guard s.waterNotice != nil || s.waterNoticeUnsure else { return }
+        try log.append(.waterNotice(WaterNoticeChange(state: .lifted, sourceText: nil)), conversation: conversationID)
+    }
+
     // MARK: Turns
 
     /// Save the user's exact words, then decide how to answer.
@@ -277,7 +284,7 @@ public final class KITTSession: @unchecked Sendable {
                 if ended {
                     return .answered(try reply(AssistantMessage(text: "Noted: the water notice is over.", origin: .app)))
                 }
-                let status = "I can’t verify the notice offline. Check the latest notice from your water utility."
+                let status = Self.noticeStatus(current: before.waterNotice, otherNoticeLifted: notice.lifted)
                 if let waiting = before.pendingNoticeQuestion {
                     var message = askWaterNotice(about: waiting, unsure: false)
                     message.text = status + " " + WaterNotice.question
@@ -377,7 +384,13 @@ public final class KITTSession: @unchecked Sendable {
         let declared = intent.declaredFacts
         let planFacts = intent.asksWater || intent.onlyFacts ? intent.facts : declared
         let otherEntry = retrieval.confident.map { $0.entry.calculator != Self.waterCalculator } ?? false
-        let wantsWater = retrieval.confident?.entry.calculator == Self.waterCalculator
+        // A water-amount question that states the household ("Two adults and two kids, how
+        // much water for a week?") goes to the calculator when the water entry leads, even if
+        // the extra words keep it from a confident match. Not when someone may need help now:
+        // "Nobody has had water for two days" must show the dehydration entry first (4c).
+        let statesHousehold = intent.asksWater && !planFacts.isEmpty && !otherEntry
+            && top?.entry.calculator == Self.waterCalculator && search.urgentEntries(signalledBy: trimmed).isEmpty
+        let wantsWater = retrieval.confident?.entry.calculator == Self.waterCalculator || statesHousehold
             || (before.hasWaterContext && !otherEntry && (intent.asksRemaining || !planFacts.isEmpty))
         if wantsWater, let entry = waterEntry {
             try save(planFacts)
@@ -469,8 +482,9 @@ public final class KITTSession: @unchecked Sendable {
         // 6. No reliable answer. Say so and offer buttons.
         //    Active hazards lead the buttons, so the warning is never more than a tap away.
         var offered = Array(before.activeHazards.reversed())
-        for id in retrieval.candidates.map(\.entry.id)
-        where !offered.contains(id) && overridingHazard(for: id, among: before.activeHazards) == nil {
+        for candidate in retrieval.candidates where Self.worthOffering(candidate) {
+            let id = candidate.entry.id
+            guard !offered.contains(id), overridingHazard(for: id, among: before.activeHazards) == nil else { continue }
             offered.append(id)
         }
         let message = AssistantMessage(
@@ -576,6 +590,25 @@ public final class KITTSession: @unchecked Sendable {
     }
 
     /// "What does the notice say?" Unsure: what each notice means first, from its entry.
+    /// Whether a weak match is still worth a button. An entry that shares a single word with
+    /// the question, not one of its keywords, and explains less than most of it, is a
+    /// coincidence: "How do I treat a burn?" shares only "treat" with treating water, and a
+    /// water button there would suggest the guide covers burns. Two shared words, one of the
+    /// entry's keywords, or most of the question explained, is enough.
+    static func worthOffering(_ candidate: GuideCandidate) -> Bool {
+        candidate.matchedWords >= 2 || candidate.keywordHits > 0
+            || candidate.coverage >= GuideSearch.Tuning().minCoverage
+    }
+
+    /// What KITT says when the user asks whether the notice ended, or says a different
+    /// notice ended: KITT can't check offline, and the notice it knows of stays in force.
+    static func noticeStatus(current: WaterNotice?, otherNoticeLifted: Bool) -> String {
+        let check = "Check the latest notice from your water utility."
+        guard let current else { return "I can’t verify the notice offline. " + check }
+        if otherNoticeLifted { return "Your \(current.answer) notice is still in force. " + check }
+        return "I can’t verify the notice offline, so your \(current.answer) notice stays in force. " + check
+    }
+
     private func askWaterNotice(about question: String, unsure: Bool, again: Bool = false) -> AssistantMessage {
         let types = pack.entry(WaterNotice.typesEntryID)
         var message: AssistantMessage

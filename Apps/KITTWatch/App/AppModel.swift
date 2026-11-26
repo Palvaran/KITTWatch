@@ -17,6 +17,10 @@ final class AppModel: ObservableObject {
     @Published private(set) var turns: [DisplayTurn] = []
     @Published private(set) var household = HouseholdState()
     @Published private(set) var activeHazards: [GuideEntry] = []
+    /// The water notice in force in this conversation, shown on the home screen.
+    @Published private(set) var waterNotice: WaterNotice?
+    /// There is a notice, but the user isn't sure which kind.
+    @Published private(set) var waterNoticeUnsure = false
     @Published private(set) var streamingText: String?
     @Published private(set) var status: String?
     @Published private(set) var isGenerating = false
@@ -135,6 +139,12 @@ final class AppModel: ObservableObject {
         catch { status = "Could not save: \(error.localizedDescription)" }
     }
 
+    /// The water notice is over: answers about tap water stop applying it.
+    func clearWaterNotice() {
+        do { try session.clearWaterNotice(); refresh() }
+        catch { status = "Could not save: \(error.localizedDescription)" }
+    }
+
     /// Save household edits. If KITT was waiting for one of them, answer the question now.
     func setFacts(_ facts: [(HouseholdFact.Key, Double)]) {
         guard !facts.isEmpty else { return }
@@ -243,11 +253,6 @@ final class AppModel: ObservableObject {
     /// Play the sample line with the chosen voice and speed.
     func playVoiceSample() {
         playReply(SpokenReply(segments: [SpokenSegment(Self.voiceSample)]), useRecording: true)
-    }
-
-    func playRecordedSample(_ resource: String, fileExtension: String = "wav") -> Bool {
-        guard let url = Bundle.main.url(forResource: resource, withExtension: fileExtension) else { return false }
-        return speaker.playPreview(url, slower: slowerSpeech)
     }
 
     // MARK: Offline model
@@ -454,7 +459,10 @@ final class AppModel: ObservableObject {
 
     func refresh() {
         household = session.household
-        activeHazards = session.state.activeHazards.compactMap { pack.entry($0) }
+        let state = session.state
+        activeHazards = state.activeHazards.compactMap { pack.entry($0) }
+        waterNotice = state.waterNotice
+        waterNoticeUnsure = state.waterNotice == nil && state.waterNoticeUnsure
         var previousCalculation: WaterCalculation?
         turns = session.events.compactMap { e in
             let calculation = previousCalculation
