@@ -1,6 +1,38 @@
 # Off-watch evaluation
 
-## Current results for guide pack v7
+## Water-notice question (2026-11-26)
+
+KITT now asks "What does the notice say?" when a water notice is mentioned without its kind, keeps the kind for the conversation, and ends it when the user says the notice was lifted (see DEVELOPMENT.md, "How a turn is answered", step 3). Same guide (v8). Scored with Codex's revised scorer, under which topic buttons no longer count as "not covered".
+
+| Suite split | Correct routing | Expected topic offered as a button | Answer text passed | Flag and notice checks passed | Scored critical failures |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Development | 255/256 | 0 | 259/259 | 218/218 | 0 |
+| Historical held-out | 26/37 | 8 | 31/38 | — | 0 |
+
+- **New development family `water-notice`** (critical, 10 conversations, 22 judged turns): all pass. It covers asking when the kind is missing; **Not sure** and hedged answers left unresolved with the question still open; a kind named directly; a do-not-use notice followed by "Can we shower?"; "the notice was lifted" ending it while "the outage is over" doesn't; another question while KITT is asking; a treatment question that isn't a notice; and fuel in the water outranking a notice. Seven turns are scored as **Asked the needed question**, with `asksFor: "notice"`.
+- **The one development miss is the known burn question** ("How do I treat a burn?" gets topic buttons). It predates this change and is unchanged.
+- **Held-out moved by one turn (25 → 26):** a boil instruction in the user's words is now read as a boil notice. It isn't evidence: the editor has seen the held-out wording. The blind trial, scored on `baselines/guide-pack-v7.json` and v8 with the frozen pre-clarification evaluator and with this build, is the measurement.
+
+## Results for guide pack v8 (2026-11-26)
+
+v8 changes only the guide's question phrasings: 45 new ways of asking across 14 entries, written as people describe a situation when they don't know its official name ("Power is restored and the milk feels warm. Should we pour it out?"). No answer, keyword or source changed, and no code. The hazard and urgent entries (carbon monoxide, gas leak, fuel in water, heat illness, hypothermia, frostbite) were left alone; their routing runs on separately tuned triggers. The 85 core tests pass on Linux.
+
+| Suite split | Correct direct routing | Expected topic offered as a button | Answer text passed | Flag checks passed | Scored critical failures |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Development | 234/234 | 0 | 252/252 | 199/199 | 0 |
+| Historical held-out | 27/37 | 9 | 30/38 | — | 0 |
+
+The two held-out turns that changed both went from a button to a direct answer (storing water in jugs, and insulin left in a car). **They are not evidence.** The phrasing editor had seen held-out wording in earlier sessions, so the held-out set is no longer blind to this change. The evidence is the blind trial in [BLIND-TRIAL.md](BLIND-TRIAL.md), scored on `baselines/guide-pack-v7.json` and v8 with questions the editor hasn't seen.
+
+What the checks while writing found:
+
+- **A phrasing's ordinary words become the entry's vocabulary.** A first draft put "two" in a rationing phrasing, and "Nobody has had water to drink for two days" stopped reaching dehydration. "A hurricane is coming" in one water-storage phrasing made "A hurricane is coming. Should we evacuate?" answer with water storage. "Can we open the freezer door" pulled the generator follow-up "What if I leave the door open?" to the fridge entry and hid the carbon monoxide warning. The final phrasings avoid numbers, contractions and words like "okay", "still", "told" and "until". Context words such as "hurricane" and "storm" appear across several entries, so they don't steer a question to one of them.
+- **Questions the guide can't answer stay unanswered.** Of 17 such questions (evacuating, shelters, boarding windows, walking in floodwater, cheese after an outage, milk jugs for storage), v8 answers the same two outright as v7 does, both through existing notes: water for a dog (the pets note) and the dishwasher during a boil notice (the dishes note).
+- **A sanity check, not a measurement.** On 28 rewordings of the new situations, written by the same editor, v8 answered 23 correctly and none wrongly; v7 answered 11 correctly and 1 wrongly (a "boiling won't fix it" question got the boil-notice answer). The other 5 get buttons.
+
+Missing answers noticed while writing go on the expansion list, not into a neighbouring entry: cheese and other foods by type after an outage (FoodSafety.gov's chart), milk jugs and other containers to avoid, evacuating, shelters, preparing the house before a hurricane, floodwater safety, returning to a flooded home, turning off utilities, and charging phones safely.
+
+## Results for guide pack v7 (the blind trial's baseline)
 
 The model-off pipeline ran on macOS across 229 conversations and 352 turns. The 67 core tests also passed. A routing check asks whether the first reply gave the expected answer. The button column counts turns where the expected entry required another tap.
 

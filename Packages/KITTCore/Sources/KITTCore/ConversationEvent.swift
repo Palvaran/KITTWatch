@@ -41,6 +41,7 @@ public enum EventType: String, Codable, Sendable {
     case householdFact
     case calculation
     case condition
+    case waterNotice
 }
 
 public enum EventPayload: Codable, Equatable, Sendable {
@@ -51,6 +52,8 @@ public enum EventPayload: Codable, Equatable, Sendable {
     case calculation(WaterCalculation)
     /// A hazard was raised or cleared in this conversation.
     case condition(ConditionChange)
+    /// A water notice was reported, left unknown, or lifted in this conversation.
+    case waterNotice(WaterNoticeChange)
 
     public var type: EventType {
         switch self {
@@ -59,6 +62,7 @@ public enum EventPayload: Codable, Equatable, Sendable {
         case .householdFact: return .householdFact
         case .calculation: return .calculation
         case .condition: return .condition
+        case .waterNotice: return .waterNotice
         }
     }
 }
@@ -102,10 +106,14 @@ public struct AssistantMessage: Codable, Equatable, Sendable {
     /// The reply ended with the hazard's question ("Is it running there...?"). A yes to it
     /// flags `suggestedHazard`.
     public var asksHazardQuestion: Bool
+    /// The reply asked which water notice it is ("What does the notice say?"). This is the
+    /// user's question it answers once told.
+    public var noticeQuestion: String?
 
     public init(text: String, origin: Origin, citations: [String] = [], modelID: String? = nil, interrupted: Bool = false,
                 suggestions: [String] = [], offersModel: Bool = false, needsFact: HouseholdFact.Key? = nil,
-                unsupportedNumbers: [String] = [], suggestedHazard: String? = nil, asksHazardQuestion: Bool = false) {
+                unsupportedNumbers: [String] = [], suggestedHazard: String? = nil, asksHazardQuestion: Bool = false,
+                noticeQuestion: String? = nil) {
         self.text = text
         self.origin = origin
         self.citations = citations
@@ -117,10 +125,21 @@ public struct AssistantMessage: Codable, Equatable, Sendable {
         self.unsupportedNumbers = unsupportedNumbers
         self.suggestedHazard = suggestedHazard
         self.asksHazardQuestion = asksHazardQuestion
+        self.noticeQuestion = noticeQuestion
     }
 
     enum CodingKeys: String, CodingKey {
         case text, origin, citations, modelID, interrupted, suggestions, offersModel, needsFact, unsupportedNumbers, suggestedHazard, asksHazardQuestion
+        case noticeQuestion
+    }
+
+    /// The one fact this reply asks the user for, if any: "notice" (which water notice),
+    /// "hazardUse" (the hazard's question), or a household fact ("people", "planDays",
+    /// "storedWater").
+    public var askedFor: String? {
+        if noticeQuestion != nil { return "notice" }
+        if asksHazardQuestion { return "hazardUse" }
+        return needsFact?.rawValue
     }
 
     // Fields added after the first build decode as their defaults, so an older peer's
@@ -138,6 +157,7 @@ public struct AssistantMessage: Codable, Equatable, Sendable {
         unsupportedNumbers = try c.decodeIfPresent([String].self, forKey: .unsupportedNumbers) ?? []
         suggestedHazard = try c.decodeIfPresent(String.self, forKey: .suggestedHazard)
         asksHazardQuestion = try c.decodeIfPresent(Bool.self, forKey: .asksHazardQuestion) ?? false
+        noticeQuestion = try c.decodeIfPresent(String.self, forKey: .noticeQuestion)
     }
 }
 

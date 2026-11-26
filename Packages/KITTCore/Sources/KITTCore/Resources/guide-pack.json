@@ -1,6 +1,6 @@
 {
  "packID": "outage-3day",
- "version": 7,
+ "version": 8,
  "title": "Three-day household power and water outage",
  "entries": [
   {
@@ -14,7 +14,10 @@
     "How much water do we need for an outage?",
     "How many gallons of water per person?",
     "How much more water do we need?",
-    "Do we have enough water?"
+    "Do we have enough water?",
+    "How much water should we buy before the hurricane?",
+    "How many cases of water should we buy?",
+    "Stocking up before the storm. How much water per person?"
    ],
    "keywords": [
     "gallons",
@@ -96,7 +99,13 @@
     "What containers can we store water in?",
     "How long does stored water last?",
     "When should stored water be replaced?",
-    "How do I sanitize an empty drinking water jug?"
+    "How do I sanitize an empty drinking water jug?",
+    "How long does water keep in bottles we filled from the tap?",
+    "Can we reuse soda bottles for drinking water?",
+    "How do I clean a container to fill with drinking water?",
+    "Can we keep stored water in the garage?",
+    "Is water we filled in jugs last year still safe to drink?",
+    "Should we fill containers with tap water before the hurricane?"
    ],
    "keywords": [
     "container",
@@ -166,7 +175,11 @@
     "We're running low on water. What do we do?",
     "How much water should I drink each day?",
     "How much should a person drink a day?",
-    "Should we save our last water for tomorrow?"
+    "Should we save our last water for tomorrow?",
+    "Only a little water is left and the stores are empty. Should we drink less?",
+    "Should the kids drink less so our water lasts longer?",
+    "The stores are out of water after the storm. Should we save what we have?",
+    "How do we make our drinking water last longer?"
    ],
    "keywords": [
     "ration",
@@ -256,7 +269,8 @@
     "How many days can we go without water?",
     "How fast does dehydration become dangerous?",
     "How long can a child go without water?",
-    "How long can you live without water?"
+    "How long can you live without water?",
+    "How long can we last if the water runs out?"
    ],
    "keywords": [
     "without water",
@@ -336,7 +350,10 @@
     "We haven't had anything to drink since yesterday. What should we do?",
     "When does dehydration need a doctor?",
     "My baby hasn't had a wet diaper in hours. Is that dehydration?",
-    "My baby is barely peeing and has no tears. Could this be dehydration?"
+    "My baby is barely peeing and has no tears. Could this be dehydration?",
+    "Dark pee, tired and very thirsty. Is that dehydration?",
+    "The baby's diaper has been dry since lunch.",
+    "Very tired with a dry mouth. Is that dehydration?"
    ],
    "keywords": [
     "dehydrated",
@@ -412,7 +429,11 @@
     "How do we purify water?",
     "Can we disinfect water with bleach?",
     "How can I treat water for germs if I can't boil it?",
-    "What else kills germs in drinking water when I have no way to boil it?"
+    "What else kills germs in drinking water when I have no way to boil it?",
+    "We have creek water. How do we make it drinkable?",
+    "Can we drink rainwater if we boil it?",
+    "No stove and no power. How do I make water safe without boiling?",
+    "After the hurricane, how do we make our water safe to drink?"
    ],
    "keywords": [
     "purify",
@@ -462,7 +483,9 @@
     "What do the water notices mean?",
     "What kinds of water advisories are there?",
     "What is the difference between a boil water and a do not drink notice?",
-    "Is our tap water safe?"
+    "Is our tap water safe?",
+    "We got a text alert about our tap water. What does it mean?",
+    "The water utility issued a notice. Can we drink from the tap?"
    ],
    "keywords": [
     "notice",
@@ -504,7 +527,10 @@
     "We're under a boil water notice",
     "Can we shower during a boil water advisory?",
     "Can we brush our teeth with tap water during a boil notice?",
-    "How should I wash plates during a boil advisory?"
+    "How should I wash plates during a boil advisory?",
+    "We have to boil our water. What about the dog?",
+    "We have to boil our water. What about mixing the baby's formula?",
+    "Does filtered water need boiling during the notice?"
    ],
    "keywords": [
     "boil water advisory",
@@ -564,7 +590,9 @@
     "What does a do not drink notice mean?",
     "We're under a do not drink advisory",
     "We're under a do not use water advisory",
-    "Can we boil water during a do not drink advisory?"
+    "Can we boil water during a do not drink advisory?",
+    "Boiling does not fix our tap water. Can we brush teeth with it?",
+    "The tap water is unsafe to touch. Can the kids bathe?"
    ],
    "keywords": [
     "do not drink",
@@ -802,7 +830,11 @@
     "How long will the fridge keep food cold?",
     "How long does a freezer last in a power outage?",
     "The power is out. What about the food?",
-    "Do I need a cooler for refrigerated food when the lights go out?"
+    "Do I need a cooler for refrigerated food when the lights go out?",
+    "Is the fridge still cold enough after the power was off for hours?",
+    "How long can the freezer stay shut before the meat thaws?",
+    "Should the milk go in a cooler with ice?",
+    "The hurricane knocked out the power. How long will the fridge keep food cold?"
    ],
    "keywords": [
     "fridge",
@@ -858,7 +890,10 @@
     "Is the milk still good after the power was out?",
     "Can we refreeze food that thawed?",
     "Is the meat safe after the power outage?",
-    "Can I refreeze food that still has ice crystals?"
+    "Can I refreeze food that still has ice crystals?",
+    "Power is restored and the milk feels warm. Should we pour it out?",
+    "The chicken in the freezer thawed. Can I refreeze it?",
+    "Are leftovers safe to eat after the fridge was off for hours?"
    ],
    "keywords": [
     "throw out",
@@ -1187,7 +1222,11 @@
     "Is it safe to use candles?",
     "Should I unplug things during a blackout?",
     "What do we do in a blackout?",
-    "The power just went out on our whole street. What should I do first?"
+    "The power just went out on our whole street. What should I do first?",
+    "The whole neighborhood is dark. What should we do?",
+    "The storm knocked our power out. What do we do?",
+    "Should we unplug the TV and computer during the outage?",
+    "No electricity since the hurricane. What should we do?"
    ],
    "keywords": [
     "power out",
@@ -1266,7 +1305,9 @@
     "What should we have ready before extreme heat?",
     "Where can we go to cool off in a heat wave?",
     "How do I keep the house cooler in a heat wave?",
-    "Is a fan enough in extreme heat?"
+    "Is a fan enough in extreme heat?",
+    "The air conditioning is broken in a heat wave. How do we stay cool?",
+    "Where can we cool off when the power is out in a heat wave?"
    ],
    "keywords": [
     "heat wave",
@@ -1555,7 +1596,11 @@
     "What about insulin pumps during a blackout?",
     "Is insulin still usable after it froze?",
     "How long does diluted insulin keep in an emergency?",
-    "Where do I find the limit for my insulin pen?"
+    "Where do I find the limit for my insulin pen?",
+    "The fridge is off. How long does my insulin last?",
+    "My insulin pen was in a hot car. Can I still use it?",
+    "Can I keep my insulin in a cooler with ice?",
+    "The insulin got warm during the outage. Is it ruined?"
    ],
    "keywords": [
     "insulin",

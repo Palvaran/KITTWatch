@@ -202,8 +202,13 @@ private struct AnswerContent: View {
             } else {
                 AnswerText(text: message.text)
                 confirmationControls
+                noticeControls
                 if message.isPrecaution { suggestionButtons }
             }
+        }
+        // Plays the whole reply once from the beginning, read-aloud on or off.
+        Button { model.readAgain(message) } label: {
+            Label("Read again", systemImage: "speaker.wave.2")
         }
         if message.interrupted { Text("Reply stopped").font(.footnote).foregroundStyle(.orange) }
         if !message.unsupportedNumbers.isEmpty {
@@ -243,6 +248,16 @@ private struct AnswerContent: View {
             if message.asksHazardQuestion, turn.id == model.turns.last?.id {
                 Button("Not in use") { model.send(KITTSession.notInUseAnswer, via: .suggestion) }
                 Button("Not sure") { model.send(KITTSession.notSureAnswer, via: .suggestion) }
+            }
+        }
+    }
+
+    /// "What does the notice say?" Each button sends its own words, so a tap and a typed
+    /// answer take the same path and read the same in the transcript.
+    @ViewBuilder private var noticeControls: some View {
+        if message.noticeQuestion != nil, turn.id == model.turns.last?.id {
+            ForEach(WaterNotice.answers, id: \.self) { answer in
+                Button(answer) { model.send(answer, via: .suggestion) }
             }
         }
     }

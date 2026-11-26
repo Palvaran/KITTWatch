@@ -35,6 +35,18 @@ public struct EvalExpectation: Codable, Sendable {
     public var entries: [String]?
     /// The right outcome is "the guide doesn't cover that".
     public var notCovered: Bool?
+    /// The answer depends on a fact the user didn't give (which kind of notice, whether the
+    /// generator is running, how many people). With `entries`, the right reply cites the entry
+    /// and asks for that fact; answering outright is scored as a guess.
+    public var asks: Bool?
+    /// The fact the reply must ask for: "notice" (which water notice), "hazardUse" (the
+    /// hazard's question), "people", "planDays" or "storedWater". Only that question earns
+    /// credit; asking for the household size when the notice is missing does not. Kept apart
+    /// from `asks` so labels still load in evaluators that predate it.
+    public var asksFor: String?
+    /// The water notice in force after this turn: "boil", "doNotDrink", "doNotUse",
+    /// "unknown" (the user said not sure) or "none". Judged with the flags.
+    public var waterNotice: String?
     /// Each inner list is a set of alternatives; one of them must appear (case-insensitive).
     public var mustSay: [[String]]?
     /// None of these may appear (case-insensitive).
@@ -47,6 +59,66 @@ public struct EvalExpectation: Codable, Sendable {
     /// Hazards answered but not flagged after this turn, and how: "ruledOut" (not in use)
     /// or "unknown" (not sure). Must be exactly these. Judged and counted with the flags.
     public var hazardAnswers: [String: ConditionChange.State]?
+}
+
+extension EvalSuite {
+    /// A blind trial's scenarios from plain text: one question per line, a blank line
+    /// between conversations (consecutive lines are follow-ups), # for comments. One
+    /// held-out family, no expectations: those are added after the questions are written.
+    public static func blindTrial(from text: String, name: String, people: Int? = nil) -> EvalSuite {
+        var conversations: [[String]] = [[]]
+        for raw in text.components(separatedBy: .newlines) {
+            let line = raw.trimmingCharacters(in: .whitespaces)
+            if line.hasPrefix("#") { continue }
+            if line.isEmpty {
+                if !(conversations.last?.isEmpty ?? true) { conversations.append([]) }
+            } else {
+                conversations[conversations.count - 1].append(line)
+            }
+        }
+        let scenarios = conversations.filter { !$0.isEmpty }.enumerated().map { index, lines in
+            EvalScenario(id: String(format: "q%02d", index + 1), people: people,
+                         turns: lines.map { EvalTurn(say: $0, expect: nil) })
+        }
+        return EvalSuite(families: [EvalFamily(id: name, split: "heldout", critical: false, scenarios: scenarios)])
+    }
+}
+
+/// What a reply did with a routing expectation. Blind trials report these counts, so
+/// asking a needed question, a button, a guess and a wrong answer are told apart.
+public enum EvalOutcome: String, Codable, Sendable, CaseIterable {
+    /// Showed the expected entry outright.
+    case answered
+    /// Showed the expected entry and asked for the fact its answer depends on.
+    case asked
+    /// Showed the expected entry outright when it should have asked first.
+    case guessed
+    /// Asked for a fact, but not the one the answer depends on.
+    case askedOther
+    /// Didn't answer outright; the expected entry was one of the buttons.
+    case button
+    /// Said the guide doesn't cover it (or offered buttons), as expected.
+    case notCovered
+    /// Showed a warning as a precaution; the expected entry wasn't shown or offered.
+    case precaution
+    /// Showed a different entry outright, or an answer where none was expected.
+    case wrong
+    /// Showed nothing useful: no entry, and the expected one wasn't among the buttons.
+    case missed
+
+    public var label: String {
+        switch self {
+        case .answered: return "Answered"
+        case .asked: return "Asked the needed question"
+        case .guessed: return "Answered without asking"
+        case .askedOther: return "Asked about something else"
+        case .button: return "Offered as a button"
+        case .notCovered: return "Said \"not covered\", as expected"
+        case .precaution: return "Warning shown instead"
+        case .wrong: return "Wrong answer"
+        case .missed: return "Missed"
+        }
+    }
 }
 
 public struct EvalTurnResult: Codable, Sendable {
@@ -64,6 +136,14 @@ public struct EvalTurnResult: Codable, Sendable {
     public var unsupportedNumbers: [String]
     /// Flagged hazards after this turn (KITT session builds only).
     public var activeHazardsAfter: [String]? = nil
+    /// nil when the turn has no routing expectation, or the build cannot be judged on routing.
+    public var outcome: EvalOutcome? = nil
+    /// The entries KITT offered as buttons, and whether it asked for a missing fact. Kept
+    /// for every turn, judged or not, so an unlabelled run is a usable record.
+    public var suggestions: [String]? = nil
+    public var asked: Bool? = nil
+    /// Which fact it asked for ("notice", "hazardUse", "people", ...).
+    public var askedFor: String? = nil
     /// nil when the turn has no flag expectation or the build has no session.
     public var flagsCorrect: Bool? = nil
 }
@@ -104,18 +184,62 @@ public enum EvalScorer {
         var routed: Bool?
         var content: Bool?
         var offered = false
+        var outcome: EvalOutcome?
         if let expect {
             if judgeRouting {
-                if let entries = expect.entries {
-                    let cited = reply.citations.map { $0.split(separator: "@").first.map(String.init) ?? $0 }
-                    routed = cited.contains(where: entries.contains)
+                let cited = reply.citations.map { $0.split(separator: "@").first.map(String.init) ?? $0 }
+                let asked = reply.askedFor != nil
+                if let fact = expect.asksFor {
+                    // Credit only for asking the fact the answer depends on.
+                    let entries = expect.entries ?? []
+                    let hit = cited.contains(where: entries.contains)
+                    routed = reply.askedFor == fact
+                    offered = reply.suggestions.contains(where: entries.contains)
+                    if routed == true {
+                        outcome = .asked
+                    } else if let other = reply.askedFor {
+                        outcome = .askedOther
+                        problems.append("asked for \(other), expected a question about \(fact)")
+                    } else if hit {
+                        outcome = .guessed
+                        problems.append("answered \(cited.joined(separator: ", ")) without asking about \(fact)")
+                    } else {
+                        outcome = reply.isPrecaution ? .precaution : (!cited.isEmpty ? .wrong : (offered ? .button : .missed))
+                        problems.append("expected a question about \(fact), got \(cited.isEmpty ? (offered ? "buttons" : "no entry") : cited.joined(separator: ", "))")
+                    }
+                } else if let entries = expect.entries {
+                    let hit = cited.contains(where: entries.contains)
+                    routed = hit && (expect.asks != true || asked)
                     if routed == false {
                         offered = reply.suggestions.contains(where: entries.contains)
-                        problems.append("expected \(entries.joined(separator: " or ")), got \(cited.isEmpty ? (offered ? "buttons that include it" : "no entry") : cited.joined(separator: ", "))")
+                        if hit {
+                            problems.append("answered \(entries.joined(separator: " or ")) without asking for the missing fact")
+                        } else {
+                            problems.append("expected \(entries.joined(separator: " or ")), got \(cited.isEmpty ? (offered ? "buttons that include it" : "no entry") : cited.joined(separator: ", "))")
+                        }
+                    }
+                    if hit {
+                        outcome = expect.asks == true ? (asked ? .asked : .guessed) : .answered
+                    } else if reply.isPrecaution {
+                        // A precaution's alternatives are buttons directly under the warning.
+                        outcome = offered ? .button : .precaution
+                    } else if !cited.isEmpty {
+                        outcome = .wrong   // another entry shown outright; its related topics are a tap further
+                    } else {
+                        outcome = offered ? .button : .missed
                     }
                 } else if expect.notCovered == true {
-                    routed = reply.offersModel && reply.origin == .app
-                    if routed == false { problems.append("expected \"not covered\", got an answer") }
+                    let fallback = reply.origin == .app && reply.offersModel && reply.citations.isEmpty
+                    routed = fallback && reply.suggestions.isEmpty
+                    if routed == true {
+                        outcome = .notCovered
+                    } else if fallback {
+                        problems.append("expected \"not covered\", got topic choices")
+                        outcome = .missed
+                    } else {
+                        problems.append("expected \"not covered\", got an answer")
+                        outcome = reply.isPrecaution ? .precaution : .wrong
+                    }
                 }
             }
             if expect.mustSay != nil || expect.mustNotSay != nil || expect.firstSentence != nil {
@@ -149,7 +273,9 @@ public enum EvalScorer {
         }
         return EvalTurnResult(say: say, reply: reply.text, origin: reply.origin.rawValue, citations: reply.citations,
                               routedCorrectly: routed, offeredAsButton: offered, contentCorrect: content, problems: problems,
-                              unsupportedNumbers: reply.unsupportedNumbers)
+                              unsupportedNumbers: reply.unsupportedNumbers, outcome: outcome,
+                              suggestions: reply.suggestions.isEmpty ? nil : reply.suggestions,
+                              asked: reply.askedFor != nil ? true : nil, askedFor: reply.askedFor)
     }
 }
 
@@ -190,6 +316,8 @@ public struct EvalTally: Codable, Sendable, Equatable {
     public var flagsJudged = 0
     /// Turns after which the flagged hazards were not the expected ones.
     public var wrongFlags = 0
+    /// How many judged turns ended each way, keyed by `EvalOutcome.rawValue`.
+    public var outcomes: [String: Int] = [:]
 }
 
 public struct EvalReport: Codable, Sendable {
@@ -216,6 +344,7 @@ public struct EvalReport: Codable, Sendable {
                 }
                 if !turn.unsupportedNumbers.isEmpty { t.repliesWithUnsupportedNumbers += 1 }
                 if let ok = turn.flagsCorrect { t.flagsJudged += 1; if !ok { t.wrongFlags += 1 } }
+                if let o = turn.outcome { t.outcomes[o.rawValue, default: 0] += 1 }
             }
         }
         return t
@@ -258,11 +387,19 @@ public enum EvalRunner {
                             result.problems = result.problems.filter { $0.hasPrefix("expected") } + content.problems
                             result.unsupportedNumbers = final.unsupportedNumbers
                         }
-                        let flags = session.state.activeHazards
+                        let after = session.state
+                        if let expected = turn.expect?.waterNotice {
+                            let got = after.waterNotice?.rawValue ?? (after.waterNoticeUnsure ? "unknown" : "none")
+                            let ok = got == expected
+                            result.flagsCorrect = ok
+                            if !ok { result.problems.append("water notice \(got), expected \(expected)") }
+                        }
+                        let flags = after.activeHazards
                         result.activeHazardsAfter = flags
                         if let expected = turn.expect?.activeHazards {
-                            result.flagsCorrect = Set(flags) == Set(expected)
-                            if result.flagsCorrect == false {
+                            let ok = Set(flags) == Set(expected)
+                            result.flagsCorrect = ok && result.flagsCorrect != false
+                            if !ok {
                                 result.problems.append("flagged \(flags.isEmpty ? "nothing" : flags.joined(separator: ", ")), expected \(expected.isEmpty ? "nothing" : expected.joined(separator: ", "))")
                             }
                         }

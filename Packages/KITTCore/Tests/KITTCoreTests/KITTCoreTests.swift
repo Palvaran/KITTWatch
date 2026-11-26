@@ -436,7 +436,8 @@ final class SessionTests: XCTestCase {
         let spokenPlan = SpeechText.make(for: plan, pack: pack)
         XCTAssertTrue(spokenPlan.hasPrefix("Plan for 9 US gallons. 3 days is the default"), spokenPlan)
         XCTAssertFalse(spokenPlan.contains("×"))
-        XCTAssertTrue(spokenPlan.hasSuffix("Related: How to store water and Making water safe to drink."), spokenPlan)
+        XCTAssertTrue(spokenPlan.hasSuffix("The calculation is on screen."), spokenPlan)
+        XCTAssertFalse(spokenPlan.contains("Related"), "related topics sit behind a button; not read")
 
         s.startNewConversation()
         let pick = answered(try s.send("What are the best hiking boots?"))
@@ -469,6 +470,66 @@ final class SessionTests: XCTestCase {
         XCTAssertTrue(urgent.isPrecaution)
         XCTAssertTrue(SpeechText.make(for: urgent, pack: s.pack)
             .hasSuffix("Or did you mean: How long a person can go without water, Rationing drinking water, or Making water safe to drink?"))
+    }
+
+    /// Speech acceptance, the parts that do not need the watch: an urgent reply's first
+    /// instruction stands alone (the watch taps the wrist with it), then a pause; a water
+    /// answer reads the total, pauses, and says the calculation is on screen; spoken
+    /// choices are only buttons on the answer screen; and numbers and symbols are said
+    /// the way a person would say them.
+    func testSpokenRepliesPauseAndSayWhatIsOnScreen() throws {
+        let s = try makeSession()
+        let heat = answered(try s.send("After working outside in the heat, my dad is confused and his skin is hot."))
+        let urgent = SpeechText.reply(for: heat, pack: s.pack)
+        XCTAssertTrue(urgent.urgent)
+        XCTAssertEqual(urgent.segments.first, SpokenSegment("Call nine one one now if you suspect heat stroke.", pauseAfter: 0.6))
+        XCTAssertTrue(urgent.segments[1].text.contains("103 degrees Fahrenheit or higher"), urgent.segments[1].text)
+        XCTAssertFalse(urgent.text.contains("(") || urgent.text.contains("°") || urgent.text.contains("911"), urgent.text)
+
+        s.startNewConversation()
+        let gas = SpeechText.reply(for: answered(try s.send("I smell gas in the kitchen.")), pack: s.pack)
+        XCTAssertTrue(gas.urgent)
+        XCTAssertEqual(gas.segments.first?.text, "Leave the area now.")
+
+        s.startNewConversation()
+        try s.setFact(.people, 3)
+        let plan = SpeechText.reply(for: answered(try s.send("How much water should we store for a heat wave?")), pack: s.pack)
+        XCTAssertFalse(plan.urgent)
+        XCTAssertEqual(plan.segments.count, 2)
+        XCTAssertEqual(plan.segments[0], SpokenSegment("Plan for 9 US gallons. 3 days is the default; tell me if your plan is longer. "
+                                                       + "In very hot weather, water needs can double.", pauseAfter: 0.5))
+        XCTAssertEqual(plan.segments[1], SpokenSegment("The calculation is on screen."))
+
+        s.startNewConversation()
+        let asked = SpeechText.reply(for: answered(try s.send("The generator is in the garage.")), pack: s.pack)
+        XCTAssertTrue(asked.urgent)
+        XCTAssertEqual(asked.segments.last, SpokenSegment("Answer: This applies to us, Not in use, or Not sure."))
+        XCTAssertEqual(asked.segments[asked.segments.count - 2].pauseAfter, 0.5)
+
+        s.startNewConversation()
+        let guide = SpeechText.reply(for: answered(try s.send("How long does food stay safe without power?")), pack: s.pack)
+        XCTAssertEqual(guide.segments.count, 1, "a guide answer's related topics are behind a button: \(guide.transcript)")
+
+        s.startNewConversation()
+        let pick = SpeechText.reply(for: answered(try s.send("How do I keep the house warm until electricity comes back?")), pack: s.pack)
+        XCTAssertTrue(pick.segments.last!.text.hasSuffix("."), pick.transcript)
+        XCTAssertEqual(pick.segments.count, 2, "the choice list is its own segment after a pause: \(pick.transcript)")
+
+        let ask = try makeSession(file: "ask.jsonl")
+        let household = SpeechText.reply(for: answered(try ask.send("How much water should we store?")), pack: s.pack)
+        XCTAssertEqual(household.segments.last?.text, "Tap Set household.")
+    }
+
+    func testPronunciation() {
+        XCTAssertEqual(SpeechText.spoken("Call 911 now."), "Call nine one one now.")
+        XCTAssertEqual(SpeechText.spoken("between 59°F and 86°F for up to 28 days"),
+                       "between 59 and 86 degrees Fahrenheit for up to 28 days")
+        XCTAssertEqual(SpeechText.spoken("Keep it at 40°F or below."), "Keep it at 40 degrees Fahrenheit or below.")
+        XCTAssertEqual(SpeechText.spoken("pump insulin above 98.6°F."), "pump insulin above 98.6 degrees Fahrenheit.")
+        XCTAssertEqual(SpeechText.spoken("hot, red skin (dry or damp), or a temperature"), "hot, red skin, dry or damp, or a temperature")
+        XCTAssertEqual(SpeechText.spoken("boil for 1 minute (3 minutes above 6,500 feet)."), "boil for 1 minute, 3 minutes above 6,500 feet.")
+        XCTAssertEqual(SpeechText.spoken("Planning baseline from Ready.gov (FEMA)."), "Planning baseline from Ready dot gov, FEMA.")
+        XCTAssertEqual(SpeechText.spoken("Sweat 1 to 1.5 liters an hour."), "Sweat 1 to 1.5 liters an hour.")
     }
 
     func testBleachQuestionIsNotSentToTheWaterCalculator() throws {

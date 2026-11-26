@@ -31,6 +31,7 @@ func describe(_ m: AssistantMessage, pack: ContentPack) -> String {
     if m.asksHazardQuestion {
         out += "\n  buttons: Not in use (\"\(KITTSession.notInUseAnswer)\") | Not sure (\"\(KITTSession.notSureAnswer)\")"
     }
+    if m.noticeQuestion != nil { out += "\n  buttons: " + WaterNotice.answers.joined(separator: " | ") }
     return out
 }
 
@@ -44,7 +45,8 @@ func runAsk(_ args: Arguments) {
         if let n = args.int("days") { try session.setFact(.planDays, Double(n)) }
         // --speech: also print what the watch reads aloud for each reply.
         func spoken(_ m: AssistantMessage) {
-            if args.has("speech") { print("  spoken: " + SpeechText.make(for: m, pack: pack, activeHazards: session.state.activeHazards)) }
+            // "(tap)" marks the wrist tap that starts an urgent reply; [pause] the silences.
+            if args.has("speech") { print("  spoken: " + SpeechText.reply(for: m, pack: pack, activeHazards: session.state.activeHazards).transcript) }
         }
         if let engine { try engine.prewarm(PromptBuilder.grounded(question: "", passages: [])) }
 
@@ -82,6 +84,8 @@ func runAsk(_ args: Arguments) {
             .compactMap { $0 }.joined(separator: ", "))
         let hazards = session.state.activeHazards
         print("flagged hazards: " + (hazards.isEmpty ? "none" : hazards.joined(separator: ", ")))
+        let s = session.state
+        if let n = s.waterNotice { print("water notice: " + n.answer) } else if s.waterNoticeUnsure { print("water notice: not sure which") }
         let answers = session.state.hazardAnswers.sorted { $0.key < $1.key }
         if !answers.isEmpty {
             print("answered, not flagged: " + answers.map { "\($0.key) (\($0.value.title.lowercased()))" }.joined(separator: ", "))

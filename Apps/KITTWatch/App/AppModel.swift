@@ -21,6 +21,9 @@ final class AppModel: ObservableObject {
     @Published private(set) var status: String?
     @Published private(set) var isGenerating = false
     @Published private(set) var lastBenchmark: String?
+    /// The verified offline model, if one is downloaded (More › Offline model).
+    @Published private(set) var installedModel: InstalledModel?
+    @Published private(set) var modelPhase: ModelDownloader.Phase = .idle
     /// Speak each reply as it arrives. On by default; More › Read replies aloud.
     @Published var readAloud: Bool {
         didSet {
@@ -28,10 +31,40 @@ final class AppModel: ObservableObject {
             if !readAloud { speaker.stop() }
         }
     }
-    /// A reply is being read aloud: the conversation shows Stop speaking.
+    /// A reply is being read aloud, its pauses included: every screen shows the stop square.
     @Published private(set) var isSpeaking = false
+    /// More › Voice. nil is the watch's default voice.
+    @Published var voiceID: String? {
+        didSet { UserDefaults.standard.set(voiceID, forKey: Self.voiceKey) }
+    }
+    /// More › Voice › Reply voice. Heart or Michael reads only once its pack is downloaded;
+    /// until then, and for replies it has no recording of, the Apple voice reads.
+    @Published var guideVoice: GuideVoice {
+        didSet { UserDefaults.standard.set(guideVoice.rawValue, forKey: Self.guideVoiceKey) }
+    }
+    /// Guide voice packs downloaded and verified on this watch.
+    @Published private(set) var installedVoices: Set<GuideVoice> = []
+    /// Each voice pack's download.
+    @Published private(set) var voicePhases: [GuideVoice: ModelDownloader.Phase] = [:]
+    /// More › Voice › Speed: Normal or Slower.
+    @Published var slowerSpeech: Bool {
+        didSet { UserDefaults.standard.set(slowerSpeech, forKey: Self.slowerKey) }
+    }
+    /// When and from which commit this build was made (scripts/stamp-build.sh), shown at
+    /// the bottom of More so it's easy to tell which build is on the watch.
+    static let buildLabel: String = (Bundle.main.object(forInfoDictionaryKey: "KITTBuild") as? String)
+        .map { "Built " + $0 } ?? "Development build"
+    /// The line every voice reads under More › Voice, so voices can be compared by ear.
+    static let voiceSample = SpeechText.voiceSample
     private static let readAloudKey = "kitt.readAloud"
+    private static let voiceKey = "kitt.voiceID"
+    private static let guideVoiceKey = "kitt.guideVoice"
+    private static let slowerKey = "kitt.slowerSpeech"
     private let speaker = ReplySpeaker()
+    private let downloads = ModelDownloader.shared
+    /// Installed voice packs, opened on first use, and which file each was opened from.
+    private var openVoicePacks: [GuideVoice: VoicePack] = [:]
+    private var installedVoiceIDs: [GuideVoice: String] = [:]
 
     let session: KITTSession
     let metrics: MetricsRecorder
@@ -43,6 +76,9 @@ final class AppModel: ObservableObject {
 
     init() {
         readAloud = UserDefaults.standard.object(forKey: Self.readAloudKey) as? Bool ?? true
+        voiceID = UserDefaults.standard.string(forKey: Self.voiceKey)
+        guideVoice = UserDefaults.standard.string(forKey: Self.guideVoiceKey).flatMap(GuideVoice.init(rawValue:)) ?? .system
+        slowerSpeech = UserDefaults.standard.bool(forKey: Self.slowerKey)
         let fm = FileManager.default
         let support = fm.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
             .appendingPathComponent("KITT", isDirectory: true)
@@ -55,8 +91,16 @@ final class AppModel: ObservableObject {
             // Without storage KITT cannot keep its promises; fail loudly in development.
             fatalError("KITT storage unavailable: \(error)")
         }
-        refresh()
         speaker.onSpeakingChanged = { [weak self] speaking in self?.isSpeaking = speaking }
+        downloads.onChange = { [weak self] in self?.offlineModelChanged() }
+        installedModel = downloads.store?.installed
+        modelPhase = downloads.phase
+        session.modelAvailable = installedModel != nil
+        for voice in GuideVoice.recorded {
+            voice.downloader?.onChange = { [weak self] in self?.voicePackChanged(voice) }
+            voicePackChanged(voice)
+        }
+        refresh()
         metrics.record("app_init", ["events": Double(session.log.all.count)])
     }
 
@@ -74,7 +118,8 @@ final class AppModel: ObservableObject {
 
     /// The user accepts an unverified model reply to the question the guide did not cover.
     func askModelAnyway() {
-        guard !isGenerating, let request = session.modelRequestForUnansweredQuestion() else { return }
+        guard !isGenerating, installedModel != nil,
+              let request = session.modelRequestForUnansweredQuestion() else { return }
         runModel(request)
     }
 
@@ -153,11 +198,153 @@ final class AppModel: ObservableObject {
 
     // MARK: Speech
 
-    /// A reply read aloud, with the buttons under it (SpeechText), so a reply that asks
-    /// "Is it running there?" or "Is it one of these?" can be answered without looking.
+    /// A new reply, read aloud when read-aloud is on.
     private func speak(_ message: AssistantMessage) {
         guard readAloud else { return }
-        speaker.speak(SpeechText.make(for: message, pack: pack, activeHazards: session.state.activeHazards))
+        readAgain(message)
+    }
+
+    /// Read a reply from the beginning, read-aloud on or off (the Read again button).
+    /// SpeechText splits it into segments with pauses and offers only the choices that are
+    /// buttons on the answer screen, so it can be answered without looking.
+    func readAgain(_ message: AssistantMessage) {
+        let reply = SpeechText.reply(for: message, pack: pack, activeHazards: session.state.activeHazards)
+        playReply(reply, useRecording: message.origin != .model)
+    }
+
+    private func playReply(_ reply: SpokenReply, useRecording: Bool) {
+        let speakOnWatch = { [speaker, voiceID, slowerSpeech] in
+            speaker.speak(reply, voiceID: voiceID, slower: slowerSpeech)
+        }
+        // A Slower recording was recorded slower, so it plays at its own speed.
+        if useRecording, let data = recording(for: reply),
+           speaker.playRecording(data, urgent: reply.urgent, onDecodeFailure: speakOnWatch) { return }
+        speakOnWatch()
+    }
+
+    /// The chosen voice's recording of exactly this reply at the chosen speed, if its pack
+    /// is installed and has one.
+    private func recording(for reply: SpokenReply) -> Data? {
+        guard installedVoices.contains(guideVoice) else { return nil }
+        return voicePack(guideVoice)?.clip(for: reply, slower: slowerSpeech)
+    }
+
+    private func voicePack(_ voice: GuideVoice) -> VoicePack? {
+        if let open = openVoicePacks[voice] { return open }
+        guard let url = voice.downloader?.store?.installedURL,
+              let pack = try? VoicePack(contentsOf: url), pack.voice == voice.rawValue else { return nil }
+        openVoicePacks[voice] = pack
+        return pack
+    }
+
+    /// The voices installed for the watch's language, best first.
+    var voiceOptions: [VoiceOption] { ReplySpeaker.availableVoices() }
+
+    /// Play the sample line with the chosen voice and speed.
+    func playVoiceSample() {
+        playReply(SpokenReply(segments: [SpokenSegment(Self.voiceSample)]), useRecording: true)
+    }
+
+    func playRecordedSample(_ resource: String, fileExtension: String = "wav") -> Bool {
+        guard let url = Bundle.main.url(forResource: resource, withExtension: fileExtension) else { return false }
+        return speaker.playPreview(url, slower: slowerSpeech)
+    }
+
+    // MARK: Offline model
+
+    /// What this build downloads, from its Info.plist. nil: the build offers no model.
+    var modelManifest: ModelManifest? { downloads.store?.manifest }
+
+    /// A verified model is installed, but this build pins a different one.
+    var modelHasUpdate: Bool { downloads.store?.hasUpdate ?? false }
+
+    /// A stopped download can continue from where it stopped.
+    var canResumeModelDownload: Bool { downloads.store?.hasResumeData ?? false }
+
+    /// One line for the More list.
+    var modelSummary: String {
+        switch modelPhase {
+        case let .downloading(received, total):
+            return total > 0 ? "Downloading \(Int(100 * Double(received) / Double(total)))%" : "Downloading"
+        case .verifying: return "Checking the download"
+        case .paused: return canResumeModelDownload ? "Paused" : "Download stopped"
+        case .failed: return "Download stopped"
+        case .idle: break
+        }
+        if installedModel != nil { return modelHasUpdate ? "Ready · update available" : "Ready offline" }
+        return modelManifest.map { "Optional · \($0.sizeLabel)" } ?? "Not in this build"
+    }
+
+    func downloadModel() { downloads.start() }
+
+    func cancelModelDownload() { downloads.cancel() }
+
+    func deleteModel() {
+        guard !isGenerating else { return }
+        do { try downloads.delete() }
+        catch { status = "Could not delete the model: \(error.localizedDescription)" }
+    }
+
+    /// A model arrived, was replaced or was deleted, or the download moved on.
+    private func offlineModelChanged() {
+        let installed = downloads.store?.installed
+        if installed?.id != installedModel?.id {
+            // Release the old engine once any reply in progress has finished with it.
+            let holder = self.holder
+            engineQueue.async { holder.engine = nil }
+        }
+        installedModel = installed
+        modelPhase = downloads.phase
+        session.modelAvailable = installed != nil
+    }
+
+    // MARK: Guide voices
+
+    /// This build's pack for a voice, from its Info.plist. nil: the build offers none.
+    func voiceManifest(_ voice: GuideVoice) -> ModelManifest? { voice.downloader?.store?.manifest }
+
+    /// A verified pack is installed, but this build pins a different one (new recordings).
+    func voiceHasUpdate(_ voice: GuideVoice) -> Bool { voice.downloader?.store?.hasUpdate ?? false }
+
+    func canResumeVoiceDownload(_ voice: GuideVoice) -> Bool { voice.downloader?.store?.hasResumeData ?? false }
+
+    func voicePhase(_ voice: GuideVoice) -> ModelDownloader.Phase { voicePhases[voice] ?? .idle }
+
+    /// One line for the Voice list.
+    func voiceSummary(_ voice: GuideVoice) -> String {
+        switch voicePhase(voice) {
+        case let .downloading(received, total):
+            return total > 0 ? "Downloading \(Int(100 * Double(received) / Double(total)))%" : "Downloading"
+        case .verifying: return "Checking the download"
+        case .paused: return canResumeVoiceDownload(voice) ? "Paused" : "Download stopped"
+        case .failed: return "Download stopped"
+        case .idle: break
+        }
+        if installedVoices.contains(voice) { return voiceHasUpdate(voice) ? "Ready · update available" : "Ready" }
+        return voiceManifest(voice).map { "Download · \($0.sizeLabel)" } ?? "Not in this build"
+    }
+
+    func downloadVoice(_ voice: GuideVoice) { voice.downloader?.start() }
+
+    func cancelVoiceDownload(_ voice: GuideVoice) { voice.downloader?.cancel() }
+
+    /// Remove a voice pack. If it was the reply voice, the Apple voice takes over.
+    func deleteVoice(_ voice: GuideVoice) {
+        if guideVoice == voice { guideVoice = .system }
+        do { try voice.downloader?.delete() }
+        catch { status = "Could not delete the \(voice.rawValue) voice: \(error.localizedDescription)" }
+    }
+
+    private func voicePackChanged(_ voice: GuideVoice) {
+        guard let downloader = voice.downloader else { return }
+        let installed = downloader.store?.installed
+        if installed?.id != installedVoiceIDs[voice] {
+            // A new, updated or deleted pack: open the current file next time.
+            openVoicePacks[voice] = nil
+            installedVoiceIDs[voice] = installed?.id
+        }
+        if installed != nil { installedVoices.insert(voice) } else { installedVoices.remove(voice) }
+        voicePhases[voice] = downloader.phase
     }
 
     // MARK: Model
@@ -206,6 +393,10 @@ final class AppModel: ObservableObject {
     /// Fixed prompt, outside the conversation, for comparable measurements.
     func runBenchmark() {
         guard !isGenerating else { return }
+        guard installedModel != nil else {
+            lastBenchmark = "Download the offline model first: More › Offline model."
+            return
+        }
         isGenerating = true
         lastBenchmark = holder.engine == nil ? "Loading model…" : "Running…"
         let metrics = self.metrics, holder = self.holder
@@ -236,10 +427,11 @@ final class AppModel: ObservableObject {
     /// Runs on engineQueue. Loads once, then reuses. The fixed system text is evaluated
     /// right after loading so the first question does not pay for it.
     nonisolated private static func loadEngine(holder: EngineHolder, metrics: MetricsRecorder) throws -> LlamaEngine {
-        if let e = holder.engine { return e }
-        let url = try ModelLocator.modelURL()
+        guard let model = ModelLocator.installed() else { throw ModelLocator.NotDownloaded() }
+        if let e = holder.engine, e.modelID == model.id { return e }
+        holder.engine = nil   // a replaced model: free the old one before loading the new
         let before = MetricsRecorder.footprintMB()
-        let engine = try LlamaEngine(modelURL: url, modelID: ModelLocator.modelID(for: url))
+        let engine = try LlamaEngine(modelURL: model.url, modelID: model.id)
         let loaded = Date()
         try? engine.prewarm(Benchmark.prompt)
         metrics.record("model_load", [
@@ -276,6 +468,8 @@ final class AppModel: ObservableObject {
             case let .condition(c):
                 let label = pack.entry(c.entryID)?.hazard?.label ?? c.entryID
                 return DisplayTurn(id: e.id, kind: .note, text: c.state.title + ": " + label)
+            case let .waterNotice(n):
+                return DisplayTurn(id: e.id, kind: .note, text: n.title)
             case let .calculation(value):
                 previousCalculation = value
                 return nil
@@ -292,7 +486,8 @@ final class AppModel: ObservableObject {
 
     /// Whether the "Ask the model anyway" button belongs under this row.
     func canAskModel(under turn: DisplayTurn) -> Bool {
-        guard !isGenerating, turn.id == turns.last?.id, case let .assistant(m) = turn.kind else { return false }
+        guard !isGenerating, installedModel != nil, turn.id == turns.last?.id,
+              case let .assistant(m) = turn.kind else { return false }
         return m.offersModel
     }
 
@@ -330,34 +525,22 @@ final class EngineHolder: @unchecked Sendable {
     }
 }
 
+/// The model KITT loads: the verified download in Application Support/KITT/Models.
+/// Nothing is bundled; watch apps are limited to 75 MB and the model alone is 92 MB.
 enum ModelLocator {
-    /// A model delivered later (e.g. from the phone) wins over the bundled copy.
-    /// The 75 MB App Store limit for watch apps means the bundled copy is for
-    /// development installs only. Whatever .gguf is present is used, so changing the
-    /// model is a change to scripts/versions.env and project.yml, not to this file.
-    static func modelURL() throws -> URL {
-        let fm = FileManager.default
-        let delivered = fm.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
-            .appendingPathComponent("KITT/Models", isDirectory: true)
-        if let files = try? fm.contentsOfDirectory(at: delivered, includingPropertiesForKeys: nil),
-           let model = files.filter({ $0.pathExtension == "gguf" }).sorted(by: { $0.lastPathComponent < $1.lastPathComponent }).first {
-            return model
-        }
-        if let bundled = Bundle.main.paths(forResourcesOfType: "gguf", inDirectory: nil).sorted().first {
-            return URL(fileURLWithPath: bundled)
-        }
-        throw CocoaError(.fileNoSuchFile, userInfo: [NSFilePathErrorKey: "No .gguf model in the app bundle or Application Support/KITT/Models"])
+    struct NotDownloaded: Error, CustomStringConvertible {
+        var description: String { "The offline model isn't downloaded. See More › Offline model." }
     }
 
-    /// File name plus the checksum the build verified, saved with every model reply.
-    static func modelID(for url: URL) -> String {
-        let name = url.deletingPathExtension().lastPathComponent
-        let bundled = url.path.hasPrefix(Bundle.main.bundlePath)
-        let sha = bundled ? (Bundle.main.object(forInfoDictionaryKey: "KITTModelSHA256") as? String) : nil
-        return sha.map { "\(name)@\($0.prefix(8))" } ?? name
+    /// The installed model's file and the ID saved with every model reply
+    /// ("SmolLM2-135M-Instruct-Q4_0@bcc3af28").
+    static func installed() -> (url: URL, id: String)? {
+        guard let store = ModelDownloader.shared.store, let model = store.installed,
+              let url = store.installedURL else { return nil }
+        return (url, model.id)
     }
 
     static var describedModel: String {
-        (try? modelURL()).map { modelID(for: $0) } ?? "no model installed"
+        installed().map { "Offline model: \($0.id)" } ?? "Offline model: not downloaded"
     }
 }

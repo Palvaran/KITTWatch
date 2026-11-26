@@ -16,6 +16,7 @@ usage:
   kitt ask   [--model FILE] [--pack FILE] [--people N] [--days N] [--speech] [--auto-model] [--policy groundedFollowUps|onRequest] "question" ...
   kitt raw    --model FILE [--system TEXT] --user TEXT [--max N] [--sentences N]
   kitt eval  [--model FILE] [--pack FILE] --scenarios FILE [--out DIR] [--only FAMILY]
+  kitt trial  QUESTIONS.txt --out TRIAL.json [--name NAME] [--people N] [--force]
   kitt bench  --model FILE [--runs N]
   kitt search [--pack FILE] "question" ...
 """
@@ -23,7 +24,7 @@ usage:
 var raw = Array(CommandLine.arguments.dropFirst())
 guard let command = raw.first else { print(usage); exit(0) }
 raw.removeFirst()
-let args = Arguments(raw, flags: ["auto-model", "verbose", "json", "speech"])
+let args = Arguments(raw, flags: ["auto-model", "verbose", "json", "speech", "force"])
 
 func loadEngine(_ args: Arguments, required: Bool) -> LlamaEngine? {
     guard let path = args.string("model") else {
@@ -54,6 +55,7 @@ switch command {
 case "ask": runAsk(args)
 case "raw": runRaw(args)
 case "eval": runEval(args)
+case "trial": runTrial(args)
 case "bench": runBench(args)
 case "search":
     // Show how local search ranks a question (for tuning keywords in the pack).

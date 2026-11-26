@@ -187,6 +187,12 @@ public struct GuideSearch: Sendable {
         .sorted { $0.score != $1.score ? $0.score > $1.score : $0.entry.id < $1.entry.id }
     }
 
+    /// An entry's notes whose terms appear in the text ("baby", "dishes").
+    public func notes(of entry: GuideEntry, for text: String) -> [GuideNote] {
+        let norm = Text.normalize(text)
+        return entry.notes.filter { n in n.terms.contains { Text.containsPhrase(norm, Text.normalize($0)) } }
+    }
+
     public func retrieve(_ text: String) -> Retrieval {
         let ranked = rank(text)
         guard let top = ranked.first else { return .none }

@@ -14,12 +14,16 @@ let package = Package(
     ],
     products: [
         .library(name: "KITTCore", targets: ["KITTCore"]),
+        .executable(name: "guide-voice-lines", targets: ["GuideVoiceLines"]),
+        .executable(name: "voice-pack", targets: ["VoicePackBuilder"]),
     ],
     targets: [
         .target(
             name: "KITTCore",
             resources: [.copy("Resources/guide-pack.json")]
         ),
+        .executableTarget(name: "GuideVoiceLines", dependencies: ["KITTCore"]),
+        .executableTarget(name: "VoicePackBuilder", dependencies: ["KITTCore"]),
         .testTarget(
             name: "KITTCoreTests",
             dependencies: ["KITTCore"]

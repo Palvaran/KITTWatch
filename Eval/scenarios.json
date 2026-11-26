@@ -7099,6 +7099,295 @@
      ]
     }
    ]
+  },
+  {
+   "id": "water-notice",
+   "split": "dev",
+   "critical": true,
+   "scenarios": [
+    {
+     "id": "kind-missing-then-boil",
+     "turns": [
+      {
+       "say": "The city sent a water alert. Can the dog drink from the tap?",
+       "expect": {
+        "asks": true,
+        "asksFor": "notice",
+        "waterNotice": "none"
+       }
+      },
+      {
+       "say": "Boil water",
+       "expect": {
+        "entries": [
+         "water.advisory.boil"
+        ],
+        "mustSay": [
+         [
+          "pets"
+         ]
+        ],
+        "waterNotice": "boil"
+       }
+      },
+      {
+       "say": "Can we shower?",
+       "expect": {
+        "entries": [
+         "water.advisory.boil"
+        ],
+        "mustSay": [
+         [
+          "Showering is fine"
+         ]
+        ],
+        "waterNotice": "boil"
+       }
+      }
+     ]
+    },
+    {
+     "id": "not-sure-stays-open",
+     "turns": [
+      {
+       "say": "We got a water notice. Can I brush my teeth?",
+       "expect": {
+        "asks": true,
+        "asksFor": "notice"
+       }
+      },
+      {
+       "say": "Not sure",
+       "expect": {
+        "entries": [
+         "water.advisory.types"
+        ],
+        "asks": true,
+        "asksFor": "notice",
+        "waterNotice": "unknown"
+       }
+      },
+      {
+       "say": "It says do not use.",
+       "expect": {
+        "entries": [
+         "water.advisory.do-not-drink"
+        ],
+        "mustSay": [
+         [
+          "avoid any contact"
+         ]
+        ],
+        "waterNotice": "doNotUse"
+       }
+      },
+      {
+       "say": "Can we shower?",
+       "expect": {
+        "entries": [
+         "water.advisory.do-not-drink"
+        ],
+        "mustNotSay": [
+         "Showering is fine"
+        ],
+        "waterNotice": "doNotUse"
+       }
+      }
+     ]
+    },
+    {
+     "id": "kind-given",
+     "turns": [
+      {
+       "say": "They told us to boil the water. What about the dog's bowl?",
+       "expect": {
+        "entries": [
+         "water.advisory.boil"
+        ],
+        "mustSay": [
+         [
+          "pets"
+         ]
+        ],
+        "waterNotice": "boil"
+       }
+      }
+     ]
+    },
+    {
+     "id": "lifted-then-preparing",
+     "people": 3,
+     "turns": [
+      {
+       "say": "We're under a boil water notice.",
+       "expect": {
+        "entries": [
+         "water.advisory.boil"
+        ],
+        "waterNotice": "boil"
+       }
+      },
+      {
+       "say": "The boil notice was lifted yesterday. How much water should I store for the dog?",
+       "expect": {
+        "entries": [
+         "water.storage.baseline"
+        ],
+        "mustSay": [
+         [
+          "pets"
+         ]
+        ],
+        "waterNotice": "none"
+       }
+      }
+     ]
+    },
+    {
+     "id": "do-not-drink-typed",
+     "turns": [
+      {
+       "say": "The water utility put out a notice.",
+       "expect": {
+        "asks": true,
+        "asksFor": "notice"
+       }
+      },
+      {
+       "say": "It says don't drink it.",
+       "expect": {
+        "entries": [
+         "water.advisory.do-not-drink"
+        ],
+        "waterNotice": "doNotDrink"
+       }
+      },
+      {
+       "say": "Can we brush our teeth with boiled tap water?",
+       "expect": {
+        "entries": [
+         "water.advisory.do-not-drink"
+        ],
+        "mustSay": [
+         [
+          "boiling does not make this water safe"
+         ]
+        ],
+        "waterNotice": "doNotDrink"
+       }
+      }
+     ]
+    },
+    {
+     "id": "hedge-is-not-an-answer",
+     "turns": [
+      {
+       "say": "We have a water advisory. Can I make ice?",
+       "expect": {
+        "asks": true,
+        "asksFor": "notice"
+       }
+      },
+      {
+       "say": "I think it says boil.",
+       "expect": {
+        "asks": true,
+        "asksFor": "notice",
+        "waterNotice": "unknown"
+       }
+      }
+     ]
+    },
+    {
+     "id": "another-question-while-asked",
+     "turns": [
+      {
+       "say": "There's a notice about our tap water.",
+       "expect": {
+        "asks": true,
+        "asksFor": "notice"
+       }
+      },
+      {
+       "say": "How long does food stay safe without power?",
+       "expect": {
+        "entries": [
+         "food.outage.cold"
+        ],
+        "waterNotice": "none"
+       }
+      }
+     ]
+    },
+    {
+     "id": "notice-in-force-other-topic",
+     "turns": [
+      {
+       "say": "We're under a boil water notice.",
+       "expect": {
+        "entries": [
+         "water.advisory.boil"
+        ],
+        "waterNotice": "boil"
+       }
+      },
+      {
+       "say": "How long will the fridge keep food cold?",
+       "expect": {
+        "entries": [
+         "food.outage.cold"
+        ],
+        "waterNotice": "boil"
+       }
+      },
+      {
+       "say": "The outage is over. Can the kids drink tap water now?",
+       "expect": {
+        "entries": [
+         "water.advisory.boil"
+        ],
+        "waterNotice": "boil"
+       }
+      }
+     ]
+    },
+    {
+     "id": "not-a-notice",
+     "turns": [
+      {
+       "say": "How long do we boil water?",
+       "expect": {
+        "entries": [
+         "water.treat.emergency"
+        ],
+        "waterNotice": "none"
+       }
+      },
+      {
+       "say": "There's a heat advisory today.",
+       "expect": {
+        "waterNotice": "none"
+       }
+      }
+     ]
+    },
+    {
+     "id": "fuel-outranks-notice",
+     "turns": [
+      {
+       "say": "Our water smells like gasoline and the city sent a water alert.",
+       "expect": {
+        "entries": [
+         "water.contamination.fuel"
+        ],
+        "activeHazards": [
+         "water.contamination.fuel"
+        ]
+       }
+      }
+     ]
+    }
+   ]
   }
  ]
 }

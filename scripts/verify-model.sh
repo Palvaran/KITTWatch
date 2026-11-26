@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
-# Fails the build if the bundled model is missing or does not match the pinned checksum.
-# Runs as an Xcode pre-build phase and from fetch-model.sh.
+# Checks Models/<MODEL_FILE>, the copy the Mac tools use (kitt ask, kitt eval), against the
+# pinned SHA-256. Runs from fetch-model.sh. The watch app does not bundle
+# the model; it verifies its own download (KITTCore's ModelStore).
 set -euo pipefail
 ROOT="${SRCROOT:-$(cd "$(dirname "$0")/.." && pwd)}"
 source "$ROOT/scripts/versions.env"

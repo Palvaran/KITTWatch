@@ -47,6 +47,13 @@ public struct ConversationState: Equatable, Sendable {
     public var hazardAnswers: [String: ConditionChange.State] = [:]
     /// The most recent user message, for reading a follow-up that refers back to it.
     public var lastUserText: String?
+    /// The water notice in force, as the user reported it. Questions about using the water
+    /// are answered from its entry until the user says it was lifted.
+    public var waterNotice: WaterNotice?
+    /// The user said they weren't sure which notice it is.
+    public var waterNoticeUnsure = false
+    /// KITT asked "What does the notice say?" last turn, to answer this question.
+    public var pendingNoticeQuestion: String?
 }
 
 /// Orchestrates one conversation. The order of authority is fixed:
@@ -76,6 +83,9 @@ public final class KITTSession: @unchecked Sendable {
     /// answered follow-ups from a passage reliably (see Eval/RESULTS.md). Change this
     /// when an evaluated model earns it.
     public var modelPolicy: ModelPolicy = .onRequest
+    /// Whether a model is installed to ask. Without one, "the guide doesn't cover that"
+    /// replies don't mention the model (the watch hides the button until it is downloaded).
+    public var modelAvailable = true
     private let search: GuideSearch
 
     public static let waterCalculator = "water.storage"
@@ -133,6 +143,11 @@ public final class KITTSession: @unchecked Sendable {
                 s.unansweredQuestion = m.offersModel ? lastUser : nil
                 s.pendingHazard = m.suggestedHazard.flatMap { s.activeHazards.contains($0) ? nil : $0 }
                 s.pendingQuestion = m.asksHazardQuestion ? s.pendingHazard : nil
+                s.pendingNoticeQuestion = m.noticeQuestion
+            case let .waterNotice(n):
+                s.waterNotice = n.notice
+                s.waterNoticeUnsure = n.state == .unknown
+                if n.state == .lifted { s.pendingNoticeQuestion = nil }
             case .householdFact:
                 break
             }
@@ -163,7 +178,7 @@ public final class KITTSession: @unchecked Sendable {
 
     /// Save the user's exact words, then decide how to answer.
     public func send(_ text: String, via method: InputMethod = .typed) throws -> TurnOutcome {
-        let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        var trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else { throw KITTError.emptyMessage }
         let before = state
         try log.append(.userMessage(text: text, inputMethod: method), conversation: conversationID)
@@ -172,7 +187,7 @@ public final class KITTSession: @unchecked Sendable {
         // the water plan (step 3) or to state the household (step 4c). A duration in a
         // question about something else ("nobody has had anything to drink for two days")
         // must not change the plan.
-        let intent = IntentParser.parse(trimmed)
+        var intent = IntentParser.parse(trimmed)
 
         // 1. A hazard described in this message outranks everything, including arithmetic.
         let readings = search.hazardReadings(of: trimmed)
@@ -232,6 +247,49 @@ public final class KITTSession: @unchecked Sendable {
             }
         }
 
+        // 1d. The answer to "What does the notice say?". A kind answers the question that was
+        //     waiting for it. "Not sure" is saved as unknown: nothing is assumed, what each
+        //     notice means is shown, and the question stays open.
+        var notice = WaterNotice.read(trimmed)
+        if let waiting = before.pendingNoticeQuestion, !notice.discussesEnd, let answer = WaterNotice.answer(to: trimmed) {
+            switch answer {
+            case .notice(let kind):
+                try log.append(.waterNotice(WaterNoticeChange(kind, sourceText: text)), conversation: conversationID)
+                return .answered(try reply(noticeAnswer(kind, question: waiting, activeHazards: before.activeHazards)))
+            case .unsure:
+                try log.append(.waterNotice(WaterNoticeChange(state: .unknown, sourceText: text)), conversation: conversationID)
+                return .answered(try reply(askWaterNotice(about: waiting, unsure: true)))
+            }
+        }
+
+        // 1e. "The boil notice was lifted" ends the notice. The rest of the message is
+        //     answered on its own: "...How much water should I store for the dog?" is about
+        //     preparing, not about the notice. Only a notice named as such ends; "the outage
+        //     is over" leaves a boil notice in force.
+        let concernsCurrentNotice = before.waterNotice.map { notice.endedKinds.isEmpty || notice.endedKinds.contains($0) } ?? true
+        if notice.discussesEnd && notice.kinds.isEmpty {
+            let ended = notice.lifted && concernsCurrentNotice
+            if ended {
+                try log.append(.waterNotice(WaterNoticeChange(state: .lifted, sourceText: text)), conversation: conversationID)
+            }
+            let rest = notice.remainder.trimmingCharacters(in: .whitespacesAndNewlines)
+            if rest.isEmpty {
+                if ended {
+                    return .answered(try reply(AssistantMessage(text: "Noted: the water notice is over.", origin: .app)))
+                }
+                let status = "I can’t verify the notice offline. Check the latest notice from your water utility."
+                if let waiting = before.pendingNoticeQuestion {
+                    var message = askWaterNotice(about: waiting, unsure: false)
+                    message.text = status + " " + WaterNotice.question
+                    return .answered(try reply(message))
+                }
+                return .answered(try reply(AssistantMessage(text: status, origin: .app)))
+            }
+            trimmed = rest
+            intent = IntentParser.parse(rest)
+            if !ended { notice = WaterNotice.read(rest) }
+        }
+
         // 1b. A message that refers back and proposes the risky use: "Can I run it in our
         //     basement?" after a question about the generator. Read together with the
         //     previous message, it describes the hazard. The pointer must not have a
@@ -278,6 +336,37 @@ public final class KITTSession: @unchecked Sendable {
             message.text += "\n" + Self.precautionNote
             message.suggestedHazard = id
             return .answered(try reply(message))
+        }
+
+        // 2c. A water notice in this message. Named with its kind, it is saved and the
+        //     question is answered from that kind's entry. Without its kind, KITT asks which
+        //     notice it is, unless a kind is already in force here. A message that asks what
+        //     notices mean, compares them, or is clearly about something else ("we're under a
+        //     boil notice; how much water should we store?") is answered as usual.
+        let noticeEntry: (GuideCandidate) -> Bool = { WaterNotice.entryIDs.contains($0.entry.id) }
+        let elsewhere = retrieval.confident.map { !noticeEntry($0) } ?? false
+        if (!notice.lifted || !notice.kinds.isEmpty), notice.mentionsNotice, !notice.asksMeaning {
+            if notice.kinds.count == 1, let kind = notice.kinds.first {
+                if before.waterNotice != kind {
+                    try log.append(.waterNotice(WaterNoticeChange(kind, sourceText: text)), conversation: conversationID)
+                }
+                if !elsewhere {
+                    return .answered(try reply(noticeAnswer(kind, question: trimmed, activeHazards: before.activeHazards)))
+                }
+            } else if notice.kinds.isEmpty, !elsewhere {
+                if let kind = before.waterNotice {
+                    return .answered(try reply(noticeAnswer(kind, question: trimmed, activeHazards: before.activeHazards)))
+                }
+                return .answered(try reply(askWaterNotice(about: trimmed, unsure: before.waterNoticeUnsure)))
+            }
+        }
+
+        // 2d. A notice is in force and this question is about using the water ("Can we
+        //     shower?", "What about the dog?"): answer from that notice's entry. Under a
+        //     do-not-use notice the boil entry's "showering is fine" would be wrong.
+        if let kind = before.waterNotice, !notice.lifted, !notice.mentionsNotice, !elsewhere,
+           retrieval.candidates.prefix(3).contains(where: noticeEntry) || Self.usesTapWater(trimmed) {
+            return .answered(try reply(noticeAnswer(kind, question: trimmed, activeHazards: before.activeHazards)))
         }
 
         // 3. Arithmetic belongs to the calculator, never to the model.
@@ -371,6 +460,12 @@ public final class KITTSession: @unchecked Sendable {
             return .answered(try reply(message))
         }
 
+        // 5c. KITT asked which notice it is, and this reply neither answered that nor
+        //     matched anything else. Ask again.
+        if let waiting = before.pendingNoticeQuestion, !notice.lifted {
+            return .answered(try reply(askWaterNotice(about: waiting, unsure: false, again: true)))
+        }
+
         // 6. No reliable answer. Say so and offer buttons.
         //    Active hazards lead the buttons, so the warning is never more than a tap away.
         var offered = Array(before.activeHazards.reversed())
@@ -380,7 +475,9 @@ public final class KITTSession: @unchecked Sendable {
         }
         let message = AssistantMessage(
             text: offered.isEmpty
-                ? "The guide doesn't cover that yet. Browse the topics, or ask the model for an unverified answer."
+                ? (modelAvailable
+                    ? "The guide doesn't cover that yet. Browse the topics, or ask the model for an unverified answer."
+                    : "The guide doesn't cover that yet. Browse the topics.")
                 : "I'm not sure which guide entry fits. Is it one of these?",
             origin: .app, suggestions: offered, offersModel: true)
         return .answered(try reply(message))
@@ -466,6 +563,41 @@ public final class KITTSession: @unchecked Sendable {
         for n in notes where n.lead != true { text += "\n• " + n.note }
         return AssistantMessage(text: text, origin: .guide, citations: [entry.citation],
                                 suggestions: related(to: entry, activeHazards: activeHazards))
+    }
+
+    /// The entry for the notice in force, with its notes for the question ("baby",
+    /// "dishes"), unless an active hazard overrides it.
+    private func noticeAnswer(_ kind: WaterNotice, question: String, activeHazards: [String]) -> AssistantMessage {
+        if let hazard = overridingHazard(for: kind.entryID, among: activeHazards) { return reminder(of: hazard) }
+        guard let entry = pack.entry(kind.entryID) else {
+            return AssistantMessage(text: "The guide doesn't cover that yet. Browse the topics.", origin: .app, offersModel: true)
+        }
+        return guideMessage(for: entry, notes: search.notes(of: entry, for: question), activeHazards: activeHazards)
+    }
+
+    /// "What does the notice say?" Unsure: what each notice means first, from its entry.
+    private func askWaterNotice(about question: String, unsure: Bool, again: Bool = false) -> AssistantMessage {
+        let types = pack.entry(WaterNotice.typesEntryID)
+        var message: AssistantMessage
+        if unsure, let types {
+            message = AssistantMessage(text: "Not sure which notice it is. Here is what each one means:\n" + types.shortAnswer
+                                           + "\n" + WaterNotice.question,
+                                       origin: .guide, citations: [types.citation])
+        } else {
+            let lead = again ? "I didn't catch which notice. " : "The answer depends on which notice it is. "
+            message = AssistantMessage(text: lead + WaterNotice.question, origin: .app, citations: types.map { [$0.citation] } ?? [])
+        }
+        message.noticeQuestion = question
+        return message
+    }
+
+    /// A question about using tap water: "tap" or "faucet", or water with a use.
+    static func usesTapWater(_ text: String) -> Bool {
+        let words = Set(Text.tokens(Text.normalize(text)))
+        if !words.isDisjoint(with: ["tap", "faucet"]) { return true }
+        let uses: Set<String> = ["drink", "drinking", "brush", "teeth", "cook", "cooking", "wash", "washing", "shower",
+                                 "showering", "bath", "bathe", "ice", "formula", "dishes", "dog", "dogs", "cat", "cats", "pet", "pets"]
+        return words.contains("water") && !words.isDisjoint(with: uses)
     }
 
     private func reminder(of hazard: GuideEntry, prefix: String = "Still applies") -> AssistantMessage {

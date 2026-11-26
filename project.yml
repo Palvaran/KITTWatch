@@ -1,7 +1,9 @@
 # XcodeGen spec. Generate the project with:  xcodegen generate
 # Then open KITT.xcodeproj, pick your team, and run on the paired Series 5.
 #
-# To change the model: edit scripts/versions.env, then the two marked lines below.
+# To change the offline model: edit scripts/versions.env, then the four marked lines below.
+# The watch app does not bundle the model (watch apps are limited to 75 MB); it downloads
+# the pinned file from More › Offline model and checks its SHA-256 before using it.
 name: KITT
 options:
   bundleIdPrefix: com.palvaran.kitt
@@ -34,9 +36,6 @@ targets:
     sources:
       - path: Apps/Shared
       - path: Apps/KITTWatch
-      - path: Models/SmolLM2-135M-Instruct-Q4_0.gguf        # model file (MODEL_FILE in versions.env)
-        optional: true
-        buildPhase: resources
     dependencies:
       - package: KITTCore
       - package: KITTEngine
@@ -50,7 +49,22 @@ targets:
         # because installing straight from Xcode to a Series 5 over Wi-Fi proved unreliable.
         WKRunsIndependentlyOfCompanionApp: true
         WKCompanionAppBundleIdentifier: com.palvaran.kitt
-        KITTModelSHA256: bcc3af2849ad6095af57e9b5cd43775256efdc66e306acb529172f92d0c04b03   # MODEL_SHA256 in versions.env
+        # The offline model the watch downloads. scripts/check-model-manifest.sh fails the
+        # build if these differ from scripts/versions.env.
+        KITTModelFile: SmolLM2-135M-Instruct-Q4_0.gguf                                       # MODEL_FILE
+        KITTModelSHA256: bcc3af2849ad6095af57e9b5cd43775256efdc66e306acb529172f92d0c04b03   # MODEL_SHA256
+        KITTModelBytes: 91893088                                                             # MODEL_BYTES
+        KITTModelURL: https://huggingface.co/bartowski/SmolLM2-135M-Instruct-GGUF/resolve/09816acd5d99df7be770d85ea30822623dab342c/SmolLM2-135M-Instruct-Q4_0.gguf   # MODEL_URL
+        # The guide voice packs, each an optional download. scripts/build-voice-packs.sh --update
+        # writes these; the same pre-build check compares them with scripts/versions.env.
+        KITTVoiceHeartFile: kitt-voice-heart-v1.kvoice                                       # VOICE_HEART_FILE
+        KITTVoiceHeartSHA256: 6991c4137dc641e68cb652b4ffce546719dc6ce62b619173840cf62962ed1e33   # VOICE_HEART_SHA256
+        KITTVoiceHeartBytes: 17978201                                                             # VOICE_HEART_BYTES
+        KITTVoiceHeartURL: https://github.com/Palvaran/KITTWatch/releases/download/voices-v1/kitt-voice-heart-v1.kvoice   # VOICE_HEART_URL
+        KITTVoiceMichaelFile: kitt-voice-michael-v1.kvoice                                   # VOICE_MICHAEL_FILE
+        KITTVoiceMichaelSHA256: abfb16f0a480eb5d1794ba0050da4c85ed65b2eb3963b79250a4e1b8280175f4   # VOICE_MICHAEL_SHA256
+        KITTVoiceMichaelBytes: 19846337                                                           # VOICE_MICHAEL_BYTES
+        KITTVoiceMichaelURL: https://github.com/Palvaran/KITTWatch/releases/download/voices-v1/kitt-voice-michael-v1.kvoice   # VOICE_MICHAEL_URL
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.palvaran.kitt.watch
@@ -63,9 +77,14 @@ targets:
           # Debug Swift is far slower; measure with Release (Product › Scheme › Edit › Run › Release).
           SWIFT_OPTIMIZATION_LEVEL: "-Onone"
     preBuildScripts:
-      - name: Verify pinned model
+      - name: Check download manifests
         script: |
-          "$SRCROOT/scripts/verify-model.sh"
+          "$SRCROOT/scripts/check-model-manifest.sh"
+        basedOnDependencyAnalysis: false
+    postBuildScripts:
+      - name: Stamp build time and commit
+        script: |
+          "$SRCROOT/scripts/stamp-build.sh"
         basedOnDependencyAnalysis: false
 
   KITTPhone:
@@ -75,6 +94,10 @@ targets:
     sources:
       - path: Apps/Shared
       - path: Apps/KITTPhone
+      - path: Apps/KITTWatch/VoiceSamples
+        includes:
+          - "Kokoro-*"
+        buildPhase: resources
     dependencies:
       - target: KITTWatch          # embedded under Watch/; the iPhone installs it on the watch
     info:
