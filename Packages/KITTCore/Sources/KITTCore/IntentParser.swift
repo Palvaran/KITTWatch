@@ -26,9 +26,19 @@ public enum IntentParser {
         let s = Text.normalize(text)
         var out = Interpretation()
 
+        // People listed in groups: "two adults and two kids", "2 adults, 3 children and a
+        // baby", "one adult with a toddler". At least two groups, side by side, so a single
+        // "three kids" (adults unsaid) is not taken for the household. It can describe
+        // something else too ("two adults and a child were treated"), so unless the message
+        // plans or says it is the household ("we're", "our family"), it is tentative.
+        if let group = groupedPeople(in: s) {
+            out.facts.append(HouseholdFact(key: .people, value: group.count, sourceText: text))
+            if !hasPlanningWord(s), !group.isHousehold {
+                out.tentative.insert(.people)
+            }
         // People: "household of three", "family of 4", "3 people", "there are five of us", "we are 2"
         // The last pattern also describes events ("two people have been sick").
-        if let (n, i) = firstMatch(in: s, patterns: [
+        } else if let (n, i) = firstMatch(in: s, patterns: [
             #"(?:household|family|group) of (NUM)\b"#,
             #"\b(NUM) of us\b"#,
             #"\bthere(?:'s| is| are) (NUM) of us\b"#,
@@ -61,6 +71,15 @@ public enum IntentParser {
             #"\b(NUM) days? outage\b"#,
         ]), n >= 1, n == n.rounded() {
             out.facts.append(HouseholdFact(key: .planDays, value: n, sourceText: text))
+            if i >= 3, !hasPlanningWord(s) { out.tentative.insert(.planDays) }
+        // The same in weeks: "for a week", "a two week supply", "make it two weeks".
+        } else if let (n, i) = firstMatch(in: s, patterns: [
+            #"\b(?:plan to|plan for|make it|change it to|change the plan to|cover|covering|(?<!the )(?<!past )last|lasting) (WEEKS) weeks?\b"#,
+            #"\b(WEEKS)[ -]week (?:plan|supply)\b"#,
+            #"\b(WEEKS) weeks? (?:plan|supply|of water)\b"#,
+            #"\bfor (WEEKS) weeks?\b"#,
+        ].map { $0.replacingOccurrences(of: "WEEKS", with: "a|an|NUM") }), n >= 1, n == n.rounded() {
+            out.facts.append(HouseholdFact(key: .planDays, value: n * 7, sourceText: text))
             if i >= 3, !hasPlanningWord(s) { out.tentative.insert(.planDays) }
         }
 
@@ -105,6 +124,37 @@ public enum IntentParser {
         return numberWords[base].map { $0 + extra }
     }
 
+    /// Words for people in a household, as counted groups.
+    static let personNouns = #"(?:adults?|grown[- ]?ups|kids?|children|child|teens?|teenagers?|toddlers?|bab(?:y|ies)|infants?|seniors?|people|persons)"#
+
+    /// Count a list and check whether the words adjoining it identify the user's household.
+    static func groupedPeople(in s: String) -> (count: Double, isHousehold: Bool)? {
+        let group = "(?:a|an|" + numPattern + ") " + personNouns
+        // Commas are spaces by now: "2 adults, 3 children" reads "2 adults 3 children".
+        let list = #"\b"# + group + #"(?:(?: and| plus| with)? "# + group + #")+\b"#
+        guard let range = s.range(of: list, options: .regularExpression) else { return nil }
+        let found = String(s[range])
+        guard let re = try? NSRegularExpression(pattern: "(a|an|" + numPattern + ") " + personNouns) else { return nil }
+        var total = 0.0
+        for m in re.matches(in: found, range: NSRange(found.startIndex..., in: found)) {
+            guard let r = Range(m.range(at: 1), in: found), let v = parseNumber(String(found[r])),
+                  v >= 1, v == v.rounded() else { return nil }
+            total += v
+        }
+        let before = String(s[..<range.lowerBound])
+        let after = String(s[range.upperBound...])
+        // An explicit total can introduce a partial breakdown: "Family of 5: two adults and two kids".
+        if let n = firstNumber(in: before, patterns: [#"\b(?:family|household) of (NUM)\s*$"#]),
+           n >= 1, n == n.rounded() { return (n, true) }
+        let bareCount = ["there are", "there's"].contains(before.trimmingCharacters(in: .whitespaces))
+            && Text.tokens(after).isEmpty
+        let householdPrefix = #"\b(?:we are|we're|our (?:family|household)(?: is| has| includes| consists of)?|(?:in our (?:family|household) there are)) $"#
+        let householdSuffix = #"^ (?:of us|in our (?:family|household))\b"#
+        let isHousehold = bareCount || before.range(of: householdPrefix, options: .regularExpression) != nil
+            || after.range(of: householdSuffix, options: .regularExpression) != nil
+        return (total, isHousehold)
+    }
+
     static func consumes(_ s: String) -> Bool {
         s.range(of: #"\b(?:drank|drunk|used|went through|gone through|finished|spilled|lost|poured out|used up)\b"#,
                 options: .regularExpression) != nil
@@ -112,12 +162,12 @@ public enum IntentParser {
 
     static func hasPlanningWord(_ s: String) -> Bool {
         // "store" as a verb: "the store has been closed" is not planning.
-        s.range(of: #"\b(?:plan|planning|prepare|preparing|storing|stock|stocking|supply)\b|(?<!the )(?<!a )(?<!grocery )\bstore\b"#,
+        s.range(of: #"\b(?:plan|planning|prepare|preparing|storing|stock|stocking)\b|\b(?:need|want|build|keep|have) (?:a |our )?supply\b|(?<!the )(?<!a )(?<!grocery )\bstore\b"#,
                 options: .regularExpression) != nil
     }
 
     /// Words a bare follow-up about the plan may use besides its numbers.
-    static let factWords: Set<String> = ["day", "days", "people", "person", "persons", "adults", "gallon", "gallons",
+    static let factWords: Set<String> = ["day", "days", "week", "weeks", "people", "person", "persons", "adults", "gallon", "gallons",
                                          "gal", "water", "outage", "last", "lasts", "lasting", "instead", "plan", "half"]
 
     static func firstNumber(in s: String, patterns: [String]) -> Double? {

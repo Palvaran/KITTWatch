@@ -177,6 +177,43 @@ final class WaterNoticeSessionTests: XCTestCase {
         }
     }
 
+    /// Lifting a notice that isn't the one in force says which one still is.
+    func testTheNoticeInForceIsNamedWhenAnotherIsLifted() throws {
+        let s = try session()
+        _ = try s.send("The city sent a water alert. Can the dog drink from the tap?")
+        _ = try s.send("Do not use")
+        XCTAssertEqual(reply(try s.send("They’ve lifted the boil notice.")).text,
+                       "Your Do not use notice is still in force. Check the latest notice from your water utility.")
+        XCTAssertEqual(reply(try s.send("Has the do not use advisory been lifted?")).text,
+                       "I can’t verify the notice offline, so your Do not use notice stays in force. Check the latest notice from your water utility.")
+        XCTAssertEqual(s.state.waterNotice, .doNotUse)
+    }
+
+    /// Clear on the home screen ends the notice the same way "it was lifted" does.
+    func testClearingTheBannerEndsTheNotice() throws {
+        let s = try session()
+        try s.clearWaterNotice()
+        XCTAssertTrue(s.events.isEmpty, "nothing to clear, nothing saved")
+        _ = try s.send("We got a water notice. Can I brush my teeth?")
+        _ = try s.send("Boil water")
+        XCTAssertEqual(s.state.waterNotice, .boil)
+        try s.clearWaterNotice()
+        XCTAssertNil(s.state.waterNotice)
+        XCTAssertFalse(s.state.waterNoticeUnsure)
+        let unsure = try session()
+        unsure.startNewConversation()
+        _ = try unsure.send("The city sent a water alert. Can the dog drink from the tap?")
+        _ = try unsure.send("Not sure")
+        XCTAssertTrue(unsure.state.waterNoticeUnsure)
+        try unsure.clearWaterNotice()
+        XCTAssertFalse(unsure.state.waterNoticeUnsure)
+    }
+
+    func testWithoutANoticeKITTOnlySaysItCannotCheck() throws {
+        XCTAssertEqual(reply(try session().send("Has the boil water advisory been lifted?")).text,
+                       "I can’t verify the notice offline. Check the latest notice from your water utility.")
+    }
+
     func testNegatedBoilingDoesNotAnswerThePendingQuestion() throws {
         let s = try session()
         let original = "We got a water notice. Can I brush my teeth?"

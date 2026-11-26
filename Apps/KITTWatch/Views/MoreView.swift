@@ -129,6 +129,7 @@ struct AboutView: View {
                     .font(.footnote)
                 Text("llama.cpp — MIT License, © The ggml authors.").font(.caption2)
                 Text("SmolLM2-135M-Instruct — Apache License 2.0, © Hugging Face.").font(.caption2)
+                Text("Heart and Michael voices: recorded with Kokoro-82M — Apache License 2.0, © hexgrad.").font(.caption2)
                 Text("Guide text paraphrases Ready.gov (FEMA) and CDC guidance; each entry links its source.").font(.caption2)
                 Text("Full notices are in NOTICE.md in the source repository.").font(.caption2).foregroundStyle(.secondary)
                 Text(ModelLocator.describedModel).font(.caption2).foregroundStyle(.secondary)
@@ -143,7 +144,6 @@ struct AboutView: View {
 /// compared by ear on the watch itself.
 struct VoiceView: View {
     @EnvironmentObject private var model: AppModel
-    @State private var failedSample: String?
 
     var body: some View {
         List {
@@ -185,31 +185,9 @@ struct VoiceView: View {
             } footer: {
                 Text("\u{201C}\(AppModel.voiceSample)\u{201D}")
             }
-            NavigationLink("Hear Kokoro") {
-                KokoroSamplesView(play: model.playRecordedSample).stopSpeakingButton()
-            }
-            Section {
-                sampleRows(["Jasper", "Bella"], prefix: "Kitten")
-            } header: {
-                Text("KittenTTS trial")
-            } footer: {
-                Text("These are recorded samples. Your selected voice reads replies.")
-            }
         }
         .navigationTitle("Voice")
         .onChange(of: model.slowerSpeech) { _, _ in model.playVoiceSample() }
-    }
-
-    private func sampleRows(_ voices: [String], prefix: String, fileExtension: String = "wav") -> some View {
-        ForEach(voices, id: \.self) { voice in
-            let resource = "\(prefix)-\(voice)"
-            Button {
-                failedSample = model.playRecordedSample(resource, fileExtension: fileExtension) ? nil : resource
-            } label: {
-                Label(voice, systemImage: "play.circle")
-            }
-            if failedSample == resource { Text("Couldn’t play the sample.").font(.caption2) }
-        }
     }
 
     private var selectedVoice: Binding<String> {

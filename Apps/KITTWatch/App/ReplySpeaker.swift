@@ -84,35 +84,23 @@ final class ReplySpeaker: NSObject {
         onSpeakingChanged?(false)
     }
 
-    /// Audition a local recording through the same audio session and Stop control.
-    func playPreview(_ url: URL, slower: Bool, urgent: Bool = false, onDecodeFailure: (() -> Void)? = nil) -> Bool {
-        #if canImport(AVFoundation)
-        guard let player = try? AVAudioPlayer(contentsOf: url) else { return false }
-        return play(player, slower: slower, urgent: urgent, onDecodeFailure: onDecodeFailure)
-        #else
-        return false
-        #endif
-    }
-
     /// Play a guide recording from a voice pack through the same audio session and Stop
     /// control. false: it couldn't start, so the caller has the Apple voice read instead.
     func playRecording(_ data: Data, urgent: Bool = false, onDecodeFailure: (() -> Void)? = nil) -> Bool {
         #if canImport(AVFoundation)
         guard let player = try? AVAudioPlayer(data: data, fileTypeHint: AVFileType.mp3.rawValue) else { return false }
-        return play(player, slower: false, urgent: urgent, onDecodeFailure: onDecodeFailure)
+        return play(player, urgent: urgent, onDecodeFailure: onDecodeFailure)
         #else
         return false
         #endif
     }
 
     #if canImport(AVFoundation)
-    private func play(_ player: AVAudioPlayer, slower: Bool, urgent: Bool, onDecodeFailure: (() -> Void)?) -> Bool {
+    private func play(_ player: AVAudioPlayer, urgent: Bool, onDecodeFailure: (() -> Void)?) -> Bool {
         let wasActive = isActive
         halt()
         if !wasActive { startAudio() }
         player.delegate = self
-        player.enableRate = slower
-        if slower { player.rate = 0.85 }
         preview = player
         previewFailure = onDecodeFailure
         guard player.play() else {

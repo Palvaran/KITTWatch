@@ -4,13 +4,12 @@ Install kokoro-onnx==0.6.1 and soundfile in a Python 3.11 environment.
 Place kokoro-v1.0.int8.onnx and voices-v1.0.bin from
 https://github.com/thewh1teagle/kokoro-onnx/releases/tag/model-files-v1.1
 in .build/kokoro-trial under the repository root.
-Use --watch-trial to render the heat-stroke opening and water total for Michael
-and Heart. The ordinary voice sample already ships as a WAV.
-For actual watch replies, place the full-precision kokoro-v1.0.onnx alongside
+Without options it renders a sample sentence in three voices, for comparing them.
+For the watch's guide recordings, place the full-precision kokoro-v1.0.onnx alongside
 the int8 model. From the repo root, run:
   swift run --package-path Packages/KITTCore guide-voice-lines > .build/guide-lines.json
   python scripts/try-kokoro-voice.py --guide-lines .build/guide-lines.json --output Voices/narration
-  xcodegen generate
+  scripts/build-voice-packs.sh --update
 """
 import argparse
 import hashlib
@@ -49,7 +48,6 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     inputs = parser.add_mutually_exclusive_group()
     inputs.add_argument("--text", default=SAMPLE)
-    inputs.add_argument("--watch-trial", action="store_true")
     inputs.add_argument("--guide-lines", type=Path, help="JSON exported by guide-voice-lines")
     parser.add_argument("--output", type=Path, default=TRIAL / "samples")
     args = parser.parse_args()
@@ -80,20 +78,6 @@ def main():
                     soundfile.write(path, np.concatenate(parts), rate,
                                     bitrate_mode="CONSTANT", compression_level=0.75)
                 print(f"Rendered {len(replies)} replies for {name} at {pace}", flush=True)
-        return
-    if args.watch_trial:
-        pack = TRIAL.parents[1] / "Packages/KITTCore/Sources/KITTCore/Resources/guide-pack.json"
-        entries = json.loads(pack.read_text())["entries"]
-        heat = next(entry for entry in entries if entry["id"] == "health.heat.illness")
-        opening = heat["shortAnswer"].split(". ", 1)[0].rstrip(".") + "."
-        lines = {"Heat": opening.replace("911", "nine one one"), "Water": "Plan for twenty-one U.S. gallons."}
-        for label, text in lines.items():
-            for name, voice in [("Michael", "am_michael"), ("Heart", "af_heart")]:
-                audio, rate = model.create(text, voice=voice, lang="en-us", speed=1.0)
-                path = args.output / f"Kokoro-{label}-{name}.mp3"
-                soundfile.write(path, remove_render_tones(audio, rate), rate,
-                                bitrate_mode="CONSTANT", compression_level=0.75)
-                print(f"{path.name}: {text}")
         return
     for voice in ("am_michael", "am_fenrir", "af_heart"):
         start = time.perf_counter()

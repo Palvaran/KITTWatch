@@ -94,10 +94,6 @@ targets:
     sources:
       - path: Apps/Shared
       - path: Apps/KITTPhone
-      - path: Apps/KITTWatch/VoiceSamples
-        includes:
-          - "Kokoro-*"
-        buildPhase: resources
     dependencies:
       - target: KITTWatch          # embedded under Watch/; the iPhone installs it on the watch
     info:

@@ -80,6 +80,19 @@ private struct ActiveHazards: View {
     let show: (String) -> Void
 
     var body: some View {
+        // A water notice in force: what it means is a tap away, and so is ending it.
+        if model.waterNotice != nil || model.waterNoticeUnsure {
+            VStack(alignment: .leading) {
+                Label(model.waterNotice.map { "Water notice: \($0.answer)" } ?? "Water notice: not sure which",
+                      systemImage: "drop.triangle.fill")
+                    .font(.footnote.bold()).foregroundStyle(.cyan)
+                HStack {
+                    Button("Show") { show(model.waterNotice?.entryID ?? WaterNotice.typesEntryID) }
+                        .disabled(model.isGenerating)
+                    Button("Clear") { model.clearWaterNotice() }
+                }
+            }
+        }
         ForEach(model.activeHazards) { entry in
             VStack(alignment: .leading) {
                 Label(entry.hazard?.label ?? entry.title, systemImage: "exclamationmark.triangle.fill")
